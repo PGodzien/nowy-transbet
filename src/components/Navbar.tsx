@@ -129,12 +129,12 @@ export default function Navbar() {
             </span>
           </div>
 
-          <nav className="relative z-20 grid flex-1 border-b border-black/10 md:grid-cols-2 lg:grid-cols-3">
+          <nav className="relative z-20 grid flex-1 gap-px border-b border-black/10 bg-black/10 md:grid-cols-2 lg:grid-cols-3">
             {mainMenuLinks.map((link) =>
               link.submenu ? (
                 <div
                   key={link.label}
-                  className="relative z-20 flex min-h-28 flex-col border-r border-b border-black/10 md:block md:min-h-0"
+                  className="relative z-20 flex min-h-28 flex-col bg-[#f2f1ec] md:block md:min-h-0"
                   onMouseEnter={() => {
                     if (window.matchMedia('(hover: hover)').matches) setAboutOpen(true);
                   }}
@@ -152,7 +152,7 @@ export default function Navbar() {
                     <span className="font-mono text-[8px] tracking-[0.18em] opacity-40">
                       / {link.number}
                     </span>
-                    <span className="text-[clamp(1.6rem,2.75vw,3.25rem)] font-semibold leading-none tracking-[-0.05em]">
+                    <span className="text-[clamp(1.6rem,2.75vw,3.25rem)] font-medium leading-none tracking-[-0.05em]">
                       {link.label}
                     </span>
                     <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="ml-auto h-6 w-6 transition-transform duration-300 group-hover:translate-x-1.5">
@@ -199,12 +199,12 @@ export default function Navbar() {
                   href={link.href}
                   onClick={() => setOpen(false)}
                   tabIndex={open ? 0 : -1}
-                  className="group flex min-h-28 items-center gap-5 border-r border-b border-black/10 px-5 transition-colors hover:bg-black hover:text-white sm:px-8 md:min-h-0"
+                  className="group flex min-h-28 items-center gap-5 bg-[#f2f1ec] px-5 transition-colors hover:bg-black hover:text-white sm:px-8 md:min-h-0"
                 >
                   <span className="font-mono text-[8px] tracking-[0.18em] opacity-40">
                     / {link.number}
                   </span>
-                  <span className="text-[clamp(1.6rem,2.75vw,3.25rem)] font-semibold leading-none tracking-[-0.05em]">
+                  <span className="text-[clamp(1.6rem,2.75vw,3.25rem)] font-medium leading-none tracking-[-0.05em]">
                     {link.label}
                   </span>
                   <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="ml-auto h-6 w-6 opacity-0 transition-[opacity,transform] duration-300 group-hover:translate-x-1.5 group-hover:opacity-100">
@@ -281,7 +281,7 @@ export default function Navbar() {
             </section>
           </div>
 
-          <div className="flex items-center justify-between border-t border-black/10 px-5 py-3 font-mono text-[8px] tracking-[0.16em] text-black/40 uppercase sm:px-8">
+          <div className="flex items-center justify-between px-5 py-3 font-mono text-[8px] tracking-[0.16em] text-black/40 uppercase sm:px-8">
             <span>Transbet Industrial Group</span>
             <span>© 2026</span>
           </div>

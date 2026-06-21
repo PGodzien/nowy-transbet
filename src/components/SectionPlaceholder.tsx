@@ -24,7 +24,7 @@ export default function SectionPlaceholder({ id, label, number }: SectionPlaceho
             <p className="mb-5 text-xs font-bold tracking-[0.3em] text-brand uppercase">
               Obszar
             </p>
-            <h2 className="text-5xl font-bold tracking-[-0.04em] text-black md:text-8xl lg:text-9xl">
+            <h2 className="text-5xl font-medium tracking-[-0.04em] text-black md:text-8xl lg:text-9xl">
               {label}
             </h2>
             <p className="mt-6 max-w-lg text-sm leading-relaxed text-zinc-600">
