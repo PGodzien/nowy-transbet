@@ -90,9 +90,9 @@ function OfferIcon({ type }: { type: (typeof offers)[number]['icon'] }) {
 
 export default function OfferSection() {
   return (
-    <section id="betoniarnie" className="viewport-section relative border-t border-black/10 bg-white">
+    <section id="betoniarnie" className="viewport-section relative border-t border-black/[0.08] bg-white">
       <div className="grid min-h-[100svh] grid-cols-[4%_repeat(3,minmax(0,1fr))_4%] lg:h-[100svh]">
-        <div className="flex items-center justify-center border-r border-black/10">
+        <div className="flex items-center justify-center">
           <Reveal direction="left">
             <span className="font-mono text-[9px] tracking-[0.2em] text-black/35 [writing-mode:vertical-rl]">
               04 / OFERTA
@@ -101,8 +101,8 @@ export default function OfferSection() {
         </div>
 
         <div className="col-span-3 flex min-w-0 flex-col">
-          <div className="grid min-h-[38svh] border-b border-black/10 lg:min-h-[34svh] lg:grid-cols-3">
-            <div className="flex items-end px-5 py-9 sm:px-8 md:px-10 lg:col-span-2 lg:border-r lg:border-black/10 lg:py-12">
+          <div className="grid min-h-[38svh] border-b border-black/[0.08] lg:min-h-[34svh] lg:grid-cols-3">
+            <div className="flex items-end px-6 py-9 sm:px-9 md:px-12 lg:col-span-2 lg:border-r lg:border-black/[0.08] lg:py-12">
               <div>
                 <Reveal>
                   <p className="mb-6 font-mono text-[9px] tracking-[0.2em] text-black/40 uppercase">
@@ -118,7 +118,7 @@ export default function OfferSection() {
             </div>
 
             <Reveal direction="none" delay={120} className="h-full">
-              <div className="flex h-full min-h-40 flex-col justify-between px-5 py-7 sm:px-8 lg:min-h-0 lg:py-10">
+              <div className="flex h-full min-h-40 flex-col justify-between px-6 py-7 sm:px-9 lg:min-h-0 lg:py-10">
                 <span className="font-mono text-[9px] tracking-[0.18em] text-black/35 uppercase">
                   Jeden partner / wiele możliwości
                 </span>
@@ -134,8 +134,8 @@ export default function OfferSection() {
               <Reveal key={offer.title} direction="none" delay={70 + index * 55} className="h-full">
                 <a
                   href="#kontakt"
-                  className={`group relative flex h-full min-h-56 flex-col justify-between overflow-hidden border-b border-black/10 bg-white px-5 py-6 transition-colors duration-500 hover:bg-black hover:text-white sm:px-7 lg:min-h-0 lg:py-5 ${
-                    index % 3 !== 2 ? 'md:border-r md:border-black/10' : ''
+                  className={`group relative flex h-full min-h-56 flex-col justify-between overflow-hidden border-b border-black/[0.08] bg-white px-6 py-6 transition-colors duration-500 hover:bg-black hover:text-white sm:px-8 lg:min-h-0 lg:py-5 ${
+                    index % 3 !== 2 ? 'md:border-r md:border-black/[0.08]' : ''
                   }`}
                 >
                   <span className="absolute top-0 left-0 h-0.5 w-0 bg-brand transition-[width] duration-500 group-hover:w-full" />
@@ -168,7 +168,7 @@ export default function OfferSection() {
           </div>
         </div>
 
-        <div className="border-l border-black/10" />
+        <div />
       </div>
     </section>
   );

@@ -6,9 +6,9 @@ interface PageGridProps {
 }
 
 /**
- * Globally persistent 5-column grid overlay.
- * Columns: [empty] | [content] | [content] | [content] | [empty]
- * Each border line runs full height of every section.
+ * Persistent outer frame for the page content.
+ * Internal divisions are owned by individual sections so lines never cut
+ * through content that does not need a grid.
  */
 export function GridLines() {
   return (
@@ -17,10 +17,10 @@ export function GridLines() {
       className="pointer-events-none fixed inset-0 z-10 grid grid-cols-[4%_repeat(3,minmax(0,1fr))_4%]"
       style={{ top: 0, bottom: 0 }}
     >
-      <div className="border-r border-zinc-500/20" />
       <div className="border-r border-zinc-500/15" />
+      <div />
+      <div />
       <div className="border-r border-zinc-500/15" />
-      <div className="border-r border-zinc-500/20" />
       <div />
     </div>
   );

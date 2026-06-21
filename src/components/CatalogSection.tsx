@@ -46,9 +46,9 @@ function CatalogCover({ className = '', back = false }: { className?: string; ba
 
 export default function CatalogSection() {
   return (
-    <section id="katalog" className="viewport-section relative border-t border-black/10 bg-white">
+    <section id="katalog" className="viewport-section relative border-t border-black/[0.08] bg-white">
       <div className="grid min-h-[100svh] grid-cols-[4%_repeat(3,minmax(0,1fr))_4%]">
-        <div className="flex items-center justify-center border-r border-black/10">
+        <div className="flex items-center justify-center">
           <Reveal direction="left">
             <span className="font-mono text-[9px] tracking-[0.2em] text-black/35 [writing-mode:vertical-rl]">
               03 / KATALOG
@@ -145,7 +145,7 @@ export default function CatalogSection() {
           </div>
         </div>
 
-        <div className="border-l border-black/10" />
+        <div />
       </div>
     </section>
   );

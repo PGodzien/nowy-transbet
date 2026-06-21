@@ -13,9 +13,9 @@ const partners = [
 
 export default function TrustedBy() {
   return (
-    <section id="partnerzy" className="viewport-section relative border-t border-black/10 bg-white">
+    <section id="partnerzy" className="viewport-section relative border-t border-black/[0.08] bg-white">
       <div className="grid min-h-[100svh] grid-cols-[4%_repeat(3,minmax(0,1fr))_4%]">
-        <div className="flex items-center justify-center border-r border-black/10">
+        <div className="flex items-center justify-center">
           <Reveal direction="left">
             <span className="font-mono text-[9px] tracking-[0.2em] text-black/35 [writing-mode:vertical-rl]">
               02 / PARTNERZY
@@ -24,8 +24,8 @@ export default function TrustedBy() {
         </div>
 
         <div className="col-span-3 flex min-w-0 flex-col">
-          <div className="grid flex-1 border-b border-black/10 lg:grid-cols-3">
-            <div className="flex min-h-[44svh] items-end px-5 py-10 sm:px-8 md:px-10 lg:col-span-2 lg:min-h-0 lg:border-r lg:border-black/10 lg:py-14">
+          <div className="grid flex-1 border-b border-black/[0.08] lg:grid-cols-3">
+            <div className="flex min-h-[44svh] items-end px-6 py-10 sm:px-9 md:px-12 lg:col-span-2 lg:min-h-0 lg:border-r lg:border-black/[0.08] lg:py-14">
               <div>
                 <Reveal>
                   <p className="mb-6 font-mono text-[9px] tracking-[0.2em] text-black/40 uppercase">
@@ -41,7 +41,7 @@ export default function TrustedBy() {
             </div>
 
             <Reveal direction="none" delay={100} className="h-full">
-              <div className="flex h-full min-h-48 flex-col justify-between px-5 py-7 sm:px-8 lg:min-h-0 lg:py-10">
+              <div className="flex h-full min-h-48 flex-col justify-between px-6 py-7 sm:px-9 lg:min-h-0 lg:py-10">
                 <span className="font-mono text-[9px] tracking-[0.18em] text-black/35 uppercase">
                   Pracujemy z najlepszymi
                 </span>
@@ -52,7 +52,7 @@ export default function TrustedBy() {
             </Reveal>
           </div>
 
-          <div className="grid min-h-[46svh] grid-cols-2 gap-px bg-black/10 md:grid-cols-3 md:grid-rows-3 lg:min-h-[42svh]">
+          <div className="grid min-h-[46svh] grid-cols-2 gap-px bg-black/[0.08] md:grid-cols-3 md:grid-rows-3 lg:min-h-[42svh]">
             {partners.map((partner, index) => (
               <Reveal key={partner.name} direction="none" delay={80 + index * 55} className="h-full">
                 <div className="group relative flex h-full min-h-32 items-center justify-center overflow-hidden bg-white px-5 transition-colors duration-500 hover:bg-zinc-50">
@@ -93,7 +93,7 @@ export default function TrustedBy() {
           </div>
         </div>
 
-        <div className="border-l border-black/10" />
+        <div />
       </div>
     </section>
   );
