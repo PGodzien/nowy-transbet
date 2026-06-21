@@ -58,11 +58,11 @@ export default function Hero() {
   const resetPanel = () => setActiveId(null);
 
   return (
-    <section className="relative min-h-[100svh] overflow-hidden bg-black">
+    <section className="viewport-section relative overflow-hidden bg-black">
       {/* One full-screen image, controlled by the service selectors */}
       <div className="absolute inset-0 overflow-hidden">
         <div
-          className="absolute inset-0 bg-cover bg-center transition-[opacity,transform,filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+          className="hero-enter-media absolute inset-0 bg-cover bg-center transition-[opacity,transform,filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
           style={{
             backgroundImage: `url(${overviewImage})`,
             opacity: activeId === null ? 1 : 0,
@@ -108,7 +108,7 @@ export default function Hero() {
       </div>
 
       <div className="absolute inset-y-0 inset-x-[4vw] z-10">
-        <div className="pointer-events-none absolute top-[39%] left-4 z-20 h-56 w-[min(50rem,84vw)] -translate-y-1/2 sm:top-[41%] sm:left-6 md:top-[43%] md:left-7 md:h-72">
+        <div className="hero-enter-title pointer-events-none absolute top-[39%] left-4 z-20 h-56 w-[min(50rem,84vw)] -translate-y-1/2 sm:top-[41%] sm:left-6 md:top-[43%] md:left-7 md:h-72">
           {slogans.map((slogan) => {
             const isVisible = slogan.id === activeId;
 
@@ -133,7 +133,7 @@ export default function Hero() {
 
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 flex border-l border-white/18"
+          className="hero-enter-grid pointer-events-none absolute inset-0 flex border-l border-white/18"
         >
           {panels.map((panel) => {
             const isActive = panel.id === activeId;
@@ -161,7 +161,7 @@ export default function Hero() {
           className="absolute inset-x-0 bottom-0 flex border-t border-white/20"
           onMouseLeave={resetPanel}
         >
-          {panels.map((panel) => {
+          {panels.map((panel, index) => {
             const isActive = panel.id === activeId;
 
             return (
@@ -180,13 +180,14 @@ export default function Hero() {
                   document.querySelector(panel.href)?.scrollIntoView({ behavior: 'smooth' });
                 }}
                 className={[
-                  'group relative flex min-h-24 cursor-pointer items-center justify-between gap-3 overflow-hidden px-4 py-5 text-left text-white transition-[flex] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] sm:min-h-28 sm:px-6 md:min-h-32 md:px-7 md:py-6',
+                  'hero-enter-control group relative flex min-h-24 cursor-pointer items-center justify-between gap-3 overflow-hidden px-4 py-5 text-left text-white transition-[flex] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] sm:min-h-28 sm:px-6 md:min-h-32 md:px-7 md:py-6',
                   isActive
                     ? 'flex-[1.45]'
                     : activeId
                       ? 'flex-[0.78]'
                       : 'flex-1',
                 ].join(' ')}
+                style={{ animationDelay: `${620 + index * 110}ms` }}
               >
                 <span className="flex flex-col gap-3">
                   <span

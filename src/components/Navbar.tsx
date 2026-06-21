@@ -33,6 +33,21 @@ const affiliations = [
   { mark: 'PUIG', name: 'Polsko-Ukraińska Izba Gospodarcza' },
 ];
 
+const euStars = [
+  [32, 14],
+  [41, 16.412],
+  [47.588, 23],
+  [50, 32],
+  [47.588, 41],
+  [41, 47.588],
+  [32, 50],
+  [23, 47.588],
+  [16.412, 41],
+  [14, 32],
+  [16.412, 23],
+  [23, 16.412],
+] as const;
+
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
@@ -59,7 +74,7 @@ export default function Navbar() {
         ].join(' ')}
       />
       <div className="relative z-50 flex h-full items-center pl-[calc(4vw+1rem)] sm:pl-[calc(4vw+1.5rem)] md:pl-[calc(4vw+1.75rem)]">
-        <Link href="/" className="flex shrink-0 items-center gap-4" onClick={() => setOpen(false)}>
+        <Link href="/" className="nav-enter-logo flex shrink-0 items-center gap-4" onClick={() => setOpen(false)}>
           <span
             className={[
               'text-[1.35rem] font-bold tracking-[-0.035em] uppercase transition-colors duration-300 sm:text-2xl',
@@ -92,7 +107,7 @@ export default function Navbar() {
                 return !current;
               })
             }
-            className="mr-[4vw] flex h-20 w-20 shrink-0 cursor-pointer flex-col items-center justify-center gap-2 bg-brand transition-colors duration-300 hover:bg-brand-hover"
+            className="nav-enter-action mr-[4vw] flex h-20 w-20 shrink-0 cursor-pointer flex-col items-center justify-center gap-2 bg-brand transition-colors duration-300 hover:bg-brand-hover"
             aria-label={open ? 'Zamknij menu' : 'Otwórz menu'}
             aria-expanded={open}
           >
@@ -114,13 +129,13 @@ export default function Navbar() {
 
       <div
         className={[
-          'fixed inset-0 z-40 overflow-y-auto bg-[#f2f1ec] px-[4vw] pt-20 text-black transition-[opacity,visibility] duration-500',
+          'fixed inset-0 z-40 overflow-y-auto bg-white px-[4vw] pt-20 text-black transition-[opacity,visibility] duration-500',
           open ? 'visible opacity-100' : 'invisible opacity-0',
         ].join(' ')}
         aria-hidden={!open}
       >
         <div className="flex min-h-full flex-col border-x border-black/10">
-          <div className="flex min-h-11 items-center justify-between border-b border-black/10 px-5 sm:px-8">
+          <div className={['flex min-h-11 items-center justify-between border-b border-black/10 px-5 sm:px-8', open ? 'menu-enter-item' : ''].join(' ')}>
             <span className="font-mono text-[9px] tracking-[0.18em] text-black/45 uppercase">
               Menu
             </span>
@@ -130,11 +145,15 @@ export default function Navbar() {
           </div>
 
           <nav className="relative z-20 grid flex-1 gap-px border-b border-black/10 bg-black/10 md:grid-cols-2 lg:grid-cols-3">
-            {mainMenuLinks.map((link) =>
+            {mainMenuLinks.map((link, index) =>
               link.submenu ? (
                 <div
                   key={link.label}
-                  className="relative z-20 flex min-h-28 flex-col bg-[#f2f1ec] md:block md:min-h-0"
+                  className={[
+                    'relative z-20 flex min-h-28 flex-col bg-white md:block md:min-h-0',
+                    open ? 'menu-enter-item' : '',
+                  ].join(' ')}
+                  style={{ animationDelay: `${80 + index * 70}ms` }}
                   onMouseEnter={() => {
                     if (window.matchMedia('(hover: hover)').matches) setAboutOpen(true);
                   }}
@@ -162,7 +181,7 @@ export default function Navbar() {
 
                   <div
                     className={[
-                      'relative grid w-full grid-cols-2 grid-rows-2 overflow-hidden border-l border-black/10 bg-[#f2f1ec] transition-[max-height,opacity,transform,visibility] duration-300 md:absolute md:top-0 md:left-full md:h-full md:max-h-none',
+                      'relative grid w-full grid-cols-2 grid-rows-2 overflow-hidden border-l border-black/10 bg-white transition-[max-height,opacity,transform,visibility] duration-300 md:absolute md:top-0 md:left-full md:h-full md:max-h-none',
                       aboutOpen
                         ? 'visible max-h-40 translate-y-0 opacity-100 md:translate-x-0'
                         : 'invisible max-h-0 -translate-y-2 opacity-0 md:max-h-none md:translate-y-0 md:-translate-x-3',
@@ -199,7 +218,11 @@ export default function Navbar() {
                   href={link.href}
                   onClick={() => setOpen(false)}
                   tabIndex={open ? 0 : -1}
-                  className="group flex min-h-28 items-center gap-5 bg-[#f2f1ec] px-5 transition-colors hover:bg-black hover:text-white sm:px-8 md:min-h-0"
+                  className={[
+                    'group flex min-h-28 items-center gap-5 bg-white px-5 transition-colors hover:bg-black hover:text-white sm:px-8 md:min-h-0',
+                    open ? 'menu-enter-item' : '',
+                  ].join(' ')}
+                  style={{ animationDelay: `${80 + index * 70}ms` }}
                 >
                   <span className="font-mono text-[8px] tracking-[0.18em] opacity-40">
                     / {link.number}
@@ -225,7 +248,9 @@ export default function Navbar() {
                 className={[
                   'group flex min-h-24 items-center justify-between border-b border-black/10 px-5 transition-colors md:min-h-28 md:border-r md:border-b-0 md:px-6',
                   index === 0 ? 'bg-brand hover:bg-brand-hover' : 'hover:bg-black hover:text-white',
+                  open ? 'menu-enter-item' : '',
                 ].join(' ')}
+                style={{ animationDelay: `${520 + index * 80}ms` }}
               >
                 <span className="text-xl font-semibold tracking-[-0.04em] md:text-2xl">
                   {link.label}
@@ -236,7 +261,13 @@ export default function Navbar() {
               </a>
             ))}
 
-            <section className="grid min-h-28 bg-black text-white sm:grid-cols-[1.2fr_1.8fr]">
+            <section
+              className={[
+                'grid min-h-28 bg-black text-white sm:grid-cols-2',
+                open ? 'menu-enter-item' : '',
+              ].join(' ')}
+              style={{ animationDelay: '680ms' }}
+            >
               <a
                 href="https://transbet.com.pl/wdrozenie-nowej-technologii-wytwarzania-betonow-przy-pomocy-mobilnego-i-modulowego-wezla-betoniarskiego"
                 target="_blank"
@@ -246,13 +277,9 @@ export default function Navbar() {
               >
                 <span className="grid h-12 w-12 shrink-0 place-items-center border border-white/20 transition-colors group-hover:border-brand">
                   <svg aria-hidden="true" viewBox="0 0 64 64" className="h-9 w-9 text-brand">
-                    {Array.from({ length: 12 }).map((_, index) => {
-                      const angle = (index * Math.PI * 2) / 12 - Math.PI / 2;
-                      const cx = 32 + Math.cos(angle) * 18;
-                      const cy = 32 + Math.sin(angle) * 18;
-
-                      return <circle key={index} cx={cx} cy={cy} r="2" fill="currentColor" />;
-                    })}
+                    {euStars.map(([cx, cy], index) => (
+                      <circle key={index} cx={cx} cy={cy} r="2" fill="currentColor" />
+                    ))}
                   </svg>
                 </span>
                 <span>
@@ -281,7 +308,7 @@ export default function Navbar() {
             </section>
           </div>
 
-          <div className="flex items-center justify-between px-5 py-3 font-mono text-[8px] tracking-[0.16em] text-black/40 uppercase sm:px-8">
+          <div className={['flex items-center justify-between px-5 py-3 font-mono text-[8px] tracking-[0.16em] text-black/40 uppercase sm:px-8', open ? 'menu-enter-item' : ''].join(' ')} style={{ animationDelay: '760ms' }}>
             <span>Transbet Industrial Group</span>
             <span>© 2026</span>
           </div>

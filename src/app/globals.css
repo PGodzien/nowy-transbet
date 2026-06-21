@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f3f2ed;
+  --background: #ffffff;
   --foreground: #090909;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-manrope);
+  --font-sans: var(--font-figtree);
   --font-mono: var(--font-geist-mono);
   --color-brand: #ff4d00;
   --color-brand-hover: #ff6a24;
@@ -17,12 +17,16 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-manrope), sans-serif;
+  font-family: var(--font-figtree), sans-serif;
   scroll-behavior: smooth;
 }
 
 * {
   box-sizing: border-box;
+}
+
+.viewport-section {
+  min-height: 100svh;
 }
 
 @keyframes hero-drift-left {
@@ -76,10 +80,152 @@ body {
   );
 }
 
+.reveal {
+  opacity: 0;
+  transition:
+    opacity 800ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 900ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 900ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  filter: blur(4px);
+  will-change: opacity, transform, filter;
+}
+
+.reveal-up {
+  transform: translate3d(0, 32px, 0);
+}
+
+.reveal-left {
+  transform: translate3d(-24px, 0, 0);
+}
+
+.reveal-none {
+  transform: none;
+}
+
+.reveal[data-visible='true'] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  filter: blur(0);
+}
+
+@keyframes hero-media-enter {
+  from {
+    opacity: 0;
+    transform: scale(1.09);
+    filter: saturate(0.55) contrast(1.12) brightness(0.72);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.015);
+    filter: saturate(0.82) contrast(1.08) brightness(0.96);
+  }
+}
+
+@keyframes hero-title-enter {
+  from {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    filter: blur(0);
+  }
+}
+
+@keyframes hero-control-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 36px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes soft-line-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes nav-item-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -14px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes menu-item-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.hero-enter-media {
+  animation: hero-media-enter 1400ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+.hero-enter-title {
+  animation: hero-title-enter 1000ms 350ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-enter-grid {
+  animation: soft-line-enter 1000ms 550ms ease both;
+}
+
+.hero-enter-control {
+  animation: hero-control-enter 800ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.nav-enter-logo {
+  animation: nav-item-enter 700ms 150ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.nav-enter-action {
+  animation: nav-item-enter 700ms 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.menu-enter-item {
+  animation: menu-item-enter 650ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-idle-drift-left,
   .hero-idle-drift-right,
   .hero-idle-scan {
+    animation: none;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+
+  .hero-enter-media,
+  .hero-enter-title,
+  .hero-enter-grid,
+  .hero-enter-control,
+  .nav-enter-logo,
+  .nav-enter-action,
+  .menu-enter-item {
     animation: none;
   }
 }

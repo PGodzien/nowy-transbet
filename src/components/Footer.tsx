@@ -1,3 +1,5 @@
+import Reveal from '@/components/Reveal';
+
 const footerLinks = {
   Obszary: ['Betoniarnie', 'Budowa tuneli', 'Prefabrykaty'],
   Firma: ['O nas', 'Kariera', 'Aktualności', 'Kontakt'],
@@ -6,15 +8,15 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer id="kontakt" className="border-t border-zinc-800 bg-black">
-      <div className="grid w-full grid-cols-[4%_repeat(3,minmax(0,1fr))_4%]">
+    <footer id="kontakt" className="viewport-section border-t border-zinc-800 bg-black">
+      <div className="grid min-h-[100svh] w-full grid-cols-[4%_repeat(3,minmax(0,1fr))_4%]">
         {/* col 1 – left gutter */}
         <div className="border-r border-zinc-800/50" />
 
         {/* cols 2-4 – content */}
-        <div className="col-span-3 py-16 px-10">
+        <div className="col-span-3 flex flex-col justify-center py-16 px-10">
           <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
-            <div>
+            <Reveal>
               <p className="text-xs font-bold tracking-[0.28em] text-brand uppercase">
                 Transbet
               </p>
@@ -25,10 +27,10 @@ export default function Footer() {
                 Kompleksowe rozwiązania przemysłowe dla nowoczesnych przedsiębiorstw.
               </p>
               <div className="mt-6 h-px w-12 bg-brand/50" />
-            </div>
+            </Reveal>
 
-            {Object.entries(footerLinks).map(([category, links]) => (
-              <div key={category}>
+            {Object.entries(footerLinks).map(([category, links], index) => (
+              <Reveal key={category} delay={90 + index * 80}>
                 <p className="mb-4 text-xs font-normal tracking-[0.2em] text-zinc-400 uppercase">
                   {category}
                 </p>
@@ -44,26 +46,28 @@ export default function Footer() {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </Reveal>
             ))}
           </div>
 
-          <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-zinc-800/60 pt-8 md:flex-row md:items-center">
-            <p className="text-xs tracking-widest text-zinc-700 uppercase">
-              © 2026 Transbet Industrial Group. Wszelkie prawa zastrzeżone.
-            </p>
-            <div className="flex gap-6">
-              {['LinkedIn', 'Twitter', 'YouTube'].map((s) => (
-                <a
-                  key={s}
-                  href="#"
-                  className="text-xs tracking-widest text-zinc-700 uppercase transition-colors hover:text-brand"
-                >
-                  {s}
-                </a>
-              ))}
+          <Reveal delay={320}>
+            <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-zinc-800/60 pt-8 md:flex-row md:items-center">
+              <p className="text-xs tracking-widest text-zinc-700 uppercase">
+                © 2026 Transbet Industrial Group. Wszelkie prawa zastrzeżone.
+              </p>
+              <div className="flex gap-6">
+                {['LinkedIn', 'Twitter', 'YouTube'].map((s) => (
+                  <a
+                    key={s}
+                    href="#"
+                    className="text-xs tracking-widest text-zinc-700 uppercase transition-colors hover:text-brand"
+                  >
+                    {s}
+                  </a>
+                ))}
+              </div>
             </div>
-          </div>
+          </Reveal>
         </div>
 
         {/* col 5 – right gutter */}
