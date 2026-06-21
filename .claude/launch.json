@@ -1,0 +1,15 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "transbet-dev",
+      "runtimeExecutable": "/Users/piotrgodzien/.nvm/versions/node/v22.22.3/bin/node",
+      "runtimeArgs": ["node_modules/.bin/next", "dev", "--webpack"],
+      "env": {
+        "PATH": "/Users/piotrgodzien/.nvm/versions/node/v22.22.3/bin:/usr/local/bin:/usr/bin:/bin"
+      },
+      "port": 3000,
+      "autoPort": false
+    }
+  ]
+}
