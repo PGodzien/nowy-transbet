@@ -215,7 +215,7 @@ export default function Navbar() {
             )}
           </nav>
 
-          <div className="grid border-b border-black/10 md:grid-cols-3">
+          <div className="grid border-b border-black/10 md:grid-cols-[0.5fr_0.5fr_2fr]">
             {navLinks.slice(3).map((link, index) => (
               <a
                 key={link.label}
@@ -236,16 +236,16 @@ export default function Navbar() {
               </a>
             ))}
 
-            <section className="grid min-h-28 grid-rows-2 bg-black text-white">
+            <section className="grid min-h-28 bg-black text-white sm:grid-cols-[1.2fr_1.8fr]">
               <a
                 href="https://transbet.com.pl/wdrozenie-nowej-technologii-wytwarzania-betonow-przy-pomocy-mobilnego-i-modulowego-wezla-betoniarskiego"
                 target="_blank"
                 rel="noreferrer"
                 tabIndex={open ? 0 : -1}
-                className="group flex cursor-pointer items-center gap-3 border-b border-white/10 px-4 py-2 transition-colors hover:bg-zinc-950"
+                className="group flex cursor-pointer items-center gap-4 border-b border-white/10 px-5 py-4 transition-colors hover:bg-zinc-950 sm:border-r sm:border-b-0"
               >
-                <span className="grid h-10 w-10 shrink-0 place-items-center border border-white/20 transition-colors group-hover:border-brand">
-                  <svg aria-hidden="true" viewBox="0 0 64 64" className="h-7 w-7 text-brand">
+                <span className="grid h-12 w-12 shrink-0 place-items-center border border-white/20 transition-colors group-hover:border-brand">
+                  <svg aria-hidden="true" viewBox="0 0 64 64" className="h-9 w-9 text-brand">
                     {Array.from({ length: 12 }).map((_, index) => {
                       const angle = (index * Math.PI * 2) / 12 - Math.PI / 2;
                       const cx = 32 + Math.cos(angle) * 18;
@@ -256,15 +256,15 @@ export default function Navbar() {
                   </svg>
                 </span>
                 <span>
-                  <span className="block text-xs font-semibold tracking-[-0.03em]">Fundusze Europejskie</span>
-                  <span className="mt-0.5 block text-[9px] text-zinc-500">Podkarpacie 2021–2027</span>
+                  <span className="block text-sm font-semibold tracking-[-0.03em]">Fundusze Europejskie</span>
+                  <span className="mt-1 block text-[10px] text-zinc-500">Podkarpacie 2021–2027</span>
                 </span>
                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="ml-auto h-4 w-4 text-zinc-600 transition-[color,transform] duration-300 group-hover:translate-x-1 group-hover:text-brand">
                   <path d="M5 12h14M14 7l5 5-5 5" stroke="currentColor" strokeWidth="1.5" />
                 </svg>
               </a>
 
-              <div className="flex items-center gap-2 px-4 py-2">
+              <div className="flex items-center gap-3 px-5 py-4">
                 <span className="mr-auto hidden font-mono text-[8px] tracking-[0.16em] text-zinc-600 uppercase xl:block">
                   Członkostwa
                 </span>
@@ -272,7 +272,7 @@ export default function Navbar() {
                   <span
                     key={affiliation.mark}
                     title={affiliation.name}
-                    className="grid h-8 min-w-10 place-items-center border border-white/20 px-2 font-mono text-[8px] font-semibold tracking-[0.1em] text-zinc-300 transition-colors hover:border-brand hover:text-brand"
+                    className="grid h-11 min-w-12 place-items-center border border-white/20 px-2 font-mono text-[9px] font-semibold tracking-[0.1em] text-zinc-300 transition-colors hover:border-brand hover:text-brand"
                   >
                     {affiliation.mark}
                   </span>

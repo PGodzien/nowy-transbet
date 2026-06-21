@@ -108,7 +108,7 @@ export default function Hero() {
       </div>
 
       <div className="absolute inset-y-0 inset-x-[4vw] z-10">
-        <div className="pointer-events-none absolute top-[39%] left-4 h-56 w-[min(50rem,84vw)] -translate-y-1/2 sm:top-[41%] sm:left-6 md:top-[43%] md:left-7 md:h-72">
+        <div className="pointer-events-none absolute top-[39%] left-4 z-20 h-56 w-[min(50rem,84vw)] -translate-y-1/2 sm:top-[41%] sm:left-6 md:top-[43%] md:left-7 md:h-72">
           {slogans.map((slogan) => {
             const isVisible = slogan.id === activeId;
 
@@ -133,7 +133,7 @@ export default function Hero() {
 
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 flex border-l border-white/30"
+          className="pointer-events-none absolute inset-0 flex border-l border-white/18"
         >
           {panels.map((panel) => {
             const isActive = panel.id === activeId;
@@ -142,16 +142,23 @@ export default function Hero() {
               <div
                 key={panel.id}
                 className={[
-                  'border-r border-white/30 transition-[flex] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]',
+                  'relative overflow-hidden border-r border-white/18 transition-[flex] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]',
                   isActive ? 'flex-[1.45]' : activeId ? 'flex-[0.78]' : 'flex-1',
                 ].join(' ')}
-              />
+              >
+                <span
+                  className={[
+                    'absolute inset-0 bg-brand mix-blend-color transition-opacity duration-700',
+                    activeId && !isActive ? 'opacity-[0.16]' : 'opacity-0',
+                  ].join(' ')}
+                />
+              </div>
             );
           })}
         </div>
 
         <div
-          className="absolute inset-x-0 bottom-0 flex border-t border-white/30"
+          className="absolute inset-x-0 bottom-0 flex border-t border-white/20"
           onMouseLeave={resetPanel}
         >
           {panels.map((panel) => {
