@@ -1,23 +1,85 @@
 @import "tailwindcss";
 
 :root {
-  --background: #09090b;
-  --foreground: #fafafa;
+  --background: #f3f2ed;
+  --foreground: #090909;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-urbanist);
   --font-mono: var(--font-geist-mono);
+  --color-brand: #ff4d00;
+  --color-brand-hover: #ff6a24;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+  font-family: var(--font-urbanist), sans-serif;
   scroll-behavior: smooth;
 }
 
 * {
   box-sizing: border-box;
+}
+
+@keyframes hero-drift-left {
+  0%,
+  100% {
+    transform: scale(1.02) translate3d(-0.5%, 0, 0);
+  }
+  50% {
+    transform: scale(1.07) translate3d(0.7%, -0.4%, 0);
+  }
+}
+
+@keyframes hero-drift-right {
+  0%,
+  100% {
+    transform: scale(1.03) translate3d(0.6%, -0.3%, 0);
+  }
+  50% {
+    transform: scale(1.07) translate3d(-0.6%, 0.3%, 0);
+  }
+}
+
+@keyframes hero-idle-scan {
+  0%,
+  18% {
+    transform: translateX(-140%);
+  }
+  72%,
+  100% {
+    transform: translateX(520%);
+  }
+}
+
+.hero-idle-drift-left {
+  animation: hero-drift-left 14s ease-in-out infinite;
+  will-change: transform;
+}
+
+.hero-idle-drift-right {
+  animation: hero-drift-right 16s ease-in-out infinite;
+  will-change: transform;
+}
+
+.hero-idle-scan {
+  animation: hero-idle-scan 11s ease-in-out infinite;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgb(255 77 0 / 0.08) 50%,
+    transparent 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-idle-drift-left,
+  .hero-idle-drift-right,
+  .hero-idle-scan {
+    animation: none;
+  }
 }

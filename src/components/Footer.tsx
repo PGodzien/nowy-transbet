@@ -1,13 +1,13 @@
 const footerLinks = {
-  Obszary: ['Produkcja', 'Logistyka', 'Technologia'],
+  Obszary: ['Betoniarnie', 'Budowa tuneli', 'Prefabrykaty'],
   Firma: ['O nas', 'Kariera', 'Aktualności', 'Kontakt'],
   Wsparcie: ['Dokumentacja', 'Certyfikaty', 'Polityka prywatności'],
 };
 
 export default function Footer() {
   return (
-    <footer className="border-t border-zinc-800 bg-zinc-950">
-      <div className="grid w-full grid-cols-5">
+    <footer id="kontakt" className="border-t border-zinc-800 bg-black">
+      <div className="grid w-full grid-cols-[4%_repeat(3,minmax(0,1fr))_4%]">
         {/* col 1 – left gutter */}
         <div className="border-r border-zinc-800/50" />
 
@@ -15,7 +15,7 @@ export default function Footer() {
         <div className="col-span-3 py-16 px-10">
           <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
             <div>
-              <p className="text-xs font-bold tracking-[0.25em] text-amber-500 uppercase">
+              <p className="text-xs font-bold tracking-[0.28em] text-brand uppercase">
                 Transbet
               </p>
               <p className="mt-1 text-xs tracking-widest text-zinc-600 uppercase">
@@ -24,12 +24,12 @@ export default function Footer() {
               <p className="mt-6 text-xs leading-relaxed text-zinc-500">
                 Kompleksowe rozwiązania przemysłowe dla nowoczesnych przedsiębiorstw.
               </p>
-              <div className="mt-6 h-px w-12 bg-amber-500/40" />
+              <div className="mt-6 h-px w-12 bg-brand/50" />
             </div>
 
             {Object.entries(footerLinks).map(([category, links]) => (
               <div key={category}>
-                <p className="mb-4 text-xs font-medium tracking-[0.2em] text-zinc-400 uppercase">
+                <p className="mb-4 text-xs font-normal tracking-[0.2em] text-zinc-400 uppercase">
                   {category}
                 </p>
                 <ul className="space-y-3">
@@ -37,7 +37,7 @@ export default function Footer() {
                     <li key={link}>
                       <a
                         href="#"
-                        className="text-xs tracking-wide text-zinc-600 transition-colors hover:text-amber-500"
+                        className="text-xs tracking-wide text-zinc-600 transition-colors hover:text-brand"
                       >
                         {link}
                       </a>
@@ -57,7 +57,7 @@ export default function Footer() {
                 <a
                   key={s}
                   href="#"
-                  className="text-xs tracking-widest text-zinc-700 uppercase transition-colors hover:text-amber-500"
+                  className="text-xs tracking-widest text-zinc-700 uppercase transition-colors hover:text-brand"
                 >
                   {s}
                 </a>

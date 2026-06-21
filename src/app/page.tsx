@@ -5,12 +5,12 @@ import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
-    <main className="bg-zinc-950 text-white">
+    <main className="bg-[#f3f2ed] text-black">
       <Navbar />
       <Hero />
-      <SectionPlaceholder id="produkcja" label="Produkcja" number="01" />
-      <SectionPlaceholder id="logistyka" label="Logistyka" number="02" />
-      <SectionPlaceholder id="technologia" label="Technologia" number="03" />
+      <SectionPlaceholder id="betoniarnie" label="Betoniarnie" number="01" />
+      <SectionPlaceholder id="tunele" label="Budowa tuneli" number="02" />
+      <SectionPlaceholder id="prefabrykaty" label="Prefabrykaty" number="03" />
       <Footer />
     </main>
   );

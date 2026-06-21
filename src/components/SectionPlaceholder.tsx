@@ -8,12 +8,12 @@ export default function SectionPlaceholder({ id, label, number }: SectionPlaceho
   return (
     <section
       id={id}
-      className="relative border-t border-zinc-800 bg-zinc-950"
+      className="relative border-t border-black/10 bg-[#f3f2ed]"
     >
-      <div className="grid min-h-screen w-full grid-cols-5">
+      <div className="grid min-h-screen w-full grid-cols-[4%_repeat(3,minmax(0,1fr))_4%]">
         {/* col 1 – left gutter */}
-        <div className="flex flex-col items-center justify-center border-r border-zinc-800/50">
-          <span className="font-mono text-[10px] tracking-widest text-zinc-700 [writing-mode:vertical-rl]">
+        <div className="flex flex-col items-center justify-center border-r border-black/10">
+          <span className="font-mono text-[10px] tracking-widest text-zinc-500 [writing-mode:vertical-rl]">
             {number}
           </span>
         </div>
@@ -21,21 +21,23 @@ export default function SectionPlaceholder({ id, label, number }: SectionPlaceho
         {/* cols 2-4 – content */}
         <div className="col-span-3 flex items-center py-32 px-10">
           <div>
-            <p className="mb-3 text-xs font-medium tracking-[0.3em] text-amber-500 uppercase">
+            <p className="mb-5 text-xs font-bold tracking-[0.3em] text-brand uppercase">
               Obszar
             </p>
-            <h2 className="text-4xl font-bold text-white md:text-6xl">{label}</h2>
-            <p className="mt-6 max-w-lg text-sm leading-relaxed text-zinc-500">
+            <h2 className="text-5xl font-bold tracking-[-0.055em] text-black uppercase md:text-8xl lg:text-9xl">
+              {label}
+            </h2>
+            <p className="mt-6 max-w-lg text-sm leading-relaxed text-zinc-600">
               Ta sekcja jest przygotowana pod przyszłą treść dotyczącą obszaru{' '}
-              <span className="text-zinc-300">{label}</span>. Skontaktuj się z nami, aby uzyskać
+              <span className="font-semibold text-zinc-900">{label}</span>. Skontaktuj się z nami, aby uzyskać
               więcej informacji.
             </p>
-            <div className="mt-8 h-px w-24 bg-amber-500/40" />
+            <div className="mt-8 h-px w-24 bg-brand/50" />
           </div>
         </div>
 
         {/* col 5 – right gutter */}
-        <div className="border-l border-zinc-800/50" />
+        <div className="border-l border-black/10" />
       </div>
     </section>
   );

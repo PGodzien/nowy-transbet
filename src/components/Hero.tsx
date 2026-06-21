@@ -2,32 +2,41 @@
 
 import { useState } from 'react';
 
-const panels = [
+type Panel = {
+  id: string;
+  label: string;
+  subtitle: string;
+  number: string;
+  image: string;
+  href: string;
+};
+
+const panels: Panel[] = [
   {
-    id: 'produkcja',
-    label: 'Produkcja',
-    subtitle: 'Zaawansowane linie produkcyjne',
+    id: 'betoniarnie',
+    label: 'Betoniarnie',
+    subtitle: 'Produkcja betonu towarowego',
     number: '01',
-    image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200&q=80&fit=crop',
-    href: '#produkcja',
+    image: 'https://images.unsplash.com/photo-1767890131766-9fa1b608365d?w=1800&q=85&fit=crop',
+    href: '#betoniarnie',
   },
   {
-    id: 'logistyka',
-    label: 'Logistyka',
-    subtitle: 'Kompleksowe łańcuchy dostaw',
+    id: 'tunele',
+    label: 'Budowa tuneli',
+    subtitle: 'Specjalistyczna infrastruktura podziemna',
     number: '02',
-    image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&q=80&fit=crop',
-    href: '#logistyka',
+    image: 'https://images.unsplash.com/photo-1761069234641-3a68266c4740?w=1800&q=85&fit=crop',
+    href: '#tunele',
   },
   {
-    id: 'technologia',
-    label: 'Technologia',
-    subtitle: 'Innowacje przemysłowe 4.0',
+    id: 'prefabrykaty',
+    label: 'Prefabrykaty',
+    subtitle: 'Systemowe rozwiązania prefabrykowane',
     number: '03',
-    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=80&fit=crop',
-    href: '#technologia',
+    image: 'https://images.unsplash.com/photo-1742112125761-1f4cbfaa3cfa?w=1800&q=85&fit=crop',
+    href: '#prefabrykaty',
   },
-] as const;
+];
 
 export default function Hero() {
   const [hovered, setHovered] = useState<string | null>(null);
@@ -38,22 +47,36 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative flex h-screen w-full overflow-hidden pt-16">
-      {/* 5-column grid layout */}
-      <div className="flex h-full w-full grid-cols-5 md:grid">
-
-        {/* col 1 – left gutter */}
-        <div className="hidden md:flex md:flex-col md:justify-end md:border-r md:border-zinc-800/50 md:pb-6 md:pl-4">
-          <span className="font-mono text-[10px] tracking-widest text-zinc-700 [writing-mode:vertical-rl]">
-            TRANSBET © 2026
-          </span>
+    <section className="relative min-h-screen w-full overflow-hidden bg-[#f3f2ed] pt-20">
+      <div className="flex min-h-[calc(100vh-5rem)] flex-col px-[4vw]">
+        <div className="grid shrink-0 grid-cols-1 items-end gap-6 border-b border-black/15 py-8 md:grid-cols-12 md:py-10">
+          <div className="md:col-span-9">
+            <p className="mb-4 text-xs font-bold tracking-[0.22em] text-brand uppercase">
+              Transbet Industrial Group
+            </p>
+            <h1 className="max-w-6xl text-[2.45rem] font-bold leading-[0.86] tracking-[-0.06em] text-black uppercase sm:text-5xl md:text-[clamp(3.5rem,5.2vw,6.2rem)]">
+              Budujemy trwałość,
+              <br />
+              kształtujemy przyszłość.
+            </h1>
+          </div>
+          <div className="flex items-end md:col-span-3 md:pb-1">
+            <p className="max-w-sm text-sm font-medium leading-relaxed text-zinc-600 md:ml-auto">
+              Kompleksowa realizacja inwestycji — od betonu i prefabrykacji po specjalistyczne
+              budownictwo tunelowe.
+            </p>
+          </div>
         </div>
 
-        {/* cols 2-4 – the three interactive panels */}
-        <div className="col-span-3 flex h-full w-full overflow-hidden">
+        <div className="relative flex min-h-[64rem] flex-1 flex-col gap-2 py-2 md:min-h-[26rem] md:flex-row md:gap-3 md:py-3">
           {panels.map((panel, idx) => {
             const isHovered = hovered === panel.id;
             const anyHovered = hovered !== null;
+            const idleMotion = !anyHovered
+              ? idx % 2 === 0
+                ? 'hero-idle-drift-left'
+                : 'hero-idle-drift-right'
+              : '';
 
             return (
               <div
@@ -62,101 +85,86 @@ export default function Hero() {
                 onMouseLeave={() => setHovered(null)}
                 onClick={() => handleClick(panel.href)}
                 className={[
-                  'relative flex cursor-pointer flex-col justify-end overflow-hidden transition-all duration-700 ease-in-out',
-                  idx !== 0 ? 'border-l border-zinc-700/50' : '',
-                  isHovered ? 'flex-[3]' : anyHovered ? 'flex-[0.6]' : 'flex-1',
+                  'group relative flex min-h-[20rem] cursor-pointer flex-col justify-end overflow-hidden bg-zinc-900 transition-[flex] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] md:min-h-0',
+                  isHovered ? 'flex-[1.45]' : anyHovered ? 'flex-[0.78]' : 'flex-1',
                 ].join(' ')}
               >
-                {/* Background image */}
+                {/* Background media */}
                 <div
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-in-out"
+                  className={[
+                    'absolute inset-0 bg-cover bg-center transition-[transform,filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]',
+                    idleMotion,
+                  ].join(' ')}
                   style={{
                     backgroundImage: `url(${panel.image})`,
                     transform: isHovered ? 'scale(1.05)' : 'scale(1)',
+                    filter: isHovered
+                      ? 'brightness(1.06) saturate(1.08) contrast(1.05)'
+                      : anyHovered
+                        ? 'brightness(0.94) saturate(0.55) contrast(1.12)'
+                        : 'brightness(1.02) saturate(0.78) contrast(1.1)',
                   }}
                 />
 
-                {/* Dark overlay */}
+                {/* Editorial color treatment */}
                 <div
                   className={[
-                    'absolute inset-0 transition-opacity duration-700',
-                    isHovered
-                      ? 'bg-gradient-to-t from-zinc-950 via-zinc-900/60 to-zinc-950/30'
-                      : 'bg-zinc-950/70',
+                    'absolute inset-0 bg-[radial-gradient(circle_at_100%_0%,rgba(255,77,0,0.26),transparent_46%)] mix-blend-soft-light transition-opacity duration-700',
+                    isHovered ? 'opacity-80' : 'opacity-35',
+                  ].join(' ')}
+                />
+                <div className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(0deg,transparent_0,transparent_3px,rgba(255,255,255,0.018)_3px,rgba(255,255,255,0.018)_4px)] mix-blend-overlay" />
+
+                {/* Soft scrim keeps the cards cinematic and the copy readable */}
+                <div
+                  className={[
+                    'absolute inset-0 bg-black transition-opacity duration-700',
+                    isHovered ? 'opacity-[0.06]' : 'opacity-[0.18]',
                   ].join(' ')}
                 />
 
-                {/* Vertical line accent on hover */}
-                {isHovered && (
-                  <div className="absolute left-8 top-0 h-full w-px bg-gradient-to-b from-transparent via-amber-500 to-transparent opacity-60" />
-                )}
+                {/* Contrast mask */}
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      'linear-gradient(to top, rgba(0, 0, 0, 0.98) 0%, rgba(0, 0, 0, 0.82) 25%, rgba(0, 0, 0, 0.38) 48%, transparent 74%)',
+                  }}
+                />
 
-                {/* Content */}
-                <div className="relative z-10 p-8 md:p-10">
-                  <div
-                    className={[
-                      'transition-all duration-500',
-                      isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4',
-                    ].join(' ')}
-                  >
-                    <p className="mb-3 text-xs font-medium tracking-[0.3em] text-amber-500 uppercase">
-                      {panel.subtitle}
-                    </p>
-                  </div>
-
-                  <h2
-                    className={[
-                      'font-bold text-white transition-all duration-500',
-                      isHovered
-                        ? 'text-4xl md:text-6xl'
-                        : 'text-lg md:text-xl [writing-mode:vertical-rl] rotate-180',
-                    ].join(' ')}
-                  >
-                    {panel.label}
-                  </h2>
-
-                  <div
-                    className={[
-                      'mt-6 flex items-center gap-3 transition-all duration-500',
-                      isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4',
-                    ].join(' ')}
-                  >
-                    <span className="text-xs tracking-widest text-zinc-300 uppercase">
-                      Dowiedz się więcej
-                    </span>
-                    <span className="h-px w-8 bg-amber-500" />
-                  </div>
+                <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between p-5 md:p-7">
+                  <span className="font-mono text-[11px] tracking-[0.18em] text-white/70">
+                    / {panel.number}
+                  </span>
+                  <span className="h-2.5 w-2.5 bg-brand transition-transform duration-500 group-hover:rotate-45 group-hover:scale-125" />
                 </div>
 
-                {/* Panel number */}
-                <div className="absolute right-4 top-6 font-mono text-xs font-bold tracking-widest text-zinc-600">
-                  {panel.number}
+                <div className="relative z-10 p-5 md:p-7 lg:p-9">
+                  <p className="mb-3 max-w-xs text-[11px] font-bold tracking-[0.18em] text-brand uppercase drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)] md:text-xs">
+                    {panel.subtitle}
+                  </p>
+                  <div className="flex items-end justify-between gap-5">
+                    <h2 className="text-[clamp(1.7rem,3.1vw,4.2rem)] font-bold leading-[0.9] tracking-[-0.045em] text-white uppercase drop-shadow-[0_3px_18px_rgba(0,0,0,0.65)]">
+                      {panel.label}
+                    </h2>
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center border border-white/40 text-white transition-all duration-300 group-hover:border-brand group-hover:bg-brand group-hover:text-black">
+                      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="h-5 w-5">
+                        <path d="M5 12h14M14 7l5 5-5 5" stroke="currentColor" strokeWidth="1.6" />
+                      </svg>
+                    </span>
+                  </div>
                 </div>
               </div>
             );
           })}
-        </div>
 
-        {/* col 5 – right gutter */}
-        <div className="hidden md:flex md:flex-col md:items-end md:justify-end md:border-l md:border-zinc-800/50 md:pb-6 md:pr-4">
-          <span className="font-mono text-[10px] tracking-widest text-zinc-700 [writing-mode:vertical-rl] rotate-180">
-            INDUSTRIAL GROUP
-          </span>
+          {!hovered && (
+            <div
+              aria-hidden="true"
+              className="hero-idle-scan pointer-events-none absolute inset-y-0 left-0 z-20 w-1/5"
+            />
+          )}
         </div>
-      </div>
-
-      {/* Bottom hint bar */}
-      <div className="absolute bottom-0 left-0 right-0 z-20 grid grid-cols-5 border-t border-zinc-800 bg-zinc-950/80 backdrop-blur-sm">
-        <div />
-        <div className="col-span-3 flex items-center justify-between py-3">
-          <p className="text-xs tracking-widest text-zinc-500 uppercase">
-            Najedź kursorem, aby eksplorować obszary
-          </p>
-          <p className="hidden text-xs tracking-widest text-zinc-600 uppercase md:block">
-            Scroll ↓
-          </p>
-        </div>
-        <div />
       </div>
     </section>
   );
