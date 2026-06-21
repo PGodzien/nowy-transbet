@@ -2,168 +2,216 @@
 
 import { useState } from 'react';
 
-type Panel = {
-  id: string;
-  label: string;
-  subtitle: string;
-  number: string;
-  image: string;
-  href: string;
-};
-
-const panels: Panel[] = [
+const panels = [
   {
     id: 'betoniarnie',
-    label: 'Betoniarnie',
-    subtitle: 'Produkcja betonu towarowego',
     number: '01',
-    image: 'https://images.unsplash.com/photo-1767890131766-9fa1b608365d?w=1800&q=85&fit=crop',
+    label: 'Betoniarnie',
+    image: '/beton.jpg',
     href: '#betoniarnie',
   },
   {
     id: 'tunele',
-    label: 'Budowa tuneli',
-    subtitle: 'Specjalistyczna infrastruktura podziemna',
     number: '02',
-    image: 'https://images.unsplash.com/photo-1761069234641-3a68266c4740?w=1800&q=85&fit=crop',
+    label: 'Budowa tuneli',
+    image: '/tunele.jpg',
     href: '#tunele',
   },
   {
     id: 'prefabrykaty',
-    label: 'Prefabrykaty',
-    subtitle: 'Systemowe rozwiązania prefabrykowane',
     number: '03',
-    image: 'https://images.unsplash.com/photo-1742112125761-1f4cbfaa3cfa?w=1800&q=85&fit=crop',
+    label: 'Prefabrykaty',
+    image: '/prefabrykaty.jpg',
     href: '#prefabrykaty',
+  },
+] as const;
+
+const overviewImage = '/background.jpg';
+
+type PanelId = (typeof panels)[number]['id'];
+
+const slogans: {
+  id: PanelId | null;
+  text: string;
+}[] = [
+  {
+    id: null,
+    text: 'Budujemy trwałość, kształtujemy przyszłość',
+  },
+  {
+    id: 'betoniarnie',
+    text: 'Produkujemy trwałość od podstaw',
+  },
+  {
+    id: 'tunele',
+    text: 'Tworzymy połączenia na lata',
+  },
+  {
+    id: 'prefabrykaty',
+    text: 'Precyzja gotowa na przyszłość',
   },
 ];
 
 export default function Hero() {
-  const [hovered, setHovered] = useState<string | null>(null);
+  const [activeId, setActiveId] = useState<PanelId | null>(null);
 
-  const handleClick = (href: string) => {
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
+  const resetPanel = () => setActiveId(null);
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-[#f3f2ed] pt-20">
-      <div className="flex min-h-[calc(100vh-5rem)] flex-col px-[4vw]">
-        <div className="grid shrink-0 grid-cols-1 items-end gap-6 border-b border-black/15 py-8 md:grid-cols-12 md:py-10">
-          <div className="md:col-span-9">
-            <p className="mb-4 text-xs font-bold tracking-[0.22em] text-brand uppercase">
-              Transbet Industrial Group
-            </p>
-            <h1 className="max-w-6xl text-[2.45rem] font-bold leading-[0.86] tracking-[-0.06em] text-black uppercase sm:text-5xl md:text-[clamp(3.5rem,5.2vw,6.2rem)]">
-              Budujemy trwałość,
-              <br />
-              kształtujemy przyszłość.
-            </h1>
-          </div>
-          <div className="flex items-end md:col-span-3 md:pb-1">
-            <p className="max-w-sm text-sm font-medium leading-relaxed text-zinc-600 md:ml-auto">
-              Kompleksowa realizacja inwestycji — od betonu i prefabrykacji po specjalistyczne
-              budownictwo tunelowe.
-            </p>
-          </div>
+    <section className="relative min-h-[100svh] overflow-hidden bg-black">
+      {/* One full-screen image, controlled by the service selectors */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center transition-[opacity,transform,filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+          style={{
+            backgroundImage: `url(${overviewImage})`,
+            opacity: activeId === null ? 1 : 0,
+            transform: activeId === null ? 'scale(1.015)' : 'scale(1.07)',
+            filter: 'saturate(0.82) contrast(1.08) brightness(0.96)',
+          }}
+        />
+        {panels.map((panel) => {
+          const isActive = panel.id === activeId;
+
+          return (
+            <div
+              key={panel.id}
+              className="absolute inset-0 bg-cover bg-center transition-[opacity,transform,filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+              style={{
+                backgroundImage: `url(${panel.image})`,
+                opacity: isActive ? 1 : 0,
+                transform: isActive ? 'scale(1.015)' : 'scale(1.07)',
+                filter: isActive
+                  ? 'saturate(0.9) contrast(1.08) brightness(0.98)'
+                  : 'saturate(0.6) contrast(1.12) brightness(0.86)',
+              }}
+            />
+          );
+        })}
+
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 62% 66% at 0% 44%, rgba(0,0,0,0.58) 0%, rgba(0,0,0,0.24) 44%, transparent 72%), radial-gradient(ellipse 68% 58% at 0% 100%, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.38) 42%, transparent 72%), linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.18) 24%, transparent 42%), linear-gradient(to bottom, rgba(0,0,0,0.48) 0%, transparent 28%)',
+          }}
+        />
+        <div className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(0deg,transparent_0,transparent_3px,rgba(255,255,255,0.022)_3px,rgba(255,255,255,0.022)_4px)] mix-blend-overlay" />
+        <div
+          className="pointer-events-none absolute -inset-12 opacity-[0.28] mix-blend-soft-light"
+          style={{
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='4' seed='7' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.72'/%3E%3C/svg%3E\")",
+            backgroundSize: '180px 180px',
+          }}
+        />
+      </div>
+
+      <div className="absolute inset-y-0 inset-x-[4vw] z-10">
+        <div className="pointer-events-none absolute top-[39%] left-4 h-56 w-[min(50rem,84vw)] -translate-y-1/2 sm:top-[41%] sm:left-6 md:top-[43%] md:left-7 md:h-72">
+          {slogans.map((slogan) => {
+            const isVisible = slogan.id === activeId;
+
+            return (
+              <div
+                key={slogan.id ?? 'overview'}
+                className={[
+                  'absolute inset-x-0 bottom-0 transition-[opacity,transform] duration-500 ease-out',
+                  isVisible
+                    ? 'translate-y-0 opacity-100 delay-100'
+                    : 'pointer-events-none translate-y-3 opacity-0',
+                ].join(' ')}
+              >
+                <p className="max-w-[15ch] text-[clamp(2.35rem,5.15vw,6.1rem)] font-semibold leading-[0.89] tracking-[-0.06em] text-white [text-shadow:0_3px_32px_rgba(0,0,0,0.38)]">
+                  {slogan.text}
+                  <span className="text-brand">.</span>
+                </p>
+              </div>
+            );
+          })}
         </div>
 
-        <div className="relative flex min-h-[64rem] flex-1 flex-col gap-2 py-2 md:min-h-[26rem] md:flex-row md:gap-3 md:py-3">
-          {panels.map((panel, idx) => {
-            const isHovered = hovered === panel.id;
-            const anyHovered = hovered !== null;
-            const idleMotion = !anyHovered
-              ? idx % 2 === 0
-                ? 'hero-idle-drift-left'
-                : 'hero-idle-drift-right'
-              : '';
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 flex border-l border-white/30"
+        >
+          {panels.map((panel) => {
+            const isActive = panel.id === activeId;
 
             return (
               <div
                 key={panel.id}
-                onMouseEnter={() => setHovered(panel.id)}
-                onMouseLeave={() => setHovered(null)}
-                onClick={() => handleClick(panel.href)}
                 className={[
-                  'group relative flex min-h-[20rem] cursor-pointer flex-col justify-end overflow-hidden bg-zinc-900 transition-[flex] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] md:min-h-0',
-                  isHovered ? 'flex-[1.45]' : anyHovered ? 'flex-[0.78]' : 'flex-1',
+                  'border-r border-white/30 transition-[flex] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]',
+                  isActive ? 'flex-[1.45]' : activeId ? 'flex-[0.78]' : 'flex-1',
                 ].join(' ')}
-              >
-                {/* Background media */}
-                <div
-                  className={[
-                    'absolute inset-0 bg-cover bg-center transition-[transform,filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]',
-                    idleMotion,
-                  ].join(' ')}
-                  style={{
-                    backgroundImage: `url(${panel.image})`,
-                    transform: isHovered ? 'scale(1.05)' : 'scale(1)',
-                    filter: isHovered
-                      ? 'brightness(1.06) saturate(1.08) contrast(1.05)'
-                      : anyHovered
-                        ? 'brightness(0.94) saturate(0.55) contrast(1.12)'
-                        : 'brightness(1.02) saturate(0.78) contrast(1.1)',
-                  }}
-                />
-
-                {/* Editorial color treatment */}
-                <div
-                  className={[
-                    'absolute inset-0 bg-[radial-gradient(circle_at_100%_0%,rgba(255,77,0,0.26),transparent_46%)] mix-blend-soft-light transition-opacity duration-700',
-                    isHovered ? 'opacity-80' : 'opacity-35',
-                  ].join(' ')}
-                />
-                <div className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(0deg,transparent_0,transparent_3px,rgba(255,255,255,0.018)_3px,rgba(255,255,255,0.018)_4px)] mix-blend-overlay" />
-
-                {/* Soft scrim keeps the cards cinematic and the copy readable */}
-                <div
-                  className={[
-                    'absolute inset-0 bg-black transition-opacity duration-700',
-                    isHovered ? 'opacity-[0.06]' : 'opacity-[0.18]',
-                  ].join(' ')}
-                />
-
-                {/* Contrast mask */}
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background:
-                      'linear-gradient(to top, rgba(0, 0, 0, 0.98) 0%, rgba(0, 0, 0, 0.82) 25%, rgba(0, 0, 0, 0.38) 48%, transparent 74%)',
-                  }}
-                />
-
-                <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between p-5 md:p-7">
-                  <span className="font-mono text-[11px] tracking-[0.18em] text-white/70">
-                    / {panel.number}
-                  </span>
-                  <span className="h-2.5 w-2.5 bg-brand transition-transform duration-500 group-hover:rotate-45 group-hover:scale-125" />
-                </div>
-
-                <div className="relative z-10 p-5 md:p-7 lg:p-9">
-                  <p className="mb-3 max-w-xs text-[11px] font-bold tracking-[0.18em] text-brand uppercase drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)] md:text-xs">
-                    {panel.subtitle}
-                  </p>
-                  <div className="flex items-end justify-between gap-5">
-                    <h2 className="text-[clamp(1.7rem,3.1vw,4.2rem)] font-bold leading-[0.9] tracking-[-0.045em] text-white uppercase drop-shadow-[0_3px_18px_rgba(0,0,0,0.65)]">
-                      {panel.label}
-                    </h2>
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center border border-white/40 text-white transition-all duration-300 group-hover:border-brand group-hover:bg-brand group-hover:text-black">
-                      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="h-5 w-5">
-                        <path d="M5 12h14M14 7l5 5-5 5" stroke="currentColor" strokeWidth="1.6" />
-                      </svg>
-                    </span>
-                  </div>
-                </div>
-              </div>
+              />
             );
           })}
+        </div>
 
-          {!hovered && (
-            <div
-              aria-hidden="true"
-              className="hero-idle-scan pointer-events-none absolute inset-y-0 left-0 z-20 w-1/5"
-            />
-          )}
+        <div
+          className="absolute inset-x-0 bottom-0 flex border-t border-white/30"
+          onMouseLeave={resetPanel}
+        >
+          {panels.map((panel) => {
+            const isActive = panel.id === activeId;
+
+            return (
+              <button
+                key={panel.id}
+                type="button"
+                onMouseEnter={() => setActiveId(panel.id)}
+                onFocus={() => setActiveId(panel.id)}
+                onBlur={resetPanel}
+                onClick={() => {
+                  if (activeId !== panel.id) {
+                    setActiveId(panel.id);
+                    return;
+                  }
+
+                  document.querySelector(panel.href)?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className={[
+                  'group relative flex min-h-24 cursor-pointer items-center justify-between gap-3 overflow-hidden px-4 py-5 text-left text-white transition-[flex] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] sm:min-h-28 sm:px-6 md:min-h-32 md:px-7 md:py-6',
+                  isActive
+                    ? 'flex-[1.45]'
+                    : activeId
+                      ? 'flex-[0.78]'
+                      : 'flex-1',
+                ].join(' ')}
+              >
+                <span className="flex flex-col gap-3">
+                  <span
+                    className={[
+                      'font-mono text-[9px] tracking-[0.2em] transition-colors duration-500',
+                      isActive ? 'text-brand' : 'text-white/55',
+                    ].join(' ')}
+                  >
+                    / {panel.number}
+                  </span>
+                  <span
+                    className={[
+                      'text-[clamp(1rem,2.15vw,2.2rem)] font-semibold leading-[0.95] tracking-[-0.04em] transition-transform duration-700',
+                      isActive ? 'translate-x-0' : 'translate-x-0 md:translate-x-1',
+                    ].join(' ')}
+                  >
+                    {panel.label}
+                  </span>
+                </span>
+                <span
+                  className={[
+                    'grid h-9 w-9 shrink-0 place-items-center rounded-full border border-white/55 transition-[opacity,transform] duration-500 md:h-12 md:w-12',
+                    isActive ? 'translate-x-0 opacity-100' : 'translate-x-3 opacity-0',
+                  ].join(' ')}
+                >
+                  <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="h-4 w-4">
+                    <path d="M5 12h14M14 7l5 5-5 5" stroke="currentColor" strokeWidth="1.5" />
+                  </svg>
+                </span>
+              </button>
+            );
+          })}
         </div>
       </div>
     </section>

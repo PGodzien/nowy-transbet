@@ -1,114 +1,292 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 const navLinks = [
-  { label: 'Betoniarnie', href: '#betoniarnie' },
-  { label: 'Budowa tuneli', href: '#tunele' },
-  { label: 'Prefabrykaty', href: '#prefabrykaty' },
-  { label: 'O grupie', href: '#' },
+  { label: 'Betoniarnie', href: '#betoniarnie', number: '01' },
+  { label: 'Budowa tuneli', href: '#tunele', number: '02' },
+  { label: 'Prefabrykaty', href: '#prefabrykaty', number: '03' },
+  { label: 'Zamów beton', href: '#betoniarnie', number: '04' },
+  { label: 'Kontakt', href: '#kontakt', number: '05' },
+];
+
+const aboutLinks = [
+  { label: 'Historia firmy', href: '#historia', number: '01' },
+  { label: 'Zespół', href: '#zespol', number: '02' },
+  { label: 'Kariera', href: '#kariera', number: '03' },
+  { label: 'Aktualności', href: '#aktualnosci', number: '04' },
+];
+
+const mainMenuLinks = [
+  { label: 'O nas', href: '#o-nas', number: '01', submenu: true },
+  { label: 'Betoniarnie', href: '#betoniarnie', number: '02' },
+  { label: 'Budowa tuneli', href: '#tunele', number: '03' },
+  { label: 'Prefabrykaty', href: '#prefabrykaty', number: '04' },
+  { label: 'Realizacje', href: '#realizacje', number: '05' },
+  { label: 'Kariera', href: '#kariera', number: '06' },
+];
+
+const affiliations = [
+  { mark: 'SPBT', name: 'Stowarzyszenie Producentów Betonu Towarowego' },
+  { mark: 'PKB', name: 'Polski Klaster Budowlany' },
+  { mark: 'PUIG', name: 'Polsko-Ukraińska Izba Gospodarcza' },
 ];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [open]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 h-20 border-b border-black/10 bg-[#f3f2ed]/95 backdrop-blur-xl">
-      <div className="flex h-full items-center pl-[4vw]">
-        <Link href="/" className="flex shrink-0 items-center gap-4">
-          <span className="text-xl font-bold tracking-[-0.03em] text-black uppercase">
+    <header
+      className={[
+        'absolute inset-x-0 top-0 z-50 h-20 border-b bg-transparent transition-colors duration-300',
+        open ? 'border-black/15' : 'border-white/15',
+      ].join(' ')}
+    >
+      <div
+        aria-hidden="true"
+        className={[
+          'pointer-events-none absolute inset-y-0 left-0 w-[min(32rem,72vw)] bg-gradient-to-r from-black/70 via-black/30 to-transparent transition-opacity duration-300',
+          open ? 'opacity-0' : 'opacity-100',
+        ].join(' ')}
+      />
+      <div className="relative z-50 flex h-full items-center pl-[calc(4vw+1rem)] sm:pl-[calc(4vw+1.5rem)] md:pl-[calc(4vw+1.75rem)]">
+        <Link href="/" className="flex shrink-0 items-center gap-4" onClick={() => setOpen(false)}>
+          <span
+            className={[
+              'text-[1.35rem] font-bold tracking-[-0.035em] uppercase transition-colors duration-300 sm:text-2xl',
+              open
+                ? 'text-black'
+                : 'text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.65)]',
+            ].join(' ')}
+          >
             Transbet
           </span>
-          <span className="hidden h-5 w-px bg-black/20 sm:block" />
-          <span className="hidden text-[10px] font-semibold leading-tight tracking-[0.18em] text-zinc-500 uppercase sm:block">
+          <span className={['hidden h-5 w-px sm:block', open ? 'bg-black/20' : 'bg-white/25'].join(' ')} />
+          <span
+            className={[
+              'hidden text-[10px] font-semibold leading-tight tracking-[0.18em] uppercase transition-colors duration-300 sm:block',
+              open ? 'text-zinc-600' : 'text-zinc-400',
+            ].join(' ')}
+          >
             Industrial
             <br />
             Group
           </span>
         </Link>
 
-        <nav className="mx-auto hidden items-center gap-10 lg:flex">
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="group relative py-8 text-[13px] font-semibold tracking-[0.1em] text-zinc-700 uppercase transition-colors duration-300 hover:text-black"
-            >
-              {link.label}
-              <span className="absolute inset-x-0 bottom-0 h-0.5 origin-left scale-x-0 bg-brand transition-transform duration-300 group-hover:scale-x-100" />
-            </a>
-          ))}
-        </nav>
-
-        <a
-          href="#kontakt"
-          className="group hidden h-full items-center gap-5 border-l border-black/10 px-8 text-xs font-bold tracking-[0.16em] text-black uppercase transition-colors hover:bg-black hover:text-white md:flex"
-        >
-          Kontakt
-          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="h-5 w-5">
-            <path d="M5 12h14M14 7l5 5-5 5" stroke="currentColor" strokeWidth="1.7" />
-          </svg>
-        </a>
-
-        <div
-          aria-label="Unia Europejska"
-          role="img"
-          className="hidden h-20 w-20 shrink-0 items-center justify-center border-l border-black/15 bg-transparent text-black md:flex"
-        >
-          <svg aria-hidden="true" viewBox="0 0 80 80" className="h-14 w-14" fill="currentColor">
-            <defs>
-              <path
-                id="eu-star"
-                d="M40 7.5l.9 2.77h2.91l-2.36 1.71.9 2.77L40 13.04l-2.35 1.71.9-2.77-2.36-1.71h2.91z"
-              />
-            </defs>
-            {Array.from({ length: 12 }, (_, index) => (
-              <use key={index} href="#eu-star" transform={`rotate(${index * 30} 40 40)`} />
-            ))}
-          </svg>
-        </div>
-
-        <a
-          href="#kontakt"
-          aria-label="Przejdź do kontaktu"
-          className="group order-5 mr-[4vw] flex h-20 w-20 shrink-0 items-center justify-center bg-brand text-black transition-colors duration-300 hover:bg-brand-hover"
-        >
-          <svg
-            aria-hidden="true"
-            viewBox="0 0 24 24"
-            fill="none"
-            className="h-6 w-6 transition-transform duration-300 group-hover:translate-x-1"
+        <div className="ml-auto flex h-full items-center">
+          <button
+            type="button"
+            onClick={() =>
+              setOpen((current) => {
+                if (current) setAboutOpen(false);
+                return !current;
+              })
+            }
+            className="mr-[4vw] flex h-20 w-20 shrink-0 cursor-pointer flex-col items-center justify-center gap-2 bg-brand transition-colors duration-300 hover:bg-brand-hover"
+            aria-label={open ? 'Zamknij menu' : 'Otwórz menu'}
+            aria-expanded={open}
           >
-            <path d="M5 12h14M14 7l5 5-5 5" stroke="currentColor" strokeWidth="1.8" />
-          </svg>
-        </a>
-
-        <button
-          onClick={() => setOpen(!open)}
-          className="order-4 ml-auto flex h-20 w-16 flex-col items-center justify-center gap-1.5 lg:hidden"
-          aria-label="Przełącz menu"
-        >
-          <span className={`h-0.5 w-7 bg-black transition-transform ${open ? 'translate-y-2 rotate-45' : ''}`} />
-          <span className={`h-0.5 w-7 bg-black transition-opacity ${open ? 'opacity-0' : ''}`} />
-          <span className={`h-0.5 w-7 bg-black transition-transform ${open ? '-translate-y-2 -rotate-45' : ''}`} />
-        </button>
+            <span
+              className={[
+                'h-0.5 w-8 transition-all duration-300',
+                open ? 'translate-y-[5px] rotate-45 bg-black' : 'bg-black',
+              ].join(' ')}
+            />
+            <span
+              className={[
+                'h-0.5 w-8 transition-all duration-300',
+                open ? '-translate-y-[5px] -rotate-45 bg-black' : 'bg-black',
+              ].join(' ')}
+            />
+          </button>
+        </div>
       </div>
 
-      {open && (
-        <nav className="border-t border-black/10 bg-[#f3f2ed] px-6 py-5 lg:hidden">
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="block border-b border-black/10 py-4 text-lg font-bold tracking-wide text-black uppercase"
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
-      )}
+      <div
+        className={[
+          'fixed inset-0 z-40 overflow-y-auto bg-[#f2f1ec] px-[4vw] pt-20 text-black transition-[opacity,visibility] duration-500',
+          open ? 'visible opacity-100' : 'invisible opacity-0',
+        ].join(' ')}
+        aria-hidden={!open}
+      >
+        <div className="flex min-h-full flex-col border-x border-black/10">
+          <div className="flex min-h-11 items-center justify-between border-b border-black/10 px-5 sm:px-8">
+            <span className="font-mono text-[9px] tracking-[0.18em] text-black/45 uppercase">
+              Menu
+            </span>
+            <span className="font-mono text-[8px] tracking-[0.16em] text-black/40 uppercase">
+              Transbet / 1993—2026
+            </span>
+          </div>
+
+          <nav className="relative z-20 grid flex-1 border-b border-black/10 md:grid-cols-2 lg:grid-cols-3">
+            {mainMenuLinks.map((link) =>
+              link.submenu ? (
+                <div
+                  key={link.label}
+                  className="relative z-20 flex min-h-28 flex-col border-r border-b border-black/10 md:block md:min-h-0"
+                  onMouseEnter={() => {
+                    if (window.matchMedia('(hover: hover)').matches) setAboutOpen(true);
+                  }}
+                  onMouseLeave={() => {
+                    if (window.matchMedia('(hover: hover)').matches) setAboutOpen(false);
+                  }}
+                >
+                  <button
+                    type="button"
+                    onClick={() => setAboutOpen(true)}
+                    tabIndex={open ? 0 : -1}
+                    aria-expanded={aboutOpen}
+                    className="group flex min-h-28 w-full cursor-pointer items-center gap-5 px-5 text-left transition-colors hover:bg-black hover:text-white sm:px-8 md:h-full md:min-h-0"
+                  >
+                    <span className="font-mono text-[8px] tracking-[0.18em] opacity-40">
+                      / {link.number}
+                    </span>
+                    <span className="text-[clamp(1.6rem,2.75vw,3.25rem)] font-semibold leading-none tracking-[-0.05em]">
+                      {link.label}
+                    </span>
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="ml-auto h-6 w-6 transition-transform duration-300 group-hover:translate-x-1.5">
+                      <path d="M5 12h14M14 7l5 5-5 5" stroke="currentColor" strokeWidth="1.4" />
+                    </svg>
+                  </button>
+
+                  <div
+                    className={[
+                      'relative grid w-full grid-cols-2 grid-rows-2 overflow-hidden border-l border-black/10 bg-[#f2f1ec] transition-[max-height,opacity,transform,visibility] duration-300 md:absolute md:top-0 md:left-full md:h-full md:max-h-none',
+                      aboutOpen
+                        ? 'visible max-h-40 translate-y-0 opacity-100 md:translate-x-0'
+                        : 'invisible max-h-0 -translate-y-2 opacity-0 md:max-h-none md:translate-y-0 md:-translate-x-3',
+                    ].join(' ')}
+                  >
+                    {aboutLinks.map((aboutLink, index) => (
+                      <a
+                        key={aboutLink.label}
+                        href={aboutLink.href}
+                        onClick={() => {
+                          setAboutOpen(false);
+                          setOpen(false);
+                        }}
+                        tabIndex={open && aboutOpen ? 0 : -1}
+                        className={[
+                          'group flex min-h-16 items-center gap-3 px-4 transition-colors hover:bg-brand md:min-h-0',
+                          index % 2 === 0 ? 'border-r border-black/10' : '',
+                          index < 2 ? 'border-b border-black/10' : '',
+                        ].join(' ')}
+                      >
+                        <span className="font-mono text-[8px] tracking-[0.16em] text-black/40">
+                          / {aboutLink.number}
+                        </span>
+                        <span className="text-sm font-semibold tracking-[-0.025em]">
+                          {aboutLink.label}
+                        </span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  tabIndex={open ? 0 : -1}
+                  className="group flex min-h-28 items-center gap-5 border-r border-b border-black/10 px-5 transition-colors hover:bg-black hover:text-white sm:px-8 md:min-h-0"
+                >
+                  <span className="font-mono text-[8px] tracking-[0.18em] opacity-40">
+                    / {link.number}
+                  </span>
+                  <span className="text-[clamp(1.6rem,2.75vw,3.25rem)] font-semibold leading-none tracking-[-0.05em]">
+                    {link.label}
+                  </span>
+                  <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="ml-auto h-6 w-6 opacity-0 transition-[opacity,transform] duration-300 group-hover:translate-x-1.5 group-hover:opacity-100">
+                    <path d="M5 12h14M14 7l5 5-5 5" stroke="currentColor" strokeWidth="1.4" />
+                  </svg>
+                </a>
+              ),
+            )}
+          </nav>
+
+          <div className="grid border-b border-black/10 md:grid-cols-3">
+            {navLinks.slice(3).map((link, index) => (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                tabIndex={open ? 0 : -1}
+                className={[
+                  'group flex min-h-24 items-center justify-between border-b border-black/10 px-5 transition-colors md:min-h-28 md:border-r md:border-b-0 md:px-6',
+                  index === 0 ? 'bg-brand hover:bg-brand-hover' : 'hover:bg-black hover:text-white',
+                ].join(' ')}
+              >
+                <span className="text-xl font-semibold tracking-[-0.04em] md:text-2xl">
+                  {link.label}
+                </span>
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="h-6 w-6 transition-transform duration-300 group-hover:translate-x-1.5">
+                  <path d="M4 12h16M14 6l6 6-6 6" stroke="currentColor" strokeWidth="1.4" />
+                </svg>
+              </a>
+            ))}
+
+            <section className="grid min-h-28 grid-rows-2 bg-black text-white">
+              <a
+                href="https://transbet.com.pl/wdrozenie-nowej-technologii-wytwarzania-betonow-przy-pomocy-mobilnego-i-modulowego-wezla-betoniarskiego"
+                target="_blank"
+                rel="noreferrer"
+                tabIndex={open ? 0 : -1}
+                className="group flex cursor-pointer items-center gap-3 border-b border-white/10 px-4 py-2 transition-colors hover:bg-zinc-950"
+              >
+                <span className="grid h-10 w-10 shrink-0 place-items-center border border-white/20 transition-colors group-hover:border-brand">
+                  <svg aria-hidden="true" viewBox="0 0 64 64" className="h-7 w-7 text-brand">
+                    {Array.from({ length: 12 }).map((_, index) => {
+                      const angle = (index * Math.PI * 2) / 12 - Math.PI / 2;
+                      const cx = 32 + Math.cos(angle) * 18;
+                      const cy = 32 + Math.sin(angle) * 18;
+
+                      return <circle key={index} cx={cx} cy={cy} r="2" fill="currentColor" />;
+                    })}
+                  </svg>
+                </span>
+                <span>
+                  <span className="block text-xs font-semibold tracking-[-0.03em]">Fundusze Europejskie</span>
+                  <span className="mt-0.5 block text-[9px] text-zinc-500">Podkarpacie 2021–2027</span>
+                </span>
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="ml-auto h-4 w-4 text-zinc-600 transition-[color,transform] duration-300 group-hover:translate-x-1 group-hover:text-brand">
+                  <path d="M5 12h14M14 7l5 5-5 5" stroke="currentColor" strokeWidth="1.5" />
+                </svg>
+              </a>
+
+              <div className="flex items-center gap-2 px-4 py-2">
+                <span className="mr-auto hidden font-mono text-[8px] tracking-[0.16em] text-zinc-600 uppercase xl:block">
+                  Członkostwa
+                </span>
+                {affiliations.map((affiliation) => (
+                  <span
+                    key={affiliation.mark}
+                    title={affiliation.name}
+                    className="grid h-8 min-w-10 place-items-center border border-white/20 px-2 font-mono text-[8px] font-semibold tracking-[0.1em] text-zinc-300 transition-colors hover:border-brand hover:text-brand"
+                  >
+                    {affiliation.mark}
+                  </span>
+                ))}
+              </div>
+            </section>
+          </div>
+
+          <div className="flex items-center justify-between border-t border-black/10 px-5 py-3 font-mono text-[8px] tracking-[0.16em] text-black/40 uppercase sm:px-8">
+            <span>Transbet Industrial Group</span>
+            <span>© 2026</span>
+          </div>
+        </div>
+      </div>
     </header>
   );
 }

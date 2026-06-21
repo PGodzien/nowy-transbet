@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Urbanist } from "next/font/google";
+import { Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import { GridLines } from "@/components/PageGrid";
 import "./globals.css";
 
-const urbanist = Urbanist({
-  variable: "--font-urbanist",
+const jakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-jakarta-sans",
   subsets: ["latin"],
   display: "swap",
 });
@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html
       lang="pl"
-      className={`${urbanist.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${jakartaSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <GridLines />
