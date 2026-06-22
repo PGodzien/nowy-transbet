@@ -192,7 +192,7 @@ export default function Hero() {
                 <span className="flex flex-col gap-3">
                   <span
                     className={[
-                      'font-mono text-[9px] tracking-[0.2em] transition-colors duration-500',
+                      'font-mono text-[9px] font-medium tracking-[0.2em] transition-colors duration-500',
                       isActive ? 'text-brand' : 'text-white/55',
                     ].join(' ')}
                   >
@@ -200,7 +200,7 @@ export default function Hero() {
                   </span>
                   <span
                     className={[
-                      'text-[clamp(1rem,2.1vw,2.1rem)] font-medium leading-[0.96] tracking-[-0.03em] transition-transform duration-700',
+                      'text-[clamp(1rem,2.1vw,2.1rem)] font-[550] leading-[0.96] tracking-[-0.03em] transition-transform duration-700',
                       isActive ? 'translate-x-0' : 'translate-x-0 md:translate-x-1',
                     ].join(' ')}
                   >
