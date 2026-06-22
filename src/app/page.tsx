@@ -3,6 +3,7 @@ import Hero from '@/components/Hero';
 import TrustedBy from '@/components/TrustedBy';
 import CatalogSection from '@/components/CatalogSection';
 import OfferSection from '@/components/OfferSection';
+import NewsSection from '@/components/NewsSection';
 import Footer from '@/components/Footer';
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
       <TrustedBy />
       <CatalogSection />
       <OfferSection />
+      <NewsSection />
       <Footer />
     </main>
   );

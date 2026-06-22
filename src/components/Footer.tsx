@@ -26,7 +26,7 @@ export default function Footer() {
         <div className="flex items-center justify-center">
           <Reveal direction="left">
             <span className="font-mono text-[9px] tracking-[0.2em] text-white/30 [writing-mode:vertical-rl]">
-              05 / KONTAKT
+              06 / KONTAKT
             </span>
           </Reveal>
         </div>
