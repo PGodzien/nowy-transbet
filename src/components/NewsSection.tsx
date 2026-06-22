@@ -54,7 +54,7 @@ export default function NewsSection() {
                   </p>
                 </Reveal>
                 <Reveal delay={90}>
-                  <h2 className="max-w-[12ch] text-[clamp(2.4rem,4.75vw,5.7rem)] font-medium leading-[0.88] tracking-[-0.065em]">
+                  <h2 className="max-w-[12ch] text-[clamp(2.35rem,4.6vw,5.45rem)] font-medium leading-[0.9] tracking-[-0.05em]">
                     To, nad czym pracujemy teraz<span className="text-brand">.</span>
                   </h2>
                 </Reveal>
@@ -69,7 +69,7 @@ export default function NewsSection() {
                 <span className="font-mono text-[9px] tracking-[0.18em] text-black/35 uppercase">
                   Archiwum
                 </span>
-                <span className="flex items-center justify-between text-lg font-medium tracking-[-0.035em]">
+                <span className="flex items-center justify-between text-lg font-medium tracking-[-0.02em]">
                   Wszystkie aktualności
                   <Arrow />
                 </span>
@@ -94,7 +94,7 @@ export default function NewsSection() {
                   </span>
                   <div className="mt-5 flex items-end justify-between gap-8">
                     <div>
-                      <h3 className="max-w-[17ch] text-[clamp(1.8rem,3.2vw,3.8rem)] font-medium leading-[0.93] tracking-[-0.055em]">
+                      <h3 className="max-w-[17ch] text-[clamp(1.8rem,3.05vw,3.6rem)] font-medium leading-[0.95] tracking-[-0.04em]">
                         {featured.title}
                       </h3>
                       <p className="mt-4 max-w-xl text-sm leading-snug text-white/60">
@@ -131,7 +131,7 @@ export default function NewsSection() {
                         / 0{index + 2} {story.category}
                       </span>
                       <div>
-                        <h3 className="text-[clamp(1.1rem,1.65vw,1.75rem)] font-medium leading-[0.98] tracking-[-0.045em]">
+                        <h3 className="text-[clamp(1.1rem,1.6vw,1.7rem)] font-medium leading-[1] tracking-[-0.03em]">
                           {story.title}
                         </h3>
                         <p className="mt-3 line-clamp-2 text-xs leading-snug text-black/45">

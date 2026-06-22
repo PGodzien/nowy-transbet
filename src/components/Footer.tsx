@@ -36,7 +36,7 @@ export default function Footer() {
             <Reveal direction="none" className="w-full">
               <div className="flex w-full items-center justify-between gap-6">
                 <div className="flex items-center gap-4">
-                  <span className="text-xl font-bold tracking-[-0.04em] uppercase sm:text-2xl">Transbet</span>
+                  <span className="text-xl font-bold tracking-[-0.025em] uppercase sm:text-2xl">Transbet</span>
                   <span className="h-5 w-px bg-white/20" />
                   <span className="font-mono text-[8px] leading-relaxed tracking-[0.18em] text-white/40 uppercase">
                     Industrial<br />Group
@@ -58,7 +58,7 @@ export default function Footer() {
                   </p>
                 </Reveal>
                 <Reveal delay={90}>
-                  <h2 className="max-w-[12ch] text-[clamp(2.7rem,5.2vw,6.1rem)] font-medium leading-[0.87] tracking-[-0.065em]">
+                  <h2 className="max-w-[12ch] text-[clamp(2.5rem,4.75vw,5.7rem)] font-medium leading-[0.9] tracking-[-0.052em]">
                     Zbudujmy coś trwałego<span className="text-brand">.</span>
                   </h2>
                 </Reveal>
@@ -74,7 +74,7 @@ export default function Footer() {
                   Bezpośredni kontakt
                 </span>
                 <span>
-                  <span className="block text-[clamp(1.65rem,2.8vw,3.2rem)] font-medium leading-none tracking-[-0.055em]">
+                  <span className="block text-[clamp(1.6rem,2.65vw,3rem)] font-medium leading-none tracking-[-0.04em]">
                     +48 888 839 617
                   </span>
                   <span className="mt-5 flex items-center justify-between border-t border-black/20 pt-5 text-sm font-semibold">

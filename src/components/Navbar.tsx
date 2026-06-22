@@ -77,7 +77,7 @@ export default function Navbar() {
         <Link href="/" className="nav-enter-logo flex shrink-0 items-center gap-4" onClick={() => setOpen(false)}>
           <span
             className={[
-              'text-[1.35rem] font-bold tracking-[-0.035em] uppercase transition-colors duration-300 sm:text-2xl',
+              'text-[1.35rem] font-bold tracking-[-0.02em] uppercase transition-colors duration-300 sm:text-2xl',
               open
                 ? 'text-black'
                 : 'text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.65)]',
@@ -171,7 +171,7 @@ export default function Navbar() {
                     <span className="font-mono text-[8px] tracking-[0.18em] opacity-40">
                       / {link.number}
                     </span>
-                    <span className="text-[clamp(1.6rem,2.75vw,3.25rem)] font-medium leading-none tracking-[-0.05em]">
+                    <span className="text-[clamp(1.55rem,2.65vw,3.1rem)] font-medium leading-none tracking-[-0.035em]">
                       {link.label}
                     </span>
                     <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="ml-auto h-6 w-6 transition-transform duration-300 group-hover:translate-x-1.5">
@@ -205,7 +205,7 @@ export default function Navbar() {
                         <span className="font-mono text-[8px] tracking-[0.16em] text-black/40">
                           / {aboutLink.number}
                         </span>
-                        <span className="text-sm font-semibold tracking-[-0.025em]">
+                        <span className="text-sm font-semibold tracking-[-0.015em]">
                           {aboutLink.label}
                         </span>
                       </a>
@@ -227,7 +227,7 @@ export default function Navbar() {
                   <span className="font-mono text-[8px] tracking-[0.18em] opacity-40">
                     / {link.number}
                   </span>
-                  <span className="text-[clamp(1.6rem,2.75vw,3.25rem)] font-medium leading-none tracking-[-0.05em]">
+                  <span className="text-[clamp(1.55rem,2.65vw,3.1rem)] font-medium leading-none tracking-[-0.035em]">
                     {link.label}
                   </span>
                   <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="ml-auto h-6 w-6 opacity-0 transition-[opacity,transform] duration-300 group-hover:translate-x-1.5 group-hover:opacity-100">
@@ -252,7 +252,7 @@ export default function Navbar() {
                 ].join(' ')}
                 style={{ animationDelay: `${520 + index * 80}ms` }}
               >
-                <span className="text-xl font-semibold tracking-[-0.04em] md:text-2xl">
+                <span className="text-xl font-semibold tracking-[-0.025em] md:text-2xl">
                   {link.label}
                 </span>
                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="h-6 w-6 transition-transform duration-300 group-hover:translate-x-1.5">
@@ -283,7 +283,7 @@ export default function Navbar() {
                   </svg>
                 </span>
                 <span>
-                  <span className="block text-sm font-semibold tracking-[-0.03em]">Fundusze Europejskie</span>
+                  <span className="block text-sm font-semibold tracking-[-0.018em]">Fundusze Europejskie</span>
                   <span className="mt-1 block text-[10px] text-zinc-500">Podkarpacie 2021–2027</span>
                 </span>
                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="ml-auto h-4 w-4 text-zinc-600 transition-[color,transform] duration-300 group-hover:translate-x-1 group-hover:text-brand">

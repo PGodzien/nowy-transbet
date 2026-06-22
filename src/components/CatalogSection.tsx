@@ -20,7 +20,7 @@ function CatalogCover({ className = '', back = false }: { className?: string; ba
         <div className="absolute inset-0 bg-brand/55 mix-blend-multiply" />
       </div>
       <div className="absolute top-[6%] left-[13%]">
-        <span className="block text-[clamp(1.15rem,2vw,2rem)] font-bold tracking-[-0.055em] text-brand uppercase">
+        <span className="block text-[clamp(1.15rem,2vw,2rem)] font-bold tracking-[-0.04em] text-brand uppercase">
           Transbet
         </span>
         <span className="mt-1 block font-mono text-[7px] tracking-[0.2em] text-black/45 uppercase">
@@ -29,7 +29,7 @@ function CatalogCover({ className = '', back = false }: { className?: string; ba
       </div>
       <div className="absolute right-[8%] bottom-[7%] left-[13%]">
         <span className="mb-3 block h-1 w-10 bg-brand" />
-        <p className="text-[clamp(1.05rem,2vw,1.9rem)] font-semibold leading-[0.9] tracking-[-0.055em]">
+        <p className="text-[clamp(1.05rem,2vw,1.9rem)] font-semibold leading-[0.92] tracking-[-0.04em]">
           Katalog
           <br />
           produktów
@@ -88,7 +88,7 @@ export default function CatalogSection() {
 
               <div>
                 <Reveal delay={80}>
-                  <h2 className="max-w-[8ch] text-[clamp(2.4rem,4.75vw,5.7rem)] font-medium leading-[0.84] tracking-[-0.065em]">
+                  <h2 className="max-w-[8ch] text-[clamp(2.35rem,4.6vw,5.45rem)] font-medium leading-[0.88] tracking-[-0.05em]">
                     Katalog produktów<span className="text-brand">.</span>
                   </h2>
                 </Reveal>
@@ -106,7 +106,7 @@ export default function CatalogSection() {
                       <span className="block font-mono text-[8px] tracking-[0.18em] text-black/45 uppercase">
                         Pełna oferta
                       </span>
-                      <span className="mt-1 block text-xl font-semibold tracking-[-0.04em]">
+                      <span className="mt-1 block text-xl font-semibold tracking-[-0.025em]">
                         Pobierz katalog
                       </span>
                     </span>

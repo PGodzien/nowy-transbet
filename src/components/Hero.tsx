@@ -122,7 +122,7 @@ export default function Hero() {
                     : 'pointer-events-none translate-y-3 opacity-0',
                 ].join(' ')}
               >
-                <p className="max-w-[15ch] text-[clamp(2.35rem,5.15vw,6.1rem)] font-medium leading-[0.89] tracking-[-0.06em] text-white [text-shadow:0_3px_32px_rgba(0,0,0,0.38)]">
+                <p className="max-w-[15ch] text-[clamp(2.4rem,5.1vw,6rem)] font-medium leading-[0.9] tracking-[-0.052em] text-white [text-shadow:0_3px_32px_rgba(0,0,0,0.38)]">
                   {slogan.text}
                   <span className="text-brand">.</span>
                 </p>
@@ -200,7 +200,7 @@ export default function Hero() {
                   </span>
                   <span
                     className={[
-                      'text-[clamp(1rem,2.15vw,2.2rem)] font-medium leading-[0.95] tracking-[-0.04em] transition-transform duration-700',
+                      'text-[clamp(1rem,2.1vw,2.1rem)] font-medium leading-[0.96] tracking-[-0.03em] transition-transform duration-700',
                       isActive ? 'translate-x-0' : 'translate-x-0 md:translate-x-1',
                     ].join(' ')}
                   >

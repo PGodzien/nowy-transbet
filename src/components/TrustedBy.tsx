@@ -33,7 +33,7 @@ export default function TrustedBy() {
                   </p>
                 </Reveal>
                 <Reveal delay={90}>
-                  <h2 className="max-w-[13ch] text-[clamp(2.4rem,4.75vw,5.7rem)] font-medium leading-[0.88] tracking-[-0.065em] text-black">
+                  <h2 className="max-w-[13ch] text-[clamp(2.35rem,4.6vw,5.45rem)] font-medium leading-[0.9] tracking-[-0.05em] text-black">
                     Zaufanie ma konkretny wymiar<span className="text-brand">.</span>
                   </h2>
                 </Reveal>
@@ -81,7 +81,7 @@ export default function TrustedBy() {
                   / Wspólne projekty
                 </span>
                 <span className="flex items-end justify-between gap-4">
-                  <span className="text-xl font-semibold leading-none tracking-[-0.045em] sm:text-2xl">
+                  <span className="text-xl font-semibold leading-none tracking-[-0.03em] sm:text-2xl">
                     Zobacz, jak pracujemy
                   </span>
                   <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="h-7 w-7 shrink-0 transition-transform duration-300 group-hover:translate-x-1.5">
