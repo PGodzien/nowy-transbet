@@ -5,20 +5,20 @@ const stories = [
   {
     category: 'Infrastruktura',
     title: 'Tunele kolejowe LK622 Szczyrzyc–Tymbark',
-    description: 'Produkcja klatek zbrojeniowych dla jednej z najważniejszych inwestycji kolejowych w regionie.',
-    image: '/tunele.jpg',
+    description: 'Transbet TCS odpowiada za kompleksową produkcję klatek zbrojeniowych do obudowy tuneli drążonych.',
+    image: '/news-02.jpg',
   },
   {
     category: 'Firma',
     title: 'Transbet dołącza do Polskiego Klastra Budowlanego',
-    description: 'Współpraca, wymiana wiedzy i nowe możliwości dla całej grupy.',
-    image: '/background.jpg',
+    description: 'Transbet Betoniarnie Grochowicz został członkiem Polskiego Klastra Budowlanego.',
+    image: '/news-01.jpg',
   },
   {
-    category: 'Technologia',
-    title: 'Nowe możliwości produkcji prefabrykatów',
-    description: 'Rozwijamy zaplecze dla bardziej wymagających realizacji.',
-    image: '/prefabrykaty.jpg',
+    category: 'Wydarzenia',
+    title: 'Transbet na WTC 2026 w Montrealu',
+    description: 'Bierzemy udział w jednym z najważniejszych wydarzeń dla branży tunelowej.',
+    image: '/news-03.jpg',
   },
 ] as const;
 
