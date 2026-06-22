@@ -54,7 +54,7 @@ export default function NewsSection() {
                   </p>
                 </Reveal>
                 <Reveal delay={90}>
-                  <h2 className="max-w-[12ch] text-[clamp(2.35rem,4.6vw,5.45rem)] font-medium leading-[0.9] tracking-[-0.05em]">
+                  <h2 className="max-w-[12ch] text-[clamp(2.2rem,4.05vw,4.85rem)] font-medium leading-[0.94] tracking-[-0.042em]">
                     To, nad czym pracujemy teraz<span className="text-brand">.</span>
                   </h2>
                 </Reveal>
@@ -94,7 +94,7 @@ export default function NewsSection() {
                   </span>
                   <div className="mt-5 flex items-end justify-between gap-8">
                     <div>
-                      <h3 className="max-w-[17ch] text-[clamp(1.8rem,3.05vw,3.6rem)] font-medium leading-[0.95] tracking-[-0.04em]">
+                      <h3 className="max-w-[18ch] text-[clamp(1.7rem,2.75vw,3.25rem)] font-medium leading-[0.98] tracking-[-0.034em]">
                         {featured.title}
                       </h3>
                       <p className="mt-4 max-w-xl text-sm leading-snug text-white/60">

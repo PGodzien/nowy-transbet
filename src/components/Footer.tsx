@@ -58,7 +58,7 @@ export default function Footer() {
                   </p>
                 </Reveal>
                 <Reveal delay={90}>
-                  <h2 className="max-w-[12ch] text-[clamp(2.5rem,4.75vw,5.7rem)] font-medium leading-[0.9] tracking-[-0.052em]">
+                  <h2 className="max-w-[12ch] text-[clamp(2.3rem,4.2vw,5rem)] font-medium leading-[0.94] tracking-[-0.044em]">
                     Zbudujmy coś trwałego<span className="text-brand">.</span>
                   </h2>
                 </Reveal>

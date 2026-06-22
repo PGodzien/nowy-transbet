@@ -88,7 +88,7 @@ export default function CatalogSection() {
 
               <div>
                 <Reveal delay={80}>
-                  <h2 className="max-w-[8ch] text-[clamp(2.35rem,4.6vw,5.45rem)] font-medium leading-[0.88] tracking-[-0.05em]">
+                  <h2 className="max-w-[8ch] text-[clamp(2.2rem,4.05vw,4.85rem)] font-medium leading-[0.92] tracking-[-0.042em]">
                     Katalog produktów<span className="text-brand">.</span>
                   </h2>
                 </Reveal>

@@ -110,7 +110,7 @@ export default function OfferSection() {
                   </p>
                 </Reveal>
                 <Reveal delay={90}>
-                  <h2 className="max-w-[13ch] text-[clamp(2.35rem,4.6vw,5.45rem)] font-medium leading-[0.9] tracking-[-0.05em]">
+                  <h2 className="max-w-[13ch] text-[clamp(2.2rem,4.05vw,4.85rem)] font-medium leading-[0.94] tracking-[-0.042em]">
                     Od mieszanki po gotowy element<span className="text-brand">.</span>
                   </h2>
                 </Reveal>
