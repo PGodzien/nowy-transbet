@@ -122,7 +122,7 @@ export default function Hero() {
                     : 'pointer-events-none translate-y-3 opacity-0',
                 ].join(' ')}
               >
-                <p className="max-w-[15ch] text-[clamp(2.3rem,4.55vw,5.35rem)] font-medium leading-[0.94] tracking-[-0.044em] text-white [text-shadow:0_3px_32px_rgba(0,0,0,0.38)]">
+                <p className="max-w-[15ch] text-[clamp(2.3rem,4.55vw,5.35rem)] font-medium leading-[1.02] tracking-[-0.044em] text-white [text-shadow:0_3px_32px_rgba(0,0,0,0.38)]">
                   {slogan.text}
                   <span className="text-brand">.</span>
                 </p>
