@@ -35,6 +35,7 @@ export default function NewsSection() {
 
   return (
     <section id="aktualnosci" className="viewport-section relative border-t border-black/[0.08] bg-white">
+      <span id="about4" className="pointer-events-none absolute inset-x-0 top-0 h-px" aria-hidden="true" />
       <div className="grid min-h-[100svh] grid-cols-[4%_repeat(3,minmax(0,1fr))_4%] lg:h-[100svh]">
         <div className="flex items-center justify-center">
           <Reveal direction="left">

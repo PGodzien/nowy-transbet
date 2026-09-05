@@ -47,6 +47,7 @@ function CatalogCover({ className = '', back = false }: { className?: string; ba
 export default function CatalogSection() {
   return (
     <section id="katalog" className="viewport-section relative border-t border-black/[0.08] bg-white">
+      <span id="about2" className="pointer-events-none absolute inset-x-0 top-0 h-px" aria-hidden="true" />
       <div className="grid min-h-[100svh] grid-cols-[4%_repeat(3,minmax(0,1fr))_4%]">
         <div className="flex items-center justify-center">
           <Reveal direction="left">

@@ -8,28 +8,28 @@ const panels = [
     number: '01',
     label: 'To jest nr 1',
     color: '#ff4d00',
-    href: '#',
+    targetId: 'about1',
   },
   {
     id: 'nr-2',
     number: '02',
     label: 'To jest nr 2',
     color: '#111111',
-    href: '#',
+    targetId: 'about2',
   },
   {
     id: 'nr-3',
     number: '03',
     label: 'To jest nr 3',
     color: '#6b6b6b',
-    href: '#',
+    targetId: 'about3',
   },
   {
     id: 'nr-4',
     number: '04',
     label: 'To jest nr 4',
     color: '#f2f2f2',
-    href: '#',
+    targetId: 'about4',
   },
 ] as const;
 
@@ -37,16 +37,10 @@ const overviewImage = '/background.jpg';
 
 type PanelId = (typeof panels)[number]['id'];
 type Panel = (typeof panels)[number];
-type WorldRect = {
-  top: number;
-  left: number;
-  width: number;
-  height: number;
-};
 type WorldState = {
   panel: Panel;
-  rect: WorldRect;
   expanded: boolean;
+  revealingTarget: boolean;
 };
 
 const slogans: {
@@ -76,14 +70,28 @@ const slogans: {
 ];
 
 export default function Hero() {
-  const stageRef = useRef<HTMLDivElement | null>(null);
+  const transitionTimersRef = useRef<number[]>([]);
+  const transitionFrameRef = useRef<number | null>(null);
   const [activeId, setActiveId] = useState<PanelId | null>(null);
   const [world, setWorld] = useState<WorldState | null>(null);
 
   const resetPanel = () => setActiveId(null);
+  const isTransitioning = world !== null;
+
+  const clearTransitionSchedule = () => {
+    transitionTimersRef.current.forEach((timer) => window.clearTimeout(timer));
+    transitionTimersRef.current = [];
+
+    if (transitionFrameRef.current !== null) {
+      window.cancelAnimationFrame(transitionFrameRef.current);
+      transitionFrameRef.current = null;
+    }
+  };
+
+  useEffect(() => clearTransitionSchedule, []);
 
   useEffect(() => {
-    if (!world?.expanded) return;
+    if (!isTransitioning) return;
 
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
@@ -91,45 +99,62 @@ export default function Hero() {
     return () => {
       document.body.style.overflow = previousOverflow;
     };
-  }, [world?.expanded]);
+  }, [isTransitioning]);
 
-  const openWorld = (panel: Panel, index: number) => {
-    const stage = stageRef.current;
-    const bounds = stage?.getBoundingClientRect();
-    const columnWidth = bounds ? bounds.width / panels.length : window.innerWidth / panels.length;
-    const rect = bounds
-      ? {
-          top: bounds.top,
-          left: bounds.left + index * columnWidth,
-          width: columnWidth,
-          height: bounds.height,
-        }
-      : {
-          top: 0,
-          left: index * columnWidth,
-          width: columnWidth,
-          height: window.innerHeight,
-        };
+  const scrollToPanelTarget = (panel: Panel) => {
+    const target = document.getElementById(panel.targetId);
+    if (!target) return;
 
-    setActiveId(panel.id);
-    setWorld({ panel, rect, expanded: false });
+    const root = document.documentElement;
+    const previousScrollBehavior = root.style.scrollBehavior;
+    root.style.scrollBehavior = 'auto';
+    target.scrollIntoView({ block: 'start' });
 
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        setWorld((current) =>
-          current?.panel.id === panel.id ? { ...current, expanded: true } : current,
-        );
-      });
+    window.requestAnimationFrame(() => {
+      root.style.scrollBehavior = previousScrollBehavior;
     });
   };
 
-  const closeWorld = () => {
-    setWorld((current) => (current ? { ...current, expanded: false } : current));
+  const openWorld = (panel: Panel) => {
+    if (world) return;
 
-    window.setTimeout(() => {
-      setWorld(null);
-      setActiveId(null);
-    }, 720);
+    clearTransitionSchedule();
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const expansionDuration = reduceMotion ? 0 : 1250;
+    const revealDuration = reduceMotion ? 0 : 520;
+
+    setActiveId(panel.id);
+    setWorld({
+      panel,
+      expanded: false,
+      revealingTarget: false,
+    });
+
+    transitionFrameRef.current = window.requestAnimationFrame(() => {
+      setWorld((current) =>
+        current?.panel.id === panel.id ? { ...current, expanded: true } : current,
+      );
+      transitionFrameRef.current = null;
+    });
+
+    const scrollTimer = window.setTimeout(() => {
+      scrollToPanelTarget(panel);
+      setWorld((current) =>
+        current?.panel.id === panel.id
+          ? { ...current, revealingTarget: true }
+          : current,
+      );
+
+      const cleanupTimer = window.setTimeout(() => {
+        setWorld(null);
+        setActiveId(null);
+        transitionTimersRef.current = [];
+      }, revealDuration);
+
+      transitionTimersRef.current.push(cleanupTimer);
+    }, expansionDuration);
+
+    transitionTimersRef.current.push(scrollTimer);
   };
 
   return (
@@ -179,7 +204,7 @@ export default function Hero() {
         />
       </div>
 
-      <div ref={stageRef} className="absolute inset-y-0 inset-x-[4vw] z-10">
+      <div className="absolute inset-y-0 inset-x-[4vw] z-10">
         <div className="hero-enter-title pointer-events-none absolute top-[39%] left-4 z-20 h-56 w-[min(50rem,84vw)] -translate-y-1/2 sm:top-[41%] sm:left-6 md:top-[43%] md:left-7 md:h-72">
           {slogans.map((slogan) => {
             const isVisible = slogan.id === activeId;
@@ -250,7 +275,7 @@ export default function Hero() {
                 onMouseEnter={() => setActiveId(panel.id)}
                 onFocus={() => setActiveId(panel.id)}
                 onBlur={resetPanel}
-                onClick={() => openWorld(panel, index)}
+                onClick={() => openWorld(panel)}
                 className={[
                   'hero-enter-control group relative flex min-h-24 cursor-pointer items-center justify-between gap-3 overflow-hidden px-4 py-5 text-left text-white transition-[flex] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] sm:min-h-28 sm:px-6 md:min-h-32 md:px-7 md:py-6',
                   isActive
@@ -298,66 +323,60 @@ export default function Hero() {
       {world && (
         <div
           className={[
-            'fixed z-[90] overflow-hidden transition-[top,left,width,height,border-radius,box-shadow] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]',
-            world.panel.id === 'nr-4' ? 'text-black' : 'text-white',
+            'fixed inset-0 z-[90] overflow-hidden bg-black transition-opacity duration-500 ease-out',
+            world.revealingTarget ? 'pointer-events-none opacity-0' : 'opacity-100',
           ].join(' ')}
-          style={{
-            top: world.expanded ? 0 : world.rect.top,
-            left: world.expanded ? 0 : world.rect.left,
-            width: world.expanded ? '100vw' : world.rect.width,
-            height: world.expanded ? '100svh' : world.rect.height,
-            borderRadius: world.expanded ? 0 : 2,
-            background:
-              `radial-gradient(ellipse 70% 70% at 18% 42%, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0) 70%), ${world.panel.color}`,
-            boxShadow: world.expanded
-              ? '0 0 0 rgba(0,0,0,0)'
-              : '0 26px 80px rgba(0,0,0,0.48)',
-          }}
+          aria-hidden="true"
         >
           <div
             className={[
-              'absolute inset-0 bg-black transition-opacity duration-700',
-              world.panel.id === 'nr-4' ? 'opacity-10' : 'opacity-18',
+              'absolute inset-0 bg-cover bg-center transition-[opacity,transform] duration-[1200ms] ease-[cubic-bezier(0.65,0,0.35,1)]',
+              world.expanded ? 'scale-110 opacity-0' : 'scale-[1.015] opacity-100',
             ].join(' ')}
+            style={{ backgroundImage: `url(${overviewImage})` }}
           />
-          <div className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(0deg,transparent_0,transparent_3px,rgba(255,255,255,0.035)_3px,rgba(255,255,255,0.035)_4px)] mix-blend-overlay" />
           <div
-            className="pointer-events-none absolute -inset-12 opacity-[0.22] mix-blend-soft-light"
+            className="absolute top-1/2 left-1/2 overflow-hidden bg-black bg-cover bg-center transition-[width,height,border-radius,box-shadow] duration-[1200ms] ease-[cubic-bezier(0.65,0,0.35,1)]"
             style={{
-              backgroundImage:
-                "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='4' seed='11' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.72'/%3E%3C/svg%3E\")",
-              backgroundSize: '180px 180px',
+              width: world.expanded ? '100vw' : 'min(300px, 72vw)',
+              height: world.expanded ? '100svh' : 'min(400px, 62svh)',
+              borderRadius: world.expanded ? 0 : 16,
+              boxShadow: world.expanded ? '0 0 0 rgba(0,0,0,0)' : '0 0 50px rgba(0,0,0,0.38)',
+              backgroundImage: `url(${overviewImage})`,
+              transform: 'translate(-50%, -50%)',
             }}
-          />
-
-          <div
-            className={[
-              'relative z-10 flex h-full flex-col justify-between p-6 transition-[opacity,transform] duration-500 sm:p-9 md:p-12',
-              world.expanded ? 'translate-y-0 opacity-100 delay-200' : 'translate-y-6 opacity-0',
-            ].join(' ')}
           >
-            <div className="flex items-start justify-between gap-6">
-              <span className="font-mono text-[9px] font-medium tracking-[0.2em] opacity-60">
-                / {world.panel.number}
-              </span>
-              <button
-                type="button"
-                onClick={closeWorld}
-                className="cursor-pointer font-mono text-[9px] tracking-[0.18em] opacity-60 transition-opacity hover:opacity-100"
-              >
-                WRÓĆ DO HERO
-              </button>
-            </div>
+            <div className="absolute inset-0 bg-black/35" />
+            <div
+              className="absolute inset-0 opacity-45 mix-blend-multiply transition-opacity duration-[1200ms]"
+              style={{ backgroundColor: world.panel.color }}
+            />
+            <div className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(0deg,transparent_0,transparent_3px,rgba(255,255,255,0.035)_3px,rgba(255,255,255,0.035)_4px)] mix-blend-overlay" />
+          </div>
 
-            <div>
-              <p className="mb-5 font-mono text-[9px] tracking-[0.18em] opacity-55 uppercase">
-                Wybrany obszar / wejście w świat
-              </p>
-              <h1 className="max-w-[12ch] text-[clamp(3rem,8vw,9.5rem)] font-medium leading-[0.92] tracking-[-0.055em]">
-                {world.panel.label}
-                <span className={world.panel.id === 'nr-1' ? 'text-black' : 'text-brand'}>.</span>
-              </h1>
-            </div>
+          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-1 overflow-hidden px-6 text-center text-white mix-blend-difference">
+            <span
+              className={[
+                'text-[clamp(2.6rem,6vw,6.5rem)] font-medium leading-[0.9] tracking-[-0.05em] transition-[translate,opacity] duration-[1200ms] ease-[cubic-bezier(0.65,0,0.35,1)]',
+                world.expanded ? '-translate-x-[72vw] opacity-0' : 'translate-x-0 opacity-100',
+              ].join(' ')}
+            >
+              {world.panel.label.split(' ')[0]}
+            </span>
+            <span
+              className={[
+                'text-[clamp(2.6rem,6vw,6.5rem)] font-medium leading-[0.9] tracking-[-0.05em] transition-[translate,opacity] duration-[1200ms] ease-[cubic-bezier(0.65,0,0.35,1)]',
+                world.expanded ? 'translate-x-[72vw] opacity-0' : 'translate-x-0 opacity-100',
+              ].join(' ')}
+            >
+              {world.panel.label.split(' ').slice(1).join(' ')}<span className="text-brand">.</span>
+            </span>
+          </div>
+
+          <div className="absolute inset-y-0 inset-x-[4vw] z-20 border-x border-white/15">
+            <span className="absolute top-6 left-6 z-20 font-mono text-[9px] tracking-[0.2em] text-white/55 sm:top-9 sm:left-9">
+              / {world.panel.number}
+            </span>
           </div>
         </div>
       )}
