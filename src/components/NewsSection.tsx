@@ -109,12 +109,12 @@ export default function NewsSection() {
               </a>
             </Reveal>
 
-            <div className="grid lg:grid-rows-2">
+            <div className="grid min-h-[60svh] grid-rows-2 lg:h-full lg:min-h-0 lg:grid-rows-[minmax(0,1fr)_minmax(0,1fr)]">
               {secondary.map((story, index) => (
-                <Reveal key={story.title} direction="none" delay={110 + index * 80} className="h-full">
+                <Reveal key={story.title} direction="none" delay={110 + index * 80} className="min-h-0 h-full overflow-hidden">
                   <a
                     href="#"
-                    className={`group flex h-full min-h-60 flex-col justify-between border-b border-black/[0.08] px-6 py-7 transition-colors hover:bg-zinc-50 sm:px-8 lg:min-h-0 lg:px-9 lg:py-8 ${index === secondary.length - 1 ? 'lg:border-b-0' : ''}`}
+                    className={`group flex h-full min-h-0 flex-col justify-between overflow-hidden border-b border-black/[0.08] px-6 py-7 transition-colors hover:bg-zinc-50 sm:px-8 lg:px-9 lg:py-7 ${index === secondary.length - 1 ? 'lg:border-b-0' : ''}`}
                   >
                     <div className="flex items-start justify-between gap-6">
                       <span className="font-mono text-[8px] tracking-[0.17em] text-black/35 uppercase">
@@ -125,14 +125,14 @@ export default function NewsSection() {
                       </span>
                     </div>
 
-                    <div className="mt-10">
-                      <h3 className="max-w-[14ch] text-[clamp(1.7rem,2.25vw,2.7rem)] font-medium leading-[0.96] tracking-[-0.038em]">
+                    <div className="mt-6 min-w-0">
+                      <h3 className="max-w-[15ch] text-[clamp(1.45rem,2vw,2.35rem)] font-medium leading-[0.96] tracking-[-0.038em]">
                         {story.title}
                       </h3>
-                      <p className="mt-5 max-w-md text-sm leading-relaxed text-black/45">
+                      <p className="mt-4 line-clamp-2 max-w-md text-sm leading-relaxed text-black/45">
                         {story.description}
                       </p>
-                      <span className="mt-7 flex items-center gap-3 font-mono text-[8px] tracking-[0.16em] text-brand uppercase">
+                      <span className="mt-5 flex items-center gap-3 font-mono text-[8px] tracking-[0.16em] text-brand uppercase">
                         Czytaj więcej <Arrow />
                       </span>
                     </div>
