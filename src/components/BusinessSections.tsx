@@ -211,7 +211,7 @@ export default function BusinessSections() {
             </Reveal>
           </div>
 
-          <div className="grid lg:grid-cols-3">
+          <div className="grid gap-px bg-white/14 lg:grid-cols-3">
             {directions.map((direction, index) => (
               <Reveal key={direction.title} direction="none" delay={70 + index * 70} className="h-full">
                 <a
@@ -219,7 +219,7 @@ export default function BusinessSections() {
                   href={direction.href}
                   target={direction.external ? '_blank' : undefined}
                   rel={direction.external ? 'noreferrer' : undefined}
-                  className={`group relative flex min-h-[27rem] h-full overflow-hidden border-b border-black/10 p-7 text-white sm:p-9 lg:min-h-[31rem] lg:border-b-0 lg:p-10 ${index < 2 ? 'lg:border-r lg:border-white/15' : ''}`}
+                  className="group relative flex h-full min-h-[27rem] overflow-hidden bg-black p-7 text-white sm:p-9 lg:min-h-[31rem] lg:p-10"
                 >
                   <Image
                     src={direction.image}
