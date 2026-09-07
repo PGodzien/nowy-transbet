@@ -3,6 +3,8 @@
 :root {
   --background: #ffffff;
   --foreground: #090909;
+  --line-on-light: rgb(0 0 0 / 0.1);
+  --line-on-dark: rgb(255 255 255 / 0.14);
 }
 
 @theme inline {
@@ -23,6 +25,44 @@ body {
 
 * {
   box-sizing: border-box;
+}
+
+/*
+ * Structural line system
+ * ----------------------
+ * All layout/grid rules remain 1px. Their contrast is normalized globally
+ * so neighboring sections no longer look as if they use different widths.
+ * Stronger borders used on icon buttons and small controls stay untouched.
+ */
+:where(section, header, footer, nav, div, article, a)[class*="border-black/"] {
+  border-color: var(--line-on-light) !important;
+}
+
+:where(section, header, footer, nav, div, article, a)[class*="border-white/"] {
+  border-color: var(--line-on-dark) !important;
+}
+
+:where(section, div, nav)[class*="gap-px"][class*="bg-black/"] {
+  background-color: var(--line-on-light) !important;
+}
+
+:where(section, div, nav)[class*="gap-px"][class*="bg-white/"] {
+  background-color: var(--line-on-dark) !important;
+}
+
+:where(div, span)[class*="w-px"][class*="bg-black/"] ,
+:where(div, span)[class*="h-px"][class*="bg-black/"] {
+  background-color: var(--line-on-light) !important;
+}
+
+:where(div, span)[class*="w-px"][class*="bg-white/"] ,
+:where(div, span)[class*="h-px"][class*="bg-white/"] {
+  background-color: var(--line-on-dark) !important;
+}
+
+/* Direction cards sit on dark photography, including their mobile bottom rule. */
+#obszary-dzialalnosci a[class*="border-black/"] {
+  border-color: var(--line-on-dark) !important;
 }
 
 .viewport-section {

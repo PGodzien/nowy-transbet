@@ -90,8 +90,8 @@ function OfferIcon({ type }: { type: (typeof offers)[number]['icon'] }) {
 
 export default function OfferSection() {
   return (
-    <section id="oferta" className="viewport-section relative border-t border-black/[0.08] bg-white">
-      <div className="grid min-h-[100svh] grid-cols-[4%_repeat(3,minmax(0,1fr))_4%] lg:h-[100svh]">
+    <section id="oferta" className="viewport-section relative border-t border-black/[0.08] bg-white lg:h-[100svh] lg:overflow-hidden">
+      <div className="grid min-h-[100svh] grid-cols-[4%_repeat(3,minmax(0,1fr))_4%] lg:h-full lg:min-h-0">
         <div className="flex items-center justify-center">
           <Reveal direction="left">
             <span className="font-mono text-[9px] tracking-[0.2em] text-black/35 [writing-mode:vertical-rl]">
