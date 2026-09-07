@@ -81,88 +81,6 @@ export default function BusinessSections() {
   return (
     <>
       <section
-        id="obszary-dzialalnosci"
-        aria-labelledby="obszary-title"
-        className="relative overflow-hidden border-t border-black/10 bg-[#f3f1ec] text-black"
-      >
-        <Grain dark={false} />
-
-        <div className="relative mx-[4vw] border-x border-black/10">
-          <div className="grid border-b border-black/10 px-6 py-10 sm:px-9 md:px-12 lg:grid-cols-3 lg:py-12">
-            <div className="lg:col-span-2">
-              <Reveal>
-                <p className="font-mono text-[9px] tracking-[0.2em] text-black/40 uppercase">
-                  / Pozostałe obszary działalności
-                </p>
-              </Reveal>
-              <Reveal delay={80}>
-                <h2
-                  id="obszary-title"
-                  className="mt-5 max-w-[13ch] text-[clamp(2.5rem,5vw,6rem)] font-medium leading-[0.9] tracking-[-0.05em]"
-                >
-                  Znajdź właściwy kierunek<span className="text-brand">.</span>
-                </h2>
-              </Reveal>
-            </div>
-
-            <Reveal delay={140} className="mt-7 flex items-end lg:mt-0">
-              <p className="max-w-sm text-sm leading-relaxed text-black/55 sm:text-base">
-                Beton rozwijamy tutaj. Pozostałe specjalizacje mają własne podstrony lub dedykowane serwisy, żebyś od razu trafił do właściwej oferty.
-              </p>
-            </Reveal>
-          </div>
-
-          <div className="grid lg:grid-cols-3">
-            {directions.map((direction, index) => (
-              <Reveal key={direction.title} direction="none" delay={70 + index * 70} className="h-full">
-                <a
-                  id={index === 0 ? 'prefabrykaty-betonowe' : index === 1 ? 'prefabrykaty-zbrojeniowe' : 'budowa-tuneli'}
-                  href={direction.href}
-                  target={direction.external ? '_blank' : undefined}
-                  rel={direction.external ? 'noreferrer' : undefined}
-                  className={`group relative flex min-h-[27rem] h-full overflow-hidden border-b border-black/10 p-7 text-white sm:p-9 lg:min-h-[31rem] lg:border-b-0 lg:p-10 ${index < 2 ? 'lg:border-r lg:border-white/15' : ''}`}
-                >
-                  <Image
-                    src={direction.image}
-                    alt=""
-                    fill
-                    aria-hidden="true"
-                    sizes="(max-width: 1024px) 100vw, 33vw"
-                    className="object-cover grayscale transition-[transform,filter] duration-1000 group-hover:scale-[1.035] group-hover:grayscale-0"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/55 to-black/20 transition-colors duration-500 group-hover:via-black/48" />
-                  <div className="absolute inset-0 bg-black/15 transition-opacity duration-500 group-hover:opacity-0" />
-
-                  <div className="relative z-10 flex w-full flex-col justify-between">
-                    <div className="flex items-start justify-between gap-5">
-                      <div>
-                        <p className="font-mono text-[9px] tracking-[0.2em] text-brand uppercase">{direction.eyebrow}</p>
-                        <p className="mt-3 font-mono text-[8px] tracking-[0.16em] text-white/40 uppercase">{direction.meta}</p>
-                      </div>
-                      <span className="text-brand transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
-                        <Arrow external={direction.external} />
-                      </span>
-                    </div>
-
-                    <div className="mt-20">
-                      <h3 className="max-w-[12ch] text-[clamp(2rem,3vw,3.6rem)] font-medium leading-[0.9] tracking-[-0.045em]">
-                        {direction.title}
-                      </h3>
-                      <p className="mt-5 max-w-md text-sm leading-relaxed text-white/55 sm:text-base">{direction.text}</p>
-                      <span className="mt-8 flex items-center justify-between border-t border-white/20 pt-5 text-sm font-semibold">
-                        {direction.external ? 'Przejdź do serwisu' : 'Zobacz prefabrykację'}
-                        <span className="text-brand"><Arrow external={direction.external} /></span>
-                      </span>
-                    </div>
-                  </div>
-                </a>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section
         id="betoniarnie"
         aria-labelledby="betoniarnie-title"
         className="viewport-section relative overflow-hidden border-t border-white/10 bg-black text-white"
@@ -258,6 +176,88 @@ export default function BusinessSections() {
           </div>
 
           <div />
+        </div>
+      </section>
+
+      <section
+        id="obszary-dzialalnosci"
+        aria-labelledby="obszary-title"
+        className="relative overflow-hidden border-t border-black/10 bg-[#f3f1ec] text-black"
+      >
+        <Grain dark={false} />
+
+        <div className="relative mx-[4vw] border-x border-black/10">
+          <div className="grid border-b border-black/10 px-6 py-10 sm:px-9 md:px-12 lg:grid-cols-3 lg:py-12">
+            <div className="lg:col-span-2">
+              <Reveal>
+                <p className="font-mono text-[9px] tracking-[0.2em] text-black/40 uppercase">
+                  / Pozostałe obszary działalności
+                </p>
+              </Reveal>
+              <Reveal delay={80}>
+                <h2
+                  id="obszary-title"
+                  className="mt-5 max-w-[13ch] text-[clamp(2.5rem,5vw,6rem)] font-medium leading-[0.9] tracking-[-0.05em]"
+                >
+                  Znajdź właściwy kierunek<span className="text-brand">.</span>
+                </h2>
+              </Reveal>
+            </div>
+
+            <Reveal delay={140} className="mt-7 flex items-end lg:mt-0">
+              <p className="max-w-sm text-sm leading-relaxed text-black/55 sm:text-base">
+                Beton rozwijamy tutaj. Pozostałe specjalizacje mają własne podstrony lub dedykowane serwisy, żebyś od razu trafił do właściwej oferty.
+              </p>
+            </Reveal>
+          </div>
+
+          <div className="grid lg:grid-cols-3">
+            {directions.map((direction, index) => (
+              <Reveal key={direction.title} direction="none" delay={70 + index * 70} className="h-full">
+                <a
+                  id={index === 0 ? 'prefabrykaty-betonowe' : index === 1 ? 'prefabrykaty-zbrojeniowe' : 'budowa-tuneli'}
+                  href={direction.href}
+                  target={direction.external ? '_blank' : undefined}
+                  rel={direction.external ? 'noreferrer' : undefined}
+                  className={`group relative flex min-h-[27rem] h-full overflow-hidden border-b border-black/10 p-7 text-white sm:p-9 lg:min-h-[31rem] lg:border-b-0 lg:p-10 ${index < 2 ? 'lg:border-r lg:border-white/15' : ''}`}
+                >
+                  <Image
+                    src={direction.image}
+                    alt=""
+                    fill
+                    aria-hidden="true"
+                    sizes="(max-width: 1024px) 100vw, 33vw"
+                    className="object-cover grayscale transition-[transform,filter] duration-1000 group-hover:scale-[1.035] group-hover:grayscale-0"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/55 to-black/20 transition-colors duration-500 group-hover:via-black/48" />
+                  <div className="absolute inset-0 bg-black/15 transition-opacity duration-500 group-hover:opacity-0" />
+
+                  <div className="relative z-10 flex w-full flex-col justify-between">
+                    <div className="flex items-start justify-between gap-5">
+                      <div>
+                        <p className="font-mono text-[9px] tracking-[0.2em] text-brand uppercase">{direction.eyebrow}</p>
+                        <p className="mt-3 font-mono text-[8px] tracking-[0.16em] text-white/40 uppercase">{direction.meta}</p>
+                      </div>
+                      <span className="text-brand transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
+                        <Arrow external={direction.external} />
+                      </span>
+                    </div>
+
+                    <div className="mt-20">
+                      <h3 className="max-w-[12ch] text-[clamp(2rem,3vw,3.6rem)] font-medium leading-[0.9] tracking-[-0.045em]">
+                        {direction.title}
+                      </h3>
+                      <p className="mt-5 max-w-md text-sm leading-relaxed text-white/55 sm:text-base">{direction.text}</p>
+                      <span className="mt-8 flex items-center justify-between border-t border-white/20 pt-5 text-sm font-semibold">
+                        {direction.external ? 'Przejdź do serwisu' : 'Zobacz prefabrykację'}
+                        <span className="text-brand"><Arrow external={direction.external} /></span>
+                      </span>
+                    </div>
+                  </div>
+                </a>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
     </>
