@@ -85,7 +85,7 @@ export default function NewsSection() {
                   alt={featured.title}
                   fill
                   sizes="(max-width: 1024px) 92vw, 61vw"
-                  className="object-cover transition-transform duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.035]"
+                  className="object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.035]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-black/5" />
                 <div className="absolute inset-x-0 bottom-0 px-6 py-8 text-white sm:px-9 md:px-12 lg:py-10">
@@ -114,33 +114,27 @@ export default function NewsSection() {
                 <Reveal key={story.title} direction="none" delay={110 + index * 80} className="h-full">
                   <a
                     href="#"
-                    className={`group grid h-full min-h-60 grid-cols-[38%_1fr] overflow-hidden border-b border-black/[0.08] transition-colors hover:bg-zinc-50 lg:min-h-0 ${index === secondary.length - 1 ? 'lg:border-b-0' : ''}`}
+                    className={`group flex h-full min-h-60 flex-col justify-between border-b border-black/[0.08] px-6 py-7 transition-colors hover:bg-zinc-50 sm:px-8 lg:min-h-0 lg:px-9 lg:py-8 ${index === secondary.length - 1 ? 'lg:border-b-0' : ''}`}
                   >
-                    <div className="relative overflow-hidden">
-                      <Image
-                        src={story.image}
-                        alt={story.title}
-                        fill
-                        sizes="(max-width: 1024px) 38vw, 13vw"
-                        className="object-cover grayscale transition-[filter,transform] duration-700 group-hover:scale-[1.05] group-hover:grayscale-0"
-                      />
-                      <div className="absolute inset-0 bg-black/10 transition-opacity group-hover:opacity-0" />
-                    </div>
-                    <div className="flex min-w-0 flex-col justify-between px-5 py-6 sm:px-7">
+                    <div className="flex items-start justify-between gap-6">
                       <span className="font-mono text-[8px] tracking-[0.17em] text-black/35 uppercase">
                         / 0{index + 2} {story.category}
                       </span>
-                      <div>
-                        <h3 className="text-[clamp(1.1rem,1.6vw,1.7rem)] font-medium leading-[1] tracking-[-0.03em]">
-                          {story.title}
-                        </h3>
-                        <p className="mt-3 line-clamp-2 text-xs leading-snug text-black/45">
-                          {story.description}
-                        </p>
-                        <span className="mt-4 flex items-center gap-3 font-mono text-[8px] tracking-[0.16em] text-brand uppercase">
-                          Czytaj więcej <Arrow />
-                        </span>
-                      </div>
+                      <span className="text-brand">
+                        <Arrow />
+                      </span>
+                    </div>
+
+                    <div className="mt-10">
+                      <h3 className="max-w-[14ch] text-[clamp(1.7rem,2.25vw,2.7rem)] font-medium leading-[0.96] tracking-[-0.038em]">
+                        {story.title}
+                      </h3>
+                      <p className="mt-5 max-w-md text-sm leading-relaxed text-black/45">
+                        {story.description}
+                      </p>
+                      <span className="mt-7 flex items-center gap-3 font-mono text-[8px] tracking-[0.16em] text-brand uppercase">
+                        Czytaj więcej <Arrow />
+                      </span>
                     </div>
                   </a>
                 </Reveal>
