@@ -6,28 +6,28 @@ const panels = [
   {
     id: 'nr-1',
     number: '01',
-    label: 'To jest nr 1',
+    label: 'Betoniarnie',
     color: '#ff4d00',
     targetId: 'about1',
   },
   {
     id: 'nr-2',
     number: '02',
-    label: 'To jest nr 2',
+    label: 'Prefabrykaty zbrojeniowe',
     color: '#111111',
     targetId: 'about2',
   },
   {
     id: 'nr-3',
     number: '03',
-    label: 'To jest nr 3',
+    label: 'Prefabrykaty betonowe',
     color: '#6b6b6b',
     targetId: 'about3',
   },
   {
     id: 'nr-4',
     number: '04',
-    label: 'To jest nr 4',
+    label: 'Budowa tuneli',
     color: '#f2f2f2',
     targetId: 'about4',
   },
@@ -49,23 +49,23 @@ const slogans: {
 }[] = [
   {
     id: null,
-    text: 'Cztery części hero do dalszego dopracowania',
+    text: 'Cztery specjalizacje. Jeden standard',
   },
   {
     id: 'nr-1',
-    text: 'To jest nr 1',
+    text: 'Beton blisko Twojej budowy',
   },
   {
     id: 'nr-2',
-    text: 'To jest nr 2',
+    text: 'Prefabrykaty zbrojeniowe',
   },
   {
     id: 'nr-3',
-    text: 'To jest nr 3',
+    text: 'Prefabrykaty betonowe',
   },
   {
     id: 'nr-4',
-    text: 'To jest nr 4',
+    text: 'Budowa tuneli',
   },
 ];
 
@@ -106,12 +106,18 @@ export default function Hero() {
     if (!target) return;
 
     const root = document.documentElement;
-    const previousScrollBehavior = root.style.scrollBehavior;
+    const body = document.body;
+    const previousRootScrollBehavior = root.style.scrollBehavior;
+    const previousBodyScrollBehavior = body.style.scrollBehavior;
     root.style.scrollBehavior = 'auto';
-    target.scrollIntoView({ block: 'start' });
+    body.style.scrollBehavior = 'auto';
+
+    const targetTop = target.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo(0, targetTop);
 
     window.requestAnimationFrame(() => {
-      root.style.scrollBehavior = previousScrollBehavior;
+      root.style.scrollBehavior = previousRootScrollBehavior;
+      body.style.scrollBehavior = previousBodyScrollBehavior;
     });
   };
 
@@ -277,7 +283,7 @@ export default function Hero() {
                 onBlur={resetPanel}
                 onClick={() => openWorld(panel)}
                 className={[
-                  'hero-enter-control group relative flex min-h-24 cursor-pointer items-center justify-between gap-3 overflow-hidden px-4 py-5 text-left text-white transition-[flex] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] sm:min-h-28 sm:px-6 md:min-h-32 md:px-7 md:py-6',
+                  'hero-enter-control group relative flex min-h-24 cursor-pointer items-center justify-between gap-1 overflow-hidden px-2 py-5 text-left text-white transition-[flex] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] sm:min-h-28 sm:gap-3 sm:px-6 md:min-h-32 md:px-7 md:py-6',
                   isActive
                     ? 'flex-[1.45]'
                     : activeId
@@ -297,7 +303,7 @@ export default function Hero() {
                   </span>
                   <span
                     className={[
-                      'text-[clamp(1rem,2.1vw,2.1rem)] font-[550] leading-[0.96] tracking-[-0.03em] transition-transform duration-700',
+                      'text-[0.72rem] font-[550] leading-[0.98] tracking-[-0.03em] transition-transform duration-700 sm:text-[clamp(1rem,2.1vw,2.1rem)] sm:leading-[0.96]',
                       isActive ? 'translate-x-0' : 'translate-x-0 md:translate-x-1',
                     ].join(' ')}
                   >

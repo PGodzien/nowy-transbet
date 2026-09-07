@@ -5,8 +5,8 @@ import Link from 'next/link';
 
 const navLinks = [
   { label: 'Betoniarnie', href: '#betoniarnie', number: '01' },
-  { label: 'Budowa tuneli', href: '#tunele', number: '02' },
-  { label: 'Prefabrykaty', href: '#prefabrykaty', number: '03' },
+  { label: 'Budowa tuneli', href: '#budowa-tuneli', number: '02' },
+  { label: 'Prefabrykaty', href: '#prefabrykaty-betonowe', number: '03' },
   { label: 'Zamów beton', href: '#betoniarnie', number: '04' },
   { label: 'Kontakt', href: '#kontakt', number: '05' },
 ];
@@ -21,8 +21,8 @@ const aboutLinks = [
 const mainMenuLinks = [
   { label: 'O nas', href: '#o-nas', number: '01', submenu: true },
   { label: 'Betoniarnie', href: '#betoniarnie', number: '02' },
-  { label: 'Budowa tuneli', href: '#tunele', number: '03' },
-  { label: 'Prefabrykaty', href: '#prefabrykaty', number: '04' },
+  { label: 'Budowa tuneli', href: '#budowa-tuneli', number: '03' },
+  { label: 'Prefabrykaty', href: '#prefabrykaty-betonowe', number: '04' },
   { label: 'Realizacje', href: '#realizacje', number: '05' },
   { label: 'Kariera', href: '#kariera', number: '06' },
 ];

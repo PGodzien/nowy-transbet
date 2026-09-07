@@ -1,5 +1,6 @@
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
+import BusinessSections from '@/components/BusinessSections';
 import TrustedBy from '@/components/TrustedBy';
 import CatalogSection from '@/components/CatalogSection';
 import OfferSection from '@/components/OfferSection';
@@ -11,6 +12,7 @@ export default function Home() {
     <main className="bg-white text-black">
       <Navbar />
       <Hero />
+      <BusinessSections />
       <TrustedBy />
       <CatalogSection />
       <OfferSection />

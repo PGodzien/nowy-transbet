@@ -5,8 +5,8 @@ const footerColumns = [
     label: 'Obszary',
     links: [
       { label: 'Betoniarnie', href: '#betoniarnie' },
-      { label: 'Budowa tuneli', href: '#tunele' },
-      { label: 'Prefabrykaty', href: '#prefabrykaty' },
+      { label: 'Budowa tuneli', href: '#budowa-tuneli' },
+      { label: 'Prefabrykaty', href: '#prefabrykaty-betonowe' },
     ],
   },
   {
@@ -26,7 +26,7 @@ export default function Footer() {
         <div className="flex items-center justify-center">
           <Reveal direction="left">
             <span className="font-mono text-[9px] tracking-[0.2em] text-white/30 [writing-mode:vertical-rl]">
-              06 / KONTAKT
+              10 / KONTAKT
             </span>
           </Reveal>
         </div>
