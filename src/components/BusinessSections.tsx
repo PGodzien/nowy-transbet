@@ -94,12 +94,12 @@ export default function BusinessSections() {
           loop
           playsInline
           poster="/beton.jpg"
-          className="absolute inset-0 h-full w-full object-cover opacity-40 grayscale"
+          className="absolute inset-0 h-full w-full object-cover opacity-45"
         >
           <source src="/transbet_background_video.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_38%,transparent_0,rgba(0,0,0,0.26)_38%,rgba(0,0,0,0.88)_82%)]" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-black/55" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_38%,transparent_0,rgba(0,0,0,0.18)_38%,rgba(0,0,0,0.78)_82%)]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/40" />
         <Grain />
 
         <div className="relative grid min-h-[100svh] grid-cols-[4%_repeat(3,minmax(0,1fr))_4%] lg:h-[100svh]">
@@ -227,13 +227,13 @@ export default function BusinessSections() {
                     fill
                     aria-hidden="true"
                     sizes="(max-width: 1024px) 100vw, 33vw"
-                    className="object-cover grayscale transition-transform duration-1000 ease-out group-hover:scale-105"
+                    className="object-cover grayscale transition-[transform,filter] duration-700 ease-out group-hover:scale-105 group-hover:grayscale-0"
                   />
 
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/20" />
-                  <div className="absolute inset-0 bg-black/20 transition-opacity duration-700 ease-out group-hover:opacity-0" />
+                  <div className="absolute inset-0 bg-black/20 transition-opacity duration-500 ease-out group-hover:opacity-0" />
 
-                  <div className="relative z-10 flex w-full flex-col justify-between transition-transform duration-700 ease-out group-hover:-translate-y-1">
+                  <div className="relative z-10 flex w-full flex-col justify-between transition-transform duration-500 ease-out group-hover:-translate-y-1">
                     <div className="flex items-start justify-between gap-5">
                       <div>
                         <p className="font-mono text-[9px] tracking-[0.2em] text-brand uppercase">{direction.eyebrow}</p>
