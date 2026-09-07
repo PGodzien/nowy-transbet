@@ -122,7 +122,7 @@ export default function BusinessSections() {
 
               <div className="py-16 lg:py-8">
                 <Reveal delay={80}>
-                  <h2 id="betoniarnie-title" className="max-w-[10ch] text-[clamp(3.2rem,8vw,9.8rem)] font-medium leading-[0.82] tracking-[-0.06em]">
+                  <h2 id="betoniarnie-title" className="max-w-[14ch] text-[clamp(2.5rem,4.8vw,5.7rem)] font-medium leading-[0.98] tracking-[-0.048em]">
                     Beton blisko Twojej budowy<span className="text-brand">.</span>
                   </h2>
                 </Reveal>
