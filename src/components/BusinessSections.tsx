@@ -227,31 +227,33 @@ export default function BusinessSections() {
                     fill
                     aria-hidden="true"
                     sizes="(max-width: 1024px) 100vw, 33vw"
-                    className="object-cover grayscale transition-[transform,filter] duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform group-hover:scale-[1.018] group-hover:grayscale-[25%]"
+                    className="object-cover grayscale transition-transform duration-1000 ease-out group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/55 to-black/20" />
-                  <div className="absolute inset-0 bg-black/18 opacity-100 transition-opacity duration-[950ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:opacity-0" />
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_72%,rgba(255,255,255,0.06),transparent_58%)] opacity-0 transition-opacity duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:opacity-100" />
 
-                  <div className="relative z-10 flex w-full flex-col justify-between transition-transform duration-[850ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/20" />
+                  <div className="absolute inset-0 bg-black/20 transition-opacity duration-700 ease-out group-hover:opacity-0" />
+
+                  <div className="relative z-10 flex w-full flex-col justify-between transition-transform duration-700 ease-out group-hover:-translate-y-1">
                     <div className="flex items-start justify-between gap-5">
-                      <div className="transition-transform duration-[850ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0.5">
+                      <div>
                         <p className="font-mono text-[9px] tracking-[0.2em] text-brand uppercase">{direction.eyebrow}</p>
-                        <p className="mt-3 font-mono text-[8px] tracking-[0.16em] text-white/40 uppercase transition-colors duration-700 group-hover:text-white/52">{direction.meta}</p>
+                        <p className="mt-3 font-mono text-[8px] tracking-[0.16em] text-white/40 uppercase transition-colors duration-500 group-hover:text-white/55">{direction.meta}</p>
                       </div>
-                      <span className="text-brand transition-transform duration-[750ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1 group-hover:-translate-y-1">
+                      <span className="text-brand transition-transform duration-500 ease-out group-hover:translate-x-1 group-hover:-translate-y-1">
                         <Arrow external={direction.external} />
                       </span>
                     </div>
 
-                    <div className="mt-20 transition-transform duration-[850ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-[-2px]">
-                      <h3 className="max-w-[12ch] text-[clamp(2rem,3vw,3.6rem)] font-medium leading-[0.9] tracking-[-0.045em] transition-colors duration-700 group-hover:text-white">
+                    <div className="mt-20">
+                      <h3 className="max-w-[12ch] text-[clamp(2rem,3vw,3.6rem)] font-medium leading-[0.9] tracking-[-0.045em]">
                         {direction.title}
                       </h3>
-                      <p className="mt-5 max-w-md text-sm leading-relaxed text-white/55 transition-colors duration-700 group-hover:text-white/68 sm:text-base">{direction.text}</p>
-                      <span className="mt-8 flex items-center justify-between border-t border-white/20 pt-5 text-sm font-semibold transition-colors duration-700 group-hover:text-white">
+                      <p className="mt-5 max-w-md text-sm leading-relaxed text-white/55 transition-colors duration-500 group-hover:text-white/70 sm:text-base">{direction.text}</p>
+                      <span className="mt-8 flex items-center justify-between border-t border-white/20 pt-5 text-sm font-semibold">
                         {direction.external ? 'Przejdź do serwisu' : 'Zobacz prefabrykację'}
-                        <span className="text-brand transition-transform duration-[750ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1 group-hover:-translate-y-0.5"><Arrow external={direction.external} /></span>
+                        <span className="text-brand transition-transform duration-500 ease-out group-hover:translate-x-1">
+                          <Arrow external={direction.external} />
+                        </span>
                       </span>
                     </div>
                   </div>
