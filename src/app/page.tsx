@@ -1,6 +1,6 @@
-import Navbar from '@/components/Navbar';
+import NavbarV2 from '@/components/NavbarV2';
 import Hero from '@/components/Hero';
-import BusinessSections from '@/components/BusinessSections';
+import BusinessSectionsV2 from '@/components/BusinessSectionsV2';
 import TrustedBy from '@/components/TrustedBy';
 import CatalogSection from '@/components/CatalogSection';
 import OfferSection from '@/components/OfferSection';
@@ -10,9 +10,9 @@ import Footer from '@/components/Footer';
 export default function Home() {
   return (
     <main className="bg-white text-black">
-      <Navbar />
+      <NavbarV2 />
       <Hero />
-      <BusinessSections />
+      <BusinessSectionsV2 />
       <TrustedBy />
       <CatalogSection />
       <OfferSection />
