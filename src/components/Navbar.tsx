@@ -21,10 +21,10 @@ const aboutLinks = [
 const mainMenuLinks = [
   { label: 'O nas', href: '#o-nas', number: '01', submenu: true },
   { label: 'Betoniarnie', href: '#betoniarnie', number: '02' },
-  { label: 'Budowa tuneli', href: '#budowa-tuneli', number: '03' },
-  { label: 'Prefabrykaty', href: '#prefabrykaty-betonowe', number: '04' },
-  { label: 'Realizacje', href: '#realizacje', number: '05' },
-  { label: 'Kariera', href: '#kariera', number: '06' },
+  { label: 'Prefabrykacja betonowa', href: '#prefabrykaty-betonowe', number: '03' },
+  { label: 'Zbrojenia ↗', href: 'https://zbrojeniebudowlane.pl/', number: '04' },
+  { label: 'Budowa tuneli ↗', href: 'https://transbettcs.com/', number: '05' },
+  { label: 'Realizacje', href: '#realizacje', number: '06' },
 ];
 
 const affiliations = [

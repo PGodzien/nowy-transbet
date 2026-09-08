@@ -46,17 +46,17 @@ function CatalogCover({ className = '', back = false }: { className?: string; ba
 
 export default function CatalogSection() {
   return (
-    <section id="katalog" className="viewport-section relative border-t border-black/[0.08] bg-white">
+    <section id="katalog" className="viewport-section relative border-t border-white/15 bg-black text-white">
       <div className="grid min-h-[100svh] grid-cols-[4%_repeat(3,minmax(0,1fr))_4%]">
         <div className="flex items-center justify-center">
           <Reveal direction="left">
-            <span className="font-mono text-[9px] tracking-[0.2em] text-black/35 [writing-mode:vertical-rl]">
+            <span className="font-mono text-[9px] tracking-[0.2em] text-white/35 [writing-mode:vertical-rl]">
               07 / KATALOG
             </span>
           </Reveal>
         </div>
 
-        <div className="relative col-span-3 min-h-[100svh] overflow-hidden bg-black text-white">
+        <div className="relative col-span-3 min-h-[100svh] overflow-hidden border-x border-white/15 bg-black text-white">
           <Image
             src="/beton.jpg"
             alt="Produkcja betonu Transbet"
