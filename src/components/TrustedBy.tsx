@@ -9,6 +9,7 @@ const partners = [
   { name: 'Mostostal Warszawa', logo: '/mostostal-logo.jpg' },
   { name: 'Budimex', logo: '/budimex-logo.webp' },
   { name: 'POL-AQUA', logo: '/polaqua-logo.webp' },
+  { name: 'Eleven', logo: '/eleven-logo.svg' },
 ];
 
 export default function TrustedBy() {
