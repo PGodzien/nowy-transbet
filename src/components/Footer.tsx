@@ -4,17 +4,17 @@ const footerColumns = [
   {
     label: 'Obszary',
     links: [
-      { label: 'Betoniarnie', href: '#betoniarnie' },
-      { label: 'Budowa tuneli', href: '#budowa-tuneli' },
-      { label: 'Prefabrykaty', href: '#prefabrykaty-betonowe' },
+      { label: 'Betoniarnie', href: '/beton' },
+      { label: 'Budowa tuneli ↗', href: 'https://transbettcs.com/' },
+      { label: 'Prefabrykaty', href: '/prefabrykacja-betonowa' },
     ],
   },
   {
     label: 'Firma',
     links: [
-      { label: 'O nas', href: '#o-nas' },
-      { label: 'Realizacje', href: '#realizacje' },
-      { label: 'Kariera', href: '#kariera' },
+      { label: 'O nas', href: '/o-nas' },
+      { label: 'Oferta', href: '/oferta' },
+      { label: 'Aktualności', href: '/#aktualnosci' },
     ],
   },
 ] as const;

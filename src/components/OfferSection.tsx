@@ -5,31 +5,37 @@ const offers = [
     title: 'Beton towarowy',
     description: 'Mieszanki projektowane pod parametry inwestycji, warunki realizacji i wymagany harmonogram.',
     icon: 'concrete',
+    href: '/beton',
   },
   {
     title: 'Prefabrykacja betonowa',
     description: 'Powtarzalne elementy o wysokiej precyzji, produkowane z pełną kontrolą jakości.',
     icon: 'prefab',
+    href: '/prefabrykacja-betonowa',
   },
   {
     title: 'Laboratorium betonu',
     description: 'Badania mieszanek i składników prowadzone w naszym laboratorium przyzakładowym.',
     icon: 'lab',
+    href: '/oferta#kontakt',
   },
   {
     title: 'Sprzęt i wynajem',
     description: 'Nowoczesne zaplecze sprzętowe gotowe do pracy przy najbardziej wymagających realizacjach.',
     icon: 'equipment',
+    href: '/oferta#kontakt',
   },
   {
     title: 'Wyroby hutnicze',
     description: 'Stal i wyroby hutnicze dostarczane bezpośrednio we wskazane miejsce inwestycji.',
     icon: 'steel',
+    href: 'https://zbrojeniebudowlane.pl/',
   },
   {
     title: 'Kruszywa budowlane',
     description: 'Sprawdzone kruszywa wraz z logistyką dopasowaną do rytmu prowadzonej budowy.',
     icon: 'aggregate',
+    href: '/oferta#kontakt',
   },
 ] as const;
 
@@ -133,7 +139,7 @@ export default function OfferSection() {
             {offers.map((offer, index) => (
               <Reveal key={offer.title} direction="none" delay={70 + index * 55} className="h-full">
                 <a
-                  href="#kontakt"
+                  href={offer.href}
                   className={`group relative flex h-full min-h-56 flex-col justify-between overflow-hidden border-b border-black/[0.08] bg-white px-6 py-6 transition-colors duration-500 hover:bg-black hover:text-white sm:px-8 lg:min-h-0 lg:py-5 ${
                     index % 3 !== 2 ? 'md:border-r md:border-black/[0.08]' : ''
                   }`}

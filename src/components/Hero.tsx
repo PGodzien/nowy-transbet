@@ -9,7 +9,7 @@ const panels = [
     label: 'Betoniarnie',
     description: 'Produkcja i transport betonu',
     color: '#ff4d00',
-    href: '#betoniarnie',
+    href: '/beton',
     external: false,
   },
   {
@@ -27,7 +27,7 @@ const panels = [
     label: 'Prefabrykacja betonowa',
     description: 'Prefabrykaty dla infrastruktury i przemysłu',
     color: '#6b6b6b',
-    href: '#prefabrykaty-betonowe',
+    href: '/prefabrykacja-betonowa',
     external: false,
   },
   {

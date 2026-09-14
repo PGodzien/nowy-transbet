@@ -27,7 +27,7 @@ const directions = [
     eyebrow: 'Transbet',
     title: 'Prefabrykacja betonowa',
     text: 'Prefabrykaty dla infrastruktury, przemysłu i inwestycji realizowanych według indywidualnej dokumentacji.',
-    href: 'https://transbet.com.pl/prefabrykacja-betonowa',
+    href: '/prefabrykacja-betonowa',
     image: '/prefabrykaty.jpg',
     external: false,
     meta: 'Oferta Transbet',
@@ -133,14 +133,12 @@ export default function BusinessSections() {
                       Produkujemy mieszanki dopasowane do parametrów inwestycji i dostarczamy je z trzech lokalnych węzłów — sprawnie, terminowo i w każdych warunkach.
                     </p>
                     <a
-                      href="https://transbet.com.pl/beton"
-                      target="_blank"
-                      rel="noreferrer"
+                      href="/beton"
                       className="group flex w-full max-w-sm items-center justify-between border-t border-white/25 pt-5 text-sm font-semibold"
                     >
                       Poznaj ofertę betonu
                       <span className="text-brand transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
-                        <Arrow external />
+                        <Arrow />
                       </span>
                     </a>
                   </div>

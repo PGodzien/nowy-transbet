@@ -4,27 +4,27 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 const navLinks = [
-  { label: 'Betoniarnie', href: '#betoniarnie', number: '01' },
-  { label: 'Budowa tuneli', href: '#budowa-tuneli', number: '02' },
-  { label: 'Prefabrykaty', href: '#prefabrykaty-betonowe', number: '03' },
-  { label: 'Zamów beton', href: '#betoniarnie', number: '04' },
+  { label: 'Betoniarnie', href: '/beton', number: '01' },
+  { label: 'Budowa tuneli', href: 'https://transbettcs.com/', number: '02' },
+  { label: 'Prefabrykaty', href: '/prefabrykacja-betonowa', number: '03' },
+  { label: 'Zamów beton', href: '/beton#kontakt-beton', number: '04' },
   { label: 'Kontakt', href: '#kontakt', number: '05' },
 ];
 
 const aboutLinks = [
-  { label: 'Historia firmy', href: '#historia', number: '01' },
-  { label: 'Zespół', href: '#zespol', number: '02' },
-  { label: 'Kariera', href: '#kariera', number: '03' },
-  { label: 'Aktualności', href: '#aktualnosci', number: '04' },
+  { label: 'Historia firmy', href: '/o-nas#historia', number: '01' },
+  { label: 'Zespół', href: '/o-nas#zespol', number: '02' },
+  { label: 'Kariera', href: 'https://transbet.com.pl/oferty-pracy', number: '03' },
+  { label: 'Aktualności', href: '/#aktualnosci', number: '04' },
 ];
 
 const mainMenuLinks = [
-  { label: 'O nas', href: '#o-nas', number: '01', submenu: true },
-  { label: 'Betoniarnie', href: '#betoniarnie', number: '02' },
-  { label: 'Prefabrykacja betonowa', href: '#prefabrykaty-betonowe', number: '03' },
+  { label: 'O nas', href: '/o-nas', number: '01', submenu: true },
+  { label: 'Betoniarnie', href: '/beton', number: '02' },
+  { label: 'Prefabrykacja betonowa', href: '/prefabrykacja-betonowa', number: '03' },
   { label: 'Zbrojenia ↗', href: 'https://zbrojeniebudowlane.pl/', number: '04' },
   { label: 'Budowa tuneli ↗', href: 'https://transbettcs.com/', number: '05' },
-  { label: 'Realizacje', href: '#realizacje', number: '06' },
+  { label: 'Pełna oferta', href: '/oferta', number: '06' },
 ];
 
 const affiliations = [

@@ -15,8 +15,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://transbet.com.pl'),
   title: "Transbet Industrial Group",
-  description: "Kompleksowe rozwiązania przemysłowe – betoniarnie, budowa tuneli i prefabrykaty",
+  description: "Beton, prefabrykacja betonowa i zbrojeniowa oraz wsparcie budownictwa tunelowego.",
 };
 
 export default function RootLayout({
