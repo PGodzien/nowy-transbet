@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import ArrowIcon from '@/components/ArrowIcon';
+import AboutGrowth from '@/components/AboutGrowth';
 import AboutIntro from '@/components/AboutIntro';
 import PageHero from '@/components/PageHero';
 import SectionHeading from '@/components/SectionHeading';
@@ -83,7 +84,14 @@ export default function AboutPage() {
               </article>
             ))}
           </div>
-          <Link href="/oferta" className="group flex min-h-36 items-center justify-between gap-8 border-t border-black/10 bg-brand px-6 py-8 transition-colors hover:bg-brand-hover sm:px-9 md:px-12">
+        </div>
+      </section>
+
+      <AboutGrowth />
+
+      <section className="bg-white">
+        <div className="mx-[4vw] border-x border-t border-black/10">
+          <Link href="/oferta" className="group flex min-h-36 items-center justify-between gap-8 bg-brand px-6 py-8 transition-colors hover:bg-brand-hover sm:px-9 md:px-12">
             <span className="text-[clamp(1.8rem,3.4vw,4rem)] font-medium leading-none tracking-[-0.045em]">Zobacz, w czym możemy pomóc</span>
             <span className="transition-transform group-hover:translate-x-2"><ArrowIcon /></span>
           </Link>
