@@ -262,6 +262,7 @@ export default function Hero() {
                 href={panel.href}
                 target={panel.external ? '_blank' : undefined}
                 rel={panel.external ? 'noreferrer' : undefined}
+                data-curtain="self"
                 onClick={(event) => handleTileClick(event, panel)}
                 onMouseEnter={() => setActiveId(panel.id)}
                 onFocus={() => setActiveId(panel.id)}

@@ -1,12 +1,17 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 /*
- * Curtain transition for the hero tiles.
- * The clicked tile grows from its own position to cover the screen, the action
+ * Curtain transition for internal navigation.
+ * The clicked element grows from its own position to cover the screen, the action
  * (scroll to a section, or a route change) runs underneath, then the curtain
  * lifts away. It lives in the root layout so it survives route changes.
+ *
+ * Every same-site link gets it automatically. A link can opt out with
+ * data-curtain="off", run its own curtain with data-curtain="self" (hero tiles),
+ * or set the text shown on the curtain with data-curtain-label.
  */
 
 type CurtainOptions = {
@@ -17,6 +22,30 @@ type CurtainOptions = {
   label: string;
   action: () => void | Promise<void>;
 };
+
+/** Text for the curtain: an explicit label, the link's heading, or its own short text. */
+function curtainLabel(link: HTMLAnchorElement) {
+  const explicit = link.dataset.curtainLabel;
+  if (explicit) return explicit;
+  const heading = link.querySelector('h1, h2, h3')?.textContent;
+  const text = (heading ?? link.textContent ?? '')
+    .replace(/\/\s*\d+/g, '')
+    .replace(/[↗→]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/\.$/, '');
+  return text && text.length <= 40 ? text : 'Transbet';
+}
+
+function curtainNumber(link: HTMLAnchorElement) {
+  return link.textContent?.match(/\/\s*(\d{2})/)?.[1] ?? '';
+}
+
+function scrollToHash(hash: string) {
+  if (!hash) return;
+  const target = document.getElementById(decodeURIComponent(hash.slice(1)));
+  target?.scrollIntoView({ behavior: 'instant' });
+}
 
 let play: ((options: CurtainOptions) => void) | null = null;
 
@@ -50,6 +79,50 @@ export default function PageCurtain() {
   const panel = useRef<HTMLDivElement>(null);
   const text = useRef<HTMLDivElement>(null);
   const busy = useRef(false);
+  const router = useRouter();
+
+  /* Same-site link clicks anywhere on the page play the curtain. Capture phase,
+     so it runs before next/link and the menu's own click handlers. */
+  useEffect(() => {
+    const onClick = (event: MouseEvent) => {
+      if (event.defaultPrevented || event.button !== 0) return;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const link = (event.target as Element | null)?.closest('a');
+      if (!link || !link.href) return;
+      if (link.dataset.curtain === 'off' || link.dataset.curtain === 'self') return;
+      if (link.target && link.target !== '_self') return;
+      if (link.hasAttribute('download')) return;
+      // A closed submenu on touch: the first tap only opens it.
+      if (link.getAttribute('aria-expanded') === 'false') return;
+
+      const url = new URL(link.href, window.location.href);
+      if (url.origin !== window.location.origin) return;
+      const samePage = url.pathname === window.location.pathname;
+      if (samePage && !url.hash) return;
+
+      const played = playCurtain({
+        rect: link.getBoundingClientRect(),
+        color: '#111111',
+        textColor: '#ffffff',
+        number: curtainNumber(link),
+        label: curtainLabel(link),
+        action: samePage
+          ? () => {
+              scrollToHash(url.hash);
+              history.replaceState(null, '', url.hash);
+            }
+          : async () => {
+              router.push(url.pathname + url.search + url.hash);
+              await waitForPath(url.pathname);
+              scrollToHash(url.hash);
+            },
+      });
+      if (played) event.preventDefault();
+    };
+
+    document.addEventListener('click', onClick, true);
+    return () => document.removeEventListener('click', onClick, true);
+  }, [router]);
 
   useEffect(() => {
     play = (options) => {
@@ -122,7 +195,7 @@ export default function PageCurtain() {
       style={{ backgroundColor: current.color, color: current.textColor, clipPath: 'inset(50%)' }}
     >
       <div ref={text} className="absolute inset-x-[calc(4vw+1.5rem)] bottom-[12vh] opacity-0 md:inset-x-[calc(4vw+1.75rem)]">
-        <span className="font-mono text-[11px] tracking-[0.2em] opacity-60">/ {current.number}</span>
+        {current.number ? <span className="font-mono text-[11px] tracking-[0.2em] opacity-60">/ {current.number}</span> : null}
         <span className="mt-4 block max-w-[12ch] text-[clamp(3rem,9vw,10rem)] font-medium leading-[0.9] tracking-[-0.055em]">
           {current.label}
           <span className={current.textColor === '#ffffff' ? 'text-brand' : 'text-white'}>.</span>
