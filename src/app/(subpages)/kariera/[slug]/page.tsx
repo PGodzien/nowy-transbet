@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const job = await getJob(slug);
   if (!job) return {};
   return {
-    title: `${job.nazwa} – ${job.miejsce} | Kariera Transbet`,
+    title: `${job.nazwa} – ${job.miejsce} | Kariera`,
     description: `Oferta pracy: ${job.nazwa}, miejsce pracy: ${job.miejsce}.`,
   };
 }

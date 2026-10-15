@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = getPost((await params).slug);
   if (!post) return {};
   return {
-    title: `${post.title} | Aktualności Transbet`,
+    title: `${post.title} | Aktualności`,
     description: post.description,
     alternates: { canonical: `/aktualnosci/${post.slug}` },
     openGraph: {

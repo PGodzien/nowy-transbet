@@ -9,7 +9,7 @@ import SectionHeading from '@/components/SectionHeading';
 import { team } from '@/data/site';
 
 export const metadata: Metadata = {
-  title: 'O nas | Transbet Industrial Group',
+  title: 'O nas',
   description: 'Poznaj historię, zespół i zaplecze Transbet — rodzinnej firmy rozwijanej od 1993 roku.',
 };
 

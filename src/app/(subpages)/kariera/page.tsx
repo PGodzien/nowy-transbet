@@ -6,7 +6,7 @@ import { getJobs } from '@/lib/jobs';
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: 'Kariera | Transbet Industrial Group',
+  title: 'Kariera',
   description:
     'Dołącz do naszego zespołu! Sprawdź aktualne oferty pracy, warunki zatrudnienia oraz możliwości rozwoju w naszej betoniarni.',
 };
@@ -82,7 +82,8 @@ export default async function CareerPage() {
       <section className="bg-white">
         <div className="mx-[4vw] border-x border-t border-black/10">
           <a
-            href="/#formularz"
+            href="#formularz"
+            data-curtain="off"
             className="group flex min-h-32 flex-col justify-center gap-2 bg-brand px-6 transition-colors hover:bg-brand-hover sm:flex-row sm:items-center sm:justify-between sm:px-9 md:px-12"
           >
             <span>

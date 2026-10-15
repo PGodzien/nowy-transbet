@@ -23,8 +23,8 @@ function CatalogCover({ className = '', back = false }: { className?: string; ba
         <span className="block text-[clamp(1.15rem,2vw,2rem)] font-bold tracking-[-0.04em] text-brand uppercase">
           Transbet
         </span>
-        <span className="mt-1 block font-mono text-[7px] tracking-[0.2em] text-black/45 uppercase">
-          Industrial Group
+        <span className="mt-1 block font-mono text-[7px] tracking-[0.2em] text-black/45">
+          BETONIARNIE GROCHOWICZ Sp. K.
         </span>
       </div>
       <div className="absolute right-[8%] bottom-[7%] left-[13%]">

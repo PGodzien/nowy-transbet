@@ -63,7 +63,7 @@ export default function PageHero({
           </div>
 
           <div className="flex flex-1 flex-col justify-end px-6 py-10 sm:px-9 md:px-12 md:py-14">
-            <p className="font-mono text-[9px] tracking-[0.2em] text-brand uppercase">/ Transbet Industrial Group</p>
+            <p className="font-mono text-[9px] tracking-[0.2em] text-brand">TRANSBET BETONIARNIE GROCHOWICZ Sp. K.</p>
             <h1 className="hero-enter-title mt-7 max-w-[12ch] text-[clamp(3rem,7.4vw,8.7rem)] font-medium leading-[0.86] tracking-[-0.058em]">
               {title}<span className="text-brand">.</span>
             </h1>

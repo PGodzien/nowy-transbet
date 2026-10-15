@@ -5,7 +5,7 @@ import Reveal from '@/components/Reveal';
 import { euProjects } from '@/data/eu-projects';
 
 export const metadata: Metadata = {
-  title: 'Środki UE | Transbet Industrial Group',
+  title: 'Środki UE',
   description: 'Projekty Transbet realizowane przy wsparciu Funduszy Europejskich.',
 };
 

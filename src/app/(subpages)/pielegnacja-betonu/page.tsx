@@ -3,7 +3,7 @@ import CareGuide, { type CareSheet } from '@/components/CareGuide';
 import PageHero from '@/components/PageHero';
 
 export const metadata: Metadata = {
-  title: 'Pielęgnacja betonu | Transbet Industrial Group',
+  title: 'Pielęgnacja betonu',
   description:
     'Dowiedz się jak pielęgnować beton, żeby w pełni wykorzystać jego potencjał i właściwości oraz cieszyć się jego trwałością.',
 };

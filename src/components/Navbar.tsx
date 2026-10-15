@@ -353,7 +353,7 @@ export default function Navbar() {
           </div>
 
           <div className={['flex items-center justify-between px-5 py-3 font-mono text-[8px] tracking-[0.16em] text-black/40 uppercase sm:px-8', open ? 'menu-enter-item' : ''].join(' ')} style={{ animationDelay: '760ms' }}>
-            <span>Transbet Industrial Group</span>
+            <span className="normal-case">TRANSBET BETONIARNIE GROCHOWICZ Sp. K.</span>
             <span>© 2026</span>
           </div>
         </div>

@@ -17,7 +17,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://transbet.com.pl'),
-  title: "Transbet Industrial Group",
+  // Pages set only their own name; the company name is added after it.
+  title: {
+    default: 'TRANSBET BETONIARNIE GROCHOWICZ Sp. K.',
+    template: '%s | TRANSBET BETONIARNIE GROCHOWICZ Sp. K.',
+  },
   description: "Beton, prefabrykacja betonowa i zbrojeniowa oraz wsparcie budownictwa tunelowego.",
 };
 

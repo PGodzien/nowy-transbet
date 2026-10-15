@@ -7,7 +7,7 @@ import SectionHeading from '@/components/SectionHeading';
 import { prefabProducts } from '@/data/site';
 
 export const metadata: Metadata = {
-  title: 'Prefabrykacja betonowa | Transbet',
+  title: 'Prefabrykacja betonowa',
   description: 'Prefabrykaty betonowe dla infrastruktury, hydrotechniki i przemysłu. Produkcja seryjna i elementy według indywidualnej dokumentacji.',
 };
 

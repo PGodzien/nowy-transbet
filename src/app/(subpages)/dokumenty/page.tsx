@@ -8,7 +8,7 @@ import { kdwuPlants, precastDocs } from '@/data/documents';
 import { getImageSize } from '@/lib/news';
 
 export const metadata: Metadata = {
-  title: 'Dokumenty | Transbet Industrial Group',
+  title: 'Dokumenty',
   description:
     'Certyfikaty, krajowe deklaracje właściwości użytkowych (KDWU) dla betoniarni w Przemyślu, Jarosławiu i Radymnie, ogólne warunki sprzedaży i informacje o środkach z UE.',
 };

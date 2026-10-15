@@ -4,7 +4,7 @@ import NewsList from '@/components/news/NewsList';
 import { categories, formatDate, getAllPosts } from '@/lib/news';
 
 export const metadata: Metadata = {
-  title: 'Aktualności | Transbet Industrial Group',
+  title: 'Aktualności',
   description:
     'Bieżące informacje z życia firmy Transbet: realizacje, wydarzenia branżowe, wyróżnienia i lokalne inicjatywy, które wspieramy.',
 };

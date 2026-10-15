@@ -6,7 +6,7 @@ import SectionHeading from '@/components/SectionHeading';
 import { concretePlants, concreteTypes } from '@/data/site';
 
 export const metadata: Metadata = {
-  title: 'Beton towarowy i betoniarnie | Transbet',
+  title: 'Beton towarowy i betoniarnie',
   description: 'Produkcja i dostawa betonu z betoniarni w Przemyślu, Jarosławiu i Radymnie. Mieszanki projektowane pod wymagania inwestycji.',
 };
 

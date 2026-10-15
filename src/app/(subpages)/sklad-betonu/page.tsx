@@ -3,7 +3,7 @@ import PageHero from '@/components/PageHero';
 import Reveal from '@/components/Reveal';
 
 export const metadata: Metadata = {
-  title: 'Skład betonu | Transbet Industrial Group',
+  title: 'Skład betonu',
   description:
     'Nasza Firma dzięki ścisłej kontroli jakości, zapewnia bezproblemowe spełnienie wszystkich wymagań jakościowych dotyczących mieszanki betonu.',
 };

@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const project = euProjects.find((item) => item.slug === slug);
   if (!project) return {};
-  return { title: `${project.title} | Środki UE | Transbet`, description: `Projekt UE: ${project.title}.` };
+  return { title: `${project.title} | Środki UE`, description: `Projekt UE: ${project.title}.` };
 }
 
 function Arrow({ back = false }: { back?: boolean }) {

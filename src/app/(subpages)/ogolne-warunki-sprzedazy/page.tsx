@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import PageHero from '@/components/PageHero';
 
 export const metadata: Metadata = {
-  title: 'Ogólne warunki sprzedaży | Transbet Industrial Group',
+  title: 'Ogólne warunki sprzedaży',
   description: 'Ogólne Warunki Sprzedaży produktów i usług Transbet Betoniarnie, obowiązujące od 01.10.2018 r.',
 };
 

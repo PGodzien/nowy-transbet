@@ -6,7 +6,7 @@ import SectionHeading from '@/components/SectionHeading';
 import { offerAreas } from '@/data/site';
 
 export const metadata: Metadata = {
-  title: 'Oferta | Transbet Industrial Group',
+  title: 'Oferta',
   description: 'Beton, prefabrykaty betonowe i zbrojeniowe, laboratorium, sprzęt oraz kruszywa — poznaj ofertę Transbet.',
 };
 
