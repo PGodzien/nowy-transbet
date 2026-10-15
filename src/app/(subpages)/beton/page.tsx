@@ -80,7 +80,7 @@ export default function ConcretePage() {
         </div>
       </section>
 
-      <section id="kontakt-beton" className="bg-white">
+      <section id="kontakt-beton" className="bg-white scroll-mt-20">
         <div className="mx-[4vw] border-x border-black/10">
           <SectionHeading
             eyebrow="Trzy betoniarnie"

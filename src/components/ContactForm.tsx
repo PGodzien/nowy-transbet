@@ -59,7 +59,7 @@ export default function ContactForm() {
 
   return (
     <section id="formularz" className="relative border-t border-black/[0.08] bg-white">
-      <div className="grid grid-cols-[4%_repeat(3,minmax(0,1fr))_4%] lg:h-[calc(100svh-5rem)] lg:min-h-[40rem]">
+      <div className="grid grid-cols-[4%_repeat(3,minmax(0,1fr))_4%] lg:h-[100svh] lg:min-h-[44rem]">
         <div className="flex items-center justify-center">
           <Reveal direction="left">
             <span className="font-mono text-[9px] tracking-[0.2em] text-black/35 [writing-mode:vertical-rl]">

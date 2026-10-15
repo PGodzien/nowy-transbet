@@ -87,17 +87,14 @@ export default function BusinessSections() {
       >
         <span id="about1" className="pointer-events-none absolute inset-x-0 top-0 h-px" aria-hidden="true" />
 
-        <video
+        <Image
+          src="/background.jpg"
+          alt=""
           aria-hidden="true"
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster="/beton.jpg"
-          className="absolute inset-0 h-full w-full object-cover opacity-45"
-        >
-          <source src="/transbet_background_video.mp4" type="video/mp4" />
-        </video>
+          fill
+          sizes="100vw"
+          className="object-cover opacity-45"
+        />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_38%,transparent_0,rgba(0,0,0,0.18)_38%,rgba(0,0,0,0.78)_82%)]" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/40" />
         <Grain />

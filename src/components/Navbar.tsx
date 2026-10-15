@@ -70,7 +70,7 @@ export default function Navbar() {
   return (
     <header
       className={[
-        'fixed inset-x-0 top-0 z-50 h-20 border-b transition-colors duration-300',
+        'absolute inset-x-0 top-0 z-50 h-20 border-b transition-colors duration-300',
         // Glass bar over the hero. The blur is dropped while the menu is open,
         // because backdrop-filter would trap the fixed menu panel inside the header.
         open ? 'border-black/15 bg-transparent' : 'border-white/10 bg-black/55 backdrop-blur-md backdrop-saturate-150',

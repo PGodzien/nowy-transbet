@@ -1,6 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { type MouseEvent, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { playCurtain, waitForPath } from '@/components/PageCurtain';
 
 const panels = [
   {
@@ -9,7 +11,7 @@ const panels = [
     label: 'Betoniarnie',
     description: 'Produkcja i transport betonu',
     color: '#ff4d00',
-    href: '/beton',
+    href: '#betoniarnie',
     external: false,
     domain: null,
   },
@@ -45,23 +47,58 @@ const panels = [
   },
 ] as const;
 
-const overviewImage = '/background.jpg';
+// 23 s loop cut from transbet_background_video.mp4 (letterbox cropped, no audio, ~2.9 MB).
+const heroVideo = '/hero-loop.mp4';
+const heroPoster = '/hero-loop-poster.jpg';
 type PanelId = (typeof panels)[number]['id'];
 
 export default function Hero() {
   const [activeId, setActiveId] = useState<PanelId | null>(null);
+  const router = useRouter();
+
+  /* Internal tiles play the curtain; external ones open their site as before. */
+  function handleTileClick(event: MouseEvent<HTMLAnchorElement>, panel: (typeof panels)[number]) {
+    if (panel.external) return;
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+
+    const isAnchor = panel.href.startsWith('#');
+    const played = playCurtain({
+      rect: event.currentTarget.getBoundingClientRect(),
+      color: panel.color,
+      textColor: panel.id === 'nr-1' ? '#000000' : '#ffffff',
+      number: panel.number,
+      label: panel.label,
+      action: isAnchor
+        ? () => {
+            document.querySelector(panel.href)?.scrollIntoView({ behavior: 'instant' });
+            history.replaceState(null, '', panel.href);
+          }
+        : () => {
+            router.push(panel.href);
+            return waitForPath(panel.href);
+          },
+    });
+    if (played) event.preventDefault();
+  }
 
   return (
     <section className="viewport-section relative overflow-hidden bg-black">
       <div className="absolute inset-0 overflow-hidden">
-        <div
-          className="hero-enter-media absolute inset-0 bg-cover bg-center transition-[transform,filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+        <video
+          aria-hidden="true"
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster={heroPoster}
+          className="hero-enter-media absolute inset-0 h-full w-full object-cover transition-[transform,filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
           style={{
-            backgroundImage: `url(${overviewImage})`,
             transform: activeId ? 'scale(1.025)' : 'scale(1.015)',
-            filter: 'saturate(0.82) contrast(1.08) brightness(0.92)',
+            filter: 'saturate(0.82) contrast(1.08) brightness(0.8)',
           }}
-        />
+        >
+          <source src={heroVideo} type="video/mp4" />
+        </video>
 
         <div
           className="absolute inset-0"
@@ -132,6 +169,7 @@ export default function Hero() {
                 href={panel.href}
                 target={panel.external ? '_blank' : undefined}
                 rel={panel.external ? 'noreferrer' : undefined}
+                onClick={(event) => handleTileClick(event, panel)}
                 onMouseEnter={() => setActiveId(panel.id)}
                 onFocus={() => setActiveId(panel.id)}
                 onBlur={() => setActiveId(null)}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Instrument_Sans } from "next/font/google";
 import { GridLines } from "@/components/PageGrid";
+import PageCurtain from "@/components/PageCurtain";
 import "./globals.css";
 
 const instrumentSans = Instrument_Sans({
@@ -33,6 +34,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <GridLines />
         {children}
+        <PageCurtain />
       </body>
     </html>
   );

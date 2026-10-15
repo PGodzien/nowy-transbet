@@ -16,11 +16,6 @@
   --color-brand-hover: #ff6a24;
 }
 
-/* The navbar is fixed (h-20), so anchor jumps stop below it. */
-html {
-  scroll-padding-top: 5rem;
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
