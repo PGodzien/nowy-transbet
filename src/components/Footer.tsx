@@ -36,14 +36,10 @@ export default function Footer() {
           <div className="flex min-h-20 items-center border-b border-white/12 px-6 sm:px-9">
             <Reveal direction="none" className="w-full">
               <div className="flex w-full items-center justify-between gap-6">
-                <div className="flex items-center gap-4">
+                <a href="/" aria-label="Transbet – strona główna" data-curtain-label="Transbet" className="flex items-center gap-4 transition-opacity hover:opacity-80">
                   <Image src="/logo-transbet.png" alt="" width={519} height={267} className="h-8 w-auto" />
                   <span className="text-xl font-bold tracking-[-0.025em] uppercase sm:text-2xl">Transbet</span>
-                  <span className="h-5 w-px bg-white/20" />
-                  <span className="font-mono text-[8px] leading-relaxed tracking-[0.18em] text-white/40 uppercase">
-                    Industrial<br />Group
-                  </span>
-                </div>
+                </a>
                 <span className="font-mono text-[8px] tracking-[0.18em] text-white/30 uppercase">
                   Od 1993
                 </span>
