@@ -126,7 +126,16 @@ export default function Footer() {
           </div>
         </div>
 
-        <div />
+        <div className="flex items-center justify-center">
+          <a
+            href="https://godzien.pl/"
+            target="_blank"
+            rel="noreferrer"
+            className="font-mono text-[9px] tracking-[0.2em] whitespace-nowrap text-white/45 uppercase transition-colors [writing-mode:vertical-rl] hover:text-brand"
+          >
+            Realizacja stron internetowych: Godzień
+          </a>
+        </div>
       </div>
     </footer>
   );
