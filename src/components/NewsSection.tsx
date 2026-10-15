@@ -1,26 +1,18 @@
 import Image from 'next/image';
 import Reveal from '@/components/Reveal';
+import { getAllPosts } from '@/lib/news';
 
-const stories = [
-  {
-    category: 'Infrastruktura',
-    title: 'Tunele kolejowe LK622 Szczyrzyc–Tymbark',
-    description: 'Transbet TCS odpowiada za kompleksową produkcję klatek zbrojeniowych do obudowy tuneli drążonych.',
-    image: '/news-02.jpg',
-  },
-  {
-    category: 'Firma',
-    title: 'Transbet dołącza do Polskiego Klastra Budowlanego',
-    description: 'Transbet Betoniarnie Grochowicz został członkiem Polskiego Klastra Budowlanego.',
-    image: '/news-01.jpg',
-  },
-  {
-    category: 'Wydarzenia',
-    title: 'Transbet na WTC 2026 w Montrealu',
-    description: 'Bierzemy udział w jednym z najważniejszych wydarzeń dla branży tunelowej.',
-    image: '/news-03.jpg',
-  },
-] as const;
+// The three newest posts from content/aktualnosci.
+const stories = () =>
+  getAllPosts()
+    .slice(0, 3)
+    .map((post) => ({
+      category: post.category,
+      title: post.title,
+      description: post.description,
+      image: post.coverSrc,
+      href: `/aktualnosci/${post.slug}`,
+    }));
 
 function Arrow() {
   return (
@@ -31,7 +23,7 @@ function Arrow() {
 }
 
 export default function NewsSection() {
-  const [featured, ...secondary] = stories;
+  const [featured, ...secondary] = stories();
 
   return (
     <section id="aktualnosci" className="viewport-section relative border-t border-black/[0.08] bg-[#f6f6f6]">
@@ -63,7 +55,7 @@ export default function NewsSection() {
 
             <Reveal direction="none" delay={120} className="h-full">
               <a
-                href="#"
+                href="/aktualnosci"
                 className="group flex h-full min-h-36 flex-col justify-between px-6 py-7 transition-colors hover:bg-white sm:px-9 lg:min-h-0 lg:py-10"
               >
                 <span className="font-mono text-[9px] tracking-[0.18em] text-black/35 uppercase">
@@ -79,7 +71,7 @@ export default function NewsSection() {
 
           <div className="grid flex-1 lg:min-h-0 lg:grid-cols-3">
             <Reveal direction="none" className="h-full lg:col-span-2">
-              <a href="#" className="group relative block h-full min-h-[62svh] overflow-hidden border-b border-black/[0.08] lg:min-h-0 lg:border-r lg:border-b-0 lg:border-black/[0.08]">
+              <a href={featured.href} data-curtain-label={featured.title} className="group relative block h-full min-h-[62svh] overflow-hidden border-b border-black/[0.08] lg:min-h-0 lg:border-r lg:border-b-0 lg:border-black/[0.08]">
                 <Image
                   src={featured.image}
                   alt={featured.title}
@@ -94,10 +86,10 @@ export default function NewsSection() {
                   </span>
                   <div className="mt-5 flex items-end justify-between gap-8">
                     <div>
-                      <h3 className="max-w-[18ch] text-[clamp(1.7rem,2.75vw,3.25rem)] font-medium leading-[0.98] tracking-[-0.034em]">
+                      <h3 className="line-clamp-3 max-w-[22ch] text-[clamp(1.7rem,2.75vw,3.25rem)] font-medium leading-[0.98] tracking-[-0.034em]">
                         {featured.title}
                       </h3>
-                      <p className="mt-4 max-w-xl text-sm leading-snug text-white/60">
+                      <p className="mt-4 line-clamp-2 max-w-xl text-sm leading-snug text-white/60">
                         {featured.description}
                       </p>
                     </div>
@@ -113,7 +105,8 @@ export default function NewsSection() {
               {secondary.map((story, index) => (
                 <Reveal key={story.title} direction="none" delay={110 + index * 80} className="min-h-0 h-full overflow-hidden">
                   <a
-                    href="#"
+                    href={story.href}
+                    data-curtain-label={story.title}
                     className={`group flex h-full min-h-0 flex-col justify-between overflow-hidden border-b border-black/[0.08] px-6 py-7 transition-colors hover:bg-white sm:px-8 lg:px-9 lg:py-7 ${index === secondary.length - 1 ? 'lg:border-b-0' : ''}`}
                   >
                     <div className="flex items-start justify-between gap-6">
@@ -126,7 +119,7 @@ export default function NewsSection() {
                     </div>
 
                     <div className="mt-6 min-w-0">
-                      <h3 className="max-w-[15ch] text-[clamp(1.45rem,2vw,2.35rem)] font-medium leading-[0.96] tracking-[-0.038em]">
+                      <h3 className="line-clamp-3 max-w-[20ch] text-[clamp(1.45rem,2vw,2.35rem)] font-medium leading-[0.96] tracking-[-0.038em]">
                         {story.title}
                       </h3>
                       <p className="mt-4 line-clamp-2 max-w-md text-sm leading-relaxed text-black/45">

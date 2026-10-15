@@ -277,3 +277,123 @@ body {
     animation: none;
   }
 }
+
+/*
+ * News article body (MDX). Plain markdown elements styled to match the site;
+ * components marked .not-prose (gallery, film, video) keep their own styles.
+ */
+.news-body {
+  color: rgb(0 0 0 / 0.75);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+
+.news-body > * + * {
+  margin-top: 1.25em;
+}
+
+.news-body :where(h2, h3):not(.not-prose *) {
+  color: #000;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-top: 2.2em;
+}
+
+.news-body h2:not(.not-prose *) {
+  font-size: clamp(1.6rem, 2.4vw, 2.25rem);
+}
+
+.news-body h3:not(.not-prose *) {
+  font-size: clamp(1.25rem, 1.7vw, 1.6rem);
+}
+
+.news-body strong {
+  color: #000;
+  font-weight: 600;
+}
+
+.news-body a:not(.not-prose *) {
+  color: #000;
+  text-decoration: underline;
+  text-decoration-color: #ff4d00;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.news-body a:not(.not-prose *):hover {
+  color: #ff4d00;
+}
+
+.news-body :where(ul, ol):not(.not-prose *) {
+  padding-left: 0;
+  list-style: none;
+}
+
+.news-body li:not(.not-prose *) {
+  position: relative;
+  padding-left: 1.5em;
+}
+
+.news-body li:not(.not-prose *) + li {
+  margin-top: 0.5em;
+}
+
+.news-body ul > li:not(.not-prose *)::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 0.4em;
+  height: 0.4em;
+  background: #ff4d00;
+}
+
+.news-body ol {
+  counter-reset: news-list;
+}
+
+.news-body ol > li:not(.not-prose *)::before {
+  counter-increment: news-list;
+  content: counter(news-list, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.7em;
+  top: 0.35em;
+  color: #ff4d00;
+}
+
+.news-body blockquote:not(.not-prose *) {
+  border-left: 2px solid #ff4d00;
+  padding: 0.25em 0 0.25em 1.5em;
+  color: #000;
+  font-size: clamp(1.2rem, 1.6vw, 1.5rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.35;
+}
+
+.news-body hr {
+  border: 0;
+  border-top: 1px solid rgb(0 0 0 / 0.1);
+  margin: 2.5em 0;
+}
+
+.news-body table:not(.not-prose *) {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95em;
+}
+
+.news-body :where(th, td):not(.not-prose *) {
+  border: 1px solid rgb(0 0 0 / 0.1);
+  padding: 0.6em 0.8em;
+  text-align: left;
+}
+
+.news-body th:not(.not-prose *) {
+  background: #f6f6f6;
+  color: #000;
+  font-weight: 600;
+}

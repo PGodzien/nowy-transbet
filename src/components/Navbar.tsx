@@ -17,7 +17,7 @@ const aboutLinks = [
   { label: 'O nas', href: '/o-nas', number: '01' },
   { label: 'Zespół', href: '/o-nas#zespol', number: '02' },
   { label: 'Kariera', href: 'https://transbet.com.pl/oferty-pracy', number: '03' },
-  { label: 'Aktualności', href: '/#aktualnosci', number: '04' },
+  { label: 'Aktualności', href: '/aktualnosci', number: '04' },
   { label: 'Członkostwa', href: '/o-nas#czlonkostwa', number: '05' },
   { label: 'Pielęgnacja betonu', href: 'https://transbet.com.pl/pielegnacja-betonu', number: '06' },
   { label: 'Misja firmy', href: 'https://transbet.com.pl/o-nas/misja-firmy', number: '07' },

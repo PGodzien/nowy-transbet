@@ -1,0 +1,22 @@
+import type { MetadataRoute } from 'next';
+import { getAllPosts } from '@/lib/news';
+
+const SITE = 'https://transbet.com.pl';
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const pages = ['', '/o-nas', '/oferta', '/beton', '/prefabrykacja-betonowa', '/aktualnosci'].map((path) => ({
+    url: `${SITE}${path}`,
+    changeFrequency: 'monthly' as const,
+    priority: path === '' ? 1 : 0.8,
+  }));
+
+  const posts = getAllPosts().map((post) => ({
+    url: `${SITE}/aktualnosci/${post.slug}`,
+    lastModified: post.date,
+    changeFrequency: 'yearly' as const,
+    priority: 0.6,
+    images: [`${SITE}${post.coverSrc}`],
+  }));
+
+  return [...pages, ...posts];
+}

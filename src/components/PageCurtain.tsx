@@ -33,7 +33,9 @@ function curtainLabel(link: HTMLAnchorElement) {
     .replace(/[↗→]/g, '')
     .replace(/\s+/g, ' ')
     .trim()
-    .replace(/\.$/, '');
+    .replace(/[.!]$/, '');
+  // A heading is a clean title even when long; loose link text is used only when short.
+  if (heading && text.length <= 120) return text;
   return text && text.length <= 40 ? text : 'Transbet';
 }
 
@@ -62,7 +64,9 @@ export function waitForPath(path: string, timeout = 4000) {
     const started = performance.now();
     const check = () => {
       if (window.location.pathname === path || performance.now() - started > timeout) {
+        // Two frames let the new page paint; the timer covers browsers that are not producing frames.
         requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(resolve, 120)));
+        setTimeout(resolve, 600);
         return;
       }
       setTimeout(check, 40);
@@ -72,6 +76,11 @@ export function waitForPath(path: string, timeout = 4000) {
 }
 
 const easeInOut = 'cubic-bezier(0.76, 0, 0.24, 1)';
+
+/* If the browser stops producing frames (background tab, throttled renderer), an animation
+   never finishes. Each step therefore waits at most a little longer than its own duration. */
+const settle = (animation: Animation, limit: number) =>
+  Promise.race([animation.finished.catch(() => undefined), new Promise((resolve) => setTimeout(resolve, limit))]);
 const easeOut = 'cubic-bezier(0.22, 1, 0.36, 1)';
 
 export default function PageCurtain() {
@@ -152,11 +161,14 @@ export default function PageCurtain() {
         ],
         { duration: 520, delay: 260, easing: easeOut, fill: 'both' },
       );
-      await el.animate([{ clipPath: from }, { clipPath: 'inset(0px 0px 0px 0px)' }], {
-        duration: 720,
-        easing: easeInOut,
-        fill: 'forwards',
-      }).finished;
+      await settle(
+        el.animate([{ clipPath: from }, { clipPath: 'inset(0px 0px 0px 0px)' }], {
+          duration: 720,
+          easing: easeInOut,
+          fill: 'forwards',
+        }),
+        1500,
+      );
       if (cancelled) return;
 
       // 2. Under cover: scroll or navigate.
@@ -169,11 +181,14 @@ export default function PageCurtain() {
         easing: easeInOut,
         fill: 'forwards',
       });
-      await el.animate([{ transform: 'translate3d(0, 0, 0)' }, { transform: 'translate3d(0, -100%, 0)' }], {
-        duration: 760,
-        easing: easeInOut,
-        fill: 'forwards',
-      }).finished;
+      await settle(
+        el.animate([{ transform: 'translate3d(0, 0, 0)' }, { transform: 'translate3d(0, -100%, 0)' }], {
+          duration: 760,
+          easing: easeInOut,
+          fill: 'forwards',
+        }),
+        1500,
+      );
       if (cancelled) return;
 
       busy.current = false;
@@ -196,9 +211,21 @@ export default function PageCurtain() {
     >
       <div ref={text} className="absolute inset-x-[calc(4vw+1.5rem)] bottom-[12vh] opacity-0 md:inset-x-[calc(4vw+1.75rem)]">
         {current.number ? <span className="font-mono text-[11px] tracking-[0.2em] opacity-60">/ {current.number}</span> : null}
-        <span className="mt-4 block max-w-[12ch] text-[clamp(3rem,9vw,10rem)] font-medium leading-[0.9] tracking-[-0.055em]">
+        <span
+          className={[
+            'mt-4 block font-medium leading-[0.92] tracking-[-0.05em]',
+            // Short labels are set huge; long post titles step down so they still fit on the screen.
+            current.label.length <= 24
+              ? 'max-w-[12ch] text-[clamp(3rem,9vw,10rem)]'
+              : current.label.length <= 60
+                ? 'max-w-[18ch] text-[clamp(2.4rem,6vw,6.5rem)]'
+                : 'max-w-[24ch] text-[clamp(2rem,4.4vw,4.75rem)]',
+          ].join(' ')}
+        >
           {current.label}
-          <span className={current.textColor === '#ffffff' ? 'text-brand' : 'text-white'}>.</span>
+          {/[.!?]$/.test(current.label) ? null : (
+            <span className={current.textColor === '#ffffff' ? 'text-brand' : 'text-white'}>.</span>
+          )}
         </span>
       </div>
     </div>

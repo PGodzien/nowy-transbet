@@ -15,7 +15,7 @@ const footerColumns = [
     links: [
       { label: 'O nas', href: '/o-nas' },
       { label: 'Oferta', href: '/oferta' },
-      { label: 'Aktualności', href: '/#aktualnosci' },
+      { label: 'Aktualności', href: '/aktualnosci' },
     ],
   },
 ] as const;
