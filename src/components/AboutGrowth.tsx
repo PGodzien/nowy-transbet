@@ -127,7 +127,7 @@ export default function AboutGrowth() {
           </div>
 
           {/* Memberships */}
-          <div className="border-b border-black/10 px-6 py-8 sm:px-9 md:px-12">
+          <div id="czlonkostwa" className="border-b border-black/10 px-6 py-8 sm:px-9 md:px-12">
             <p className={`${eyebrow} text-black/40`}>/ Członkostwa</p>
           </div>
           <div className="grid gap-px border-b border-black/10 bg-black/10 lg:grid-cols-3">

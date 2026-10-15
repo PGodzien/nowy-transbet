@@ -12,15 +12,20 @@ const navLinks = [
   { label: 'Kontakt', href: '#kontakt', number: '05' },
 ];
 
+// Pages not rebuilt yet point to their current version on transbet.com.pl.
 const aboutLinks = [
-  { label: 'Historia firmy', href: '/o-nas#o-firmie', number: '01' },
+  { label: 'O nas', href: '/o-nas', number: '01' },
   { label: 'Zespół', href: '/o-nas#zespol', number: '02' },
   { label: 'Kariera', href: 'https://transbet.com.pl/oferty-pracy', number: '03' },
   { label: 'Aktualności', href: '/#aktualnosci', number: '04' },
+  { label: 'Członkostwa', href: '/o-nas#czlonkostwa', number: '05' },
+  { label: 'Pielęgnacja betonu', href: 'https://transbet.com.pl/pielegnacja-betonu', number: '06' },
+  { label: 'Misja firmy', href: 'https://transbet.com.pl/o-nas/misja-firmy', number: '07' },
+  { label: 'Skład betonu', href: 'https://transbet.com.pl/sklad-betonu', number: '08' },
 ];
 
 const mainMenuLinks = [
-  { label: 'O nas', href: '/o-nas', number: '01', submenu: true },
+  { label: 'O firmie', href: '/o-nas', number: '01', submenu: true },
   { label: 'Betoniarnie', href: '/beton', number: '02' },
   { label: 'Prefabrykacja betonowa', href: '/prefabrykacja-betonowa', number: '03' },
   { label: 'Zbrojenia ↗', href: 'https://zbrojeniebudowlane.pl/', number: '04' },
@@ -204,9 +209,9 @@ export default function Navbar() {
 
                   <div
                     className={[
-                      'relative grid w-full grid-cols-2 grid-rows-2 overflow-hidden border-l border-black/10 bg-white transition-[max-height,opacity,transform,visibility] duration-300 md:absolute md:top-0 md:left-full md:h-full md:max-h-none',
+                      'relative grid w-full grid-cols-2 grid-rows-4 overflow-hidden border-l border-black/10 bg-white transition-[max-height,opacity,transform,visibility] duration-300 md:absolute md:top-0 md:left-full md:h-full md:max-h-none',
                       aboutOpen
-                        ? 'visible max-h-40 translate-y-0 opacity-100 md:translate-x-0'
+                        ? 'visible max-h-80 translate-y-0 opacity-100 md:translate-x-0'
                         : 'invisible max-h-0 -translate-y-2 opacity-0 md:max-h-none md:translate-y-0 md:-translate-x-3',
                     ].join(' ')}
                   >
@@ -222,7 +227,7 @@ export default function Navbar() {
                         className={[
                           'group flex min-h-16 items-center gap-3 px-4 transition-colors hover:bg-brand md:min-h-0',
                           index % 2 === 0 ? 'border-r border-black/10' : '',
-                          index < 2 ? 'border-b border-black/10' : '',
+                          index < aboutLinks.length - 2 ? 'border-b border-black/10' : '',
                         ].join(' ')}
                       >
                         <span className="font-mono text-[8px] tracking-[0.16em] text-black/40">
