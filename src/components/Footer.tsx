@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Reveal from '@/components/Reveal';
+import CookieSettingsButton from '@/components/CookieSettingsButton';
 
 const footerColumns = [
   {
@@ -119,6 +120,15 @@ export default function Footer() {
                 </div>
               </div>
             </Reveal>
+          </div>
+
+          <div className="flex min-h-14 flex-wrap items-center gap-x-8 gap-y-2 border-t border-white/10 px-6 py-4 sm:px-9">
+            <a href="/polityka-prywatnosci" className="font-mono text-[9px] tracking-[0.18em] text-white/40 uppercase transition-colors hover:text-brand">
+              Polityka prywatności
+            </a>
+            <CookieSettingsButton className="font-mono text-[9px] tracking-[0.18em] text-white/40 uppercase transition-colors hover:text-brand">
+              Ustawienia cookies
+            </CookieSettingsButton>
           </div>
         </div>
 
