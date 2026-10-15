@@ -117,6 +117,7 @@ export default function Footer() {
                   <div className="flex gap-5">
                     <a href="#" className="text-sm text-white/55 transition-colors hover:text-brand">LinkedIn</a>
                     <a href="#" className="text-sm text-white/55 transition-colors hover:text-brand">YouTube</a>
+                    <a href="https://www.instagram.com/transbet_betoniarnie/" target="_blank" rel="noreferrer" className="text-sm text-white/55 transition-colors hover:text-brand">Instagram</a>
                   </div>
                   <span className="font-mono text-[8px] tracking-[0.14em] text-white/25 uppercase">© 2026</span>
                 </div>
