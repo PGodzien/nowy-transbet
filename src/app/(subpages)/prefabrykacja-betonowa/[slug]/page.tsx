@@ -30,8 +30,6 @@ function Arrow({ back = false }: { back?: boolean }) {
   );
 }
 
-const label = 'font-mono text-[9px] tracking-[0.16em] text-black/45 uppercase';
-
 export default async function ProductPage({ params }: Props) {
   const { slug } = await params;
   const product = getProductBySlug(slug);
@@ -75,105 +73,79 @@ export default async function ProductPage({ params }: Props) {
       </header>
 
       <section className="bg-white">
-        <div className="mx-[4vw] grid grid-cols-[minmax(0,1fr)] border-x border-black/10 lg:grid-cols-2">
-          <div className="border-b border-black/10 p-6 sm:p-9 lg:border-r lg:border-b-0 xl:p-12">
-            <div className="lg:sticky lg:top-12">
-              <ProductGallery images={images} model3d={product.model3d} name={product.name} />
+        <div className="mx-[4vw] grid grid-cols-[minmax(0,1fr)] gap-12 py-12 sm:py-16 lg:grid-cols-[minmax(0,1.25fr)_minmax(22rem,0.75fr)] lg:gap-[6vw] lg:py-20">
+          <div className="min-w-0">
+            <ProductGallery images={images} model3d={product.model3d} name={product.name} />
+          </div>
+
+          <div className="flex items-center">
+            <div className="w-full max-w-2xl">
+              {product.description ? (
+                <p className="text-[clamp(1.25rem,1.65vw,1.65rem)] leading-[1.38] font-medium tracking-[-0.025em]">{product.description}</p>
+              ) : null}
+
+              {product.specs?.length ? (
+                <dl className="mt-10 border-y border-black/15">
+                  {product.specs.map((spec, i) => (
+                    <div key={`${spec.label}-${i}`} className="grid gap-2 border-b border-black/10 py-4 last:border-b-0 sm:grid-cols-[minmax(7rem,0.38fr)_minmax(0,0.62fr)] sm:gap-6">
+                      {spec.label ? <dt className="text-sm text-black/50">{spec.label}</dt> : null}
+                      <dd className={spec.label ? 'text-[clamp(1.05rem,1.2vw,1.25rem)] leading-snug font-medium tracking-[-0.02em]' : 'text-base leading-relaxed text-black/70 sm:col-span-2'}>
+                        {spec.value}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              ) : null}
+
+              {product.paragraphs?.length ? (
+                <div className="mt-10 space-y-4 text-base leading-relaxed text-black/75">
+                  {product.paragraphs.map((paragraph) => (
+                    <p key={paragraph.slice(0, 32)}>{paragraph}</p>
+                  ))}
+                </div>
+              ) : null}
+
+              {product.sections?.length ? (
+                <div className="mt-10 space-y-9">
+                  {product.sections.map((section) => (
+                    <div key={section.title}>
+                      <h2 className="text-2xl font-medium tracking-[-0.03em]">{section.title}</h2>
+                      <ul className="mt-4 space-y-2.5 text-base leading-relaxed text-black/75">
+                        {section.items.map((item) => (
+                          <li key={item} className="grid grid-cols-[1.25rem_1fr]">
+                            <span aria-hidden="true" className="mt-[0.6em] h-1.5 w-1.5 bg-brand" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              ) : null}
+
+              {product.euLogo ? (
+                <a
+                  href="/srodki-ue/wdrozenie-innowacyjnej-technologii-produkcji-modulowych-betonowych-elementow-prefabrykowanych-z-wykorzystaniem-procesu-wibrowania-wieloczestotliwosciowego"
+                  data-curtain-label="Projekt UE"
+                  className="mt-10 block transition-opacity hover:opacity-80"
+                >
+                  <Image src="/srodki-ue/flagi-ue-projekt.jpg" alt="Fundusze Europejskie" width={2600} height={214} sizes="(max-width: 1024px) 92vw, 34vw" className="h-auto w-full" />
+                </a>
+              ) : null}
             </div>
           </div>
-
-          <div className="px-6 py-10 sm:px-9 md:px-12 lg:py-14">
-            {product.description ? (
-              <p className="text-[clamp(1.15rem,1.5vw,1.45rem)] leading-[1.45] font-medium tracking-[-0.02em]">{product.description}</p>
-            ) : null}
-
-            {product.specs?.length ? (
-              <dl className="mt-12 grid items-start gap-x-10 gap-y-8 sm:grid-cols-2">
-                {product.specs.map((spec, i) => (
-                  <div key={`${spec.label}-${i}`} className={spec.label ? '' : 'sm:col-span-2'}>
-                    {spec.label ? <dt className={`mb-2 ${label}`}>{spec.label}</dt> : null}
-                    <dd className={spec.label ? 'text-[clamp(1.15rem,1.4vw,1.4rem)] leading-snug font-medium tracking-[-0.02em]' : 'text-base leading-relaxed text-black/65'}>
-                      {spec.value}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            ) : null}
-
-            {product.paragraphs?.length ? (
-              <div className="mt-12 space-y-4 text-base leading-relaxed text-black/75">
-                {product.paragraphs.map((paragraph) => (
-                  <p key={paragraph.slice(0, 32)}>{paragraph}</p>
-                ))}
-              </div>
-            ) : null}
-
-            {product.sections?.length ? (
-              <div className="mt-12 space-y-10">
-                {product.sections.map((section) => (
-                  <div key={section.title}>
-                    <h2 className="text-2xl font-medium tracking-[-0.03em]">{section.title}</h2>
-                    <ul className="mt-4 space-y-2.5 text-base leading-relaxed text-black/75">
-                      {section.items.map((item) => (
-                        <li key={item} className="grid grid-cols-[1.25rem_1fr]">
-                          <span aria-hidden="true" className="mt-[0.6em] h-1.5 w-1.5 bg-brand" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            ) : null}
-
-            {product.euLogo ? (
-              <a
-                href="/srodki-ue/wdrozenie-innowacyjnej-technologii-produkcji-modulowych-betonowych-elementow-prefabrykowanych-z-wykorzystaniem-procesu-wibrowania-wieloczestotliwosciowego"
-                data-curtain-label="Projekt UE"
-                className="mt-12 block transition-opacity hover:opacity-80"
-              >
-                <Image src="/srodki-ue/flagi-ue-projekt.jpg" alt="Fundusze Europejskie" width={2600} height={214} sizes="(max-width: 1024px) 92vw, 44vw" className="h-auto w-full" />
-              </a>
-            ) : null}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact from the "Zapytaj o produkt" dialog of the previous site, as a strip of the page grid. */}
-      <section className="bg-white">
-        <div className="mx-[4vw] grid gap-px border-x border-t border-black/10 bg-black/10 lg:grid-cols-3">
-          <div className="flex min-h-56 flex-col justify-between bg-[#f6f6f6] px-6 py-7 sm:px-9 md:px-12">
-            <p className="font-mono text-[9px] tracking-[0.18em] text-brand uppercase">Zapytaj o produkt</p>
-            <div className="mt-10">
-              <p className="text-[clamp(1.6rem,2.2vw,2.2rem)] leading-none font-medium tracking-[-0.04em]">Mateusz Maciaszek</p>
-              <p className="mt-2 text-sm text-black/50">Kierownik prefabrykacji betonu</p>
-              <p className="mt-5 max-w-sm text-sm leading-relaxed text-black/65">
-                Zapraszam do kontaktu — chętnie odpowiem na wszelkie pytania dotyczące oferty prefabrykacji betonowej.
-              </p>
-            </div>
-          </div>
-          {[
-            { href: 'tel:+48539141851', value: '+48 539 141 851' },
-            { href: 'mailto:prefabrykaty@transbet.com.pl', value: 'prefabrykaty@transbet.com.pl' },
-          ].map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="group flex min-h-36 flex-col justify-between bg-white px-6 py-7 lg:min-h-56 transition-colors duration-300 hover:bg-black hover:text-white sm:px-9 md:px-12"
-            >
-              <span className="flex justify-end text-brand transition-transform duration-300 group-hover:translate-x-1">
-                <Arrow />
-              </span>
-              <span className="mt-6 block text-[clamp(1.15rem,1.4vw,1.6rem)] leading-tight font-medium tracking-[-0.03em] break-words">{item.value}</span>
-            </a>
-          ))}
         </div>
       </section>
 
       {product.table ? (
-        <section className="bg-[#f6f6f6]">
-          <div className="mx-[4vw] overflow-x-auto border-x border-t border-black/10">
-            <table className="w-full min-w-[56rem] border-collapse text-left font-mono text-[12px]">
+        <section className="bg-[#f5f5f3] py-14 sm:py-16">
+          <div className="mx-[4vw]">
+            <div className="mb-8 flex items-end justify-between gap-6">
+              <h2 className="text-[clamp(2rem,3vw,3.25rem)] leading-none font-medium tracking-[-0.035em]">Warianty i wymiary</h2>
+              <p className="hidden max-w-sm text-right text-sm leading-relaxed text-black/50 sm:block">Dane techniczne dostępnych wariantów produktu.</p>
+            </div>
+            <div className="overflow-x-auto bg-white">
+              <table className="w-full min-w-[56rem] border-collapse text-left font-mono text-[12px]">
               <thead>
                 <tr className="border-b border-black/15">
                   {product.table.headers.map((header) => (
@@ -194,10 +166,34 @@ export default async function ProductPage({ params }: Props) {
                   </tr>
                 ))}
               </tbody>
-            </table>
+              </table>
+            </div>
           </div>
         </section>
       ) : null}
+
+      <section className="bg-white">
+        <div className="mx-[4vw] grid bg-black text-white lg:grid-cols-[1.2fr_0.8fr_1.25fr]">
+          <div className="px-6 py-9 sm:px-9 md:px-12 lg:py-11">
+            <p className="text-sm text-brand">Kontakt w sprawie produktu</p>
+            <p className="mt-4 text-[clamp(1.65rem,2.2vw,2.3rem)] leading-none font-medium tracking-[-0.035em]">Mateusz Maciaszek</p>
+            <p className="mt-2 text-sm text-white/55">Kierownik prefabrykacji betonu</p>
+          </div>
+          {[
+            { href: 'tel:+48539141851', value: '+48 539 141 851' },
+            { href: 'mailto:prefabrykaty@transbet.com.pl', value: 'prefabrykaty@transbet.com.pl' },
+          ].map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              className="group flex min-h-28 items-center justify-between gap-6 border-t border-white/15 px-6 py-7 transition-colors duration-300 hover:bg-white hover:text-black sm:px-9 md:px-12 lg:min-h-full lg:border-t-0 lg:border-l"
+            >
+              <span className="min-w-0 break-words text-[clamp(1.05rem,1.35vw,1.45rem)] leading-tight font-medium tracking-[-0.025em]">{item.value}</span>
+              <span className="shrink-0 text-brand transition-transform duration-300 group-hover:translate-x-1"><Arrow /></span>
+            </a>
+          ))}
+        </div>
+      </section>
 
       <nav aria-label="Inne produkty" className="bg-white">
         <div className="mx-[4vw] grid gap-px border-x border-t border-black/10 bg-black/10 md:grid-cols-2">

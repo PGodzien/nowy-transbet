@@ -1,13 +1,12 @@
 import Image from 'next/image';
 import { scenePhotos, type Product } from '@/data/precast-products';
 
-/* Catalogue grid: packshots stand on a light ground (white backgrounds blend away), the second photo fades in on hover. */
+/* Catalogue grid: packshots stand on a light ground; hover motion keeps the chosen cover intact. */
 export default function PrecastGrid({ products }: { products: Product[] }) {
   return (
     <div className="grid grid-cols-2 gap-px bg-black/10 md:grid-cols-3 lg:grid-cols-4">
       {products.map((product, index) => {
         const photo = scenePhotos.has(product.imageSrc);
-        const second = product.images?.[1];
         // Slight brightening pushes the off-white studio backdrop of some packshots to white, so it blends into the ground.
         const imageClass = photo ? 'object-cover' : 'object-contain p-[7%] mix-blend-multiply brightness-[1.07] contrast-[1.03]';
 
@@ -28,17 +27,8 @@ export default function PrecastGrid({ products }: { products: Product[] }) {
                 alt={product.imageAlt}
                 fill
                 sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                className={`${imageClass} transition-[opacity,transform] duration-700 ease-out group-hover:scale-[1.04] ${second ? 'group-hover:opacity-0' : ''}`}
+                className={`${imageClass} transition-transform duration-700 ease-out group-hover:scale-[1.04]`}
               />
-              {second ? (
-                <Image
-                  src={second.src}
-                  alt=""
-                  fill
-                  sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                  className={`${imageClass} scale-[1.04] opacity-0 transition-[opacity,transform] duration-700 ease-out group-hover:scale-100 group-hover:opacity-100`}
-                />
-              ) : null}
             </span>
 
             <span className="mt-auto flex items-end justify-between gap-3 px-4 pt-3 pb-4 sm:px-6 sm:pb-6">
