@@ -1,15 +1,12 @@
 import Image from 'next/image';
-import type { Product } from '@/data/precast-products';
-
-// Covers that are photos rather than packshots on white: they fill the frame instead of standing on the grey ground.
-const PHOTO_COVERS = new Set(['stropy-filigran', 'prefabrykaty-na-zamowienie']);
+import { scenePhotos, type Product } from '@/data/precast-products';
 
 /* Catalogue grid: packshots stand on a light ground (white backgrounds blend away), the second photo fades in on hover. */
 export default function PrecastGrid({ products }: { products: Product[] }) {
   return (
     <div className="grid grid-cols-2 gap-px bg-black/10 md:grid-cols-3 lg:grid-cols-4">
       {products.map((product, index) => {
-        const photo = PHOTO_COVERS.has(product.slug);
+        const photo = scenePhotos.has(product.imageSrc);
         const second = product.images?.[1];
         // Slight brightening pushes the off-white studio backdrop of some packshots to white, so it blends into the ground.
         const imageClass = photo ? 'object-cover' : 'object-contain p-[7%] mix-blend-multiply brightness-[1.07] contrast-[1.03]';

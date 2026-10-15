@@ -553,3 +553,12 @@ export const products: Product[] = [
 export function getProductBySlug(slug: string): Product | undefined {
     return products.find((p) => p.slug === slug);
 }
+
+// Photos that are not packshots on white (checked by their edge colour): shown edge to edge instead of on the grey ground.
+export const scenePhotos = new Set([
+    "/products/balkony-02.jpg",
+    "/products/stropy-filigran-01.jpg",
+    "/products/indywidualne-projekty-na-zamowienie-01.jpg",
+    "/products/indywidualne-projekty-na-zamowienie-02.jpg",
+    "/products/indywidualne-projekty-na-zamowienie-03.jpg",
+]);
