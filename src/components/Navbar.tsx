@@ -17,7 +17,7 @@ const aboutLinks = [
   { label: 'Zespół', href: '/o-nas#zespol', number: '02' },
   { label: 'Kariera', href: '/kariera', number: '03' },
   { label: 'Aktualności', href: '/aktualnosci', number: '04' },
-  { label: 'Członkostwa', href: '/o-nas#czlonkostwa', number: '05' },
+  { label: 'Członkostwa', href: '/czlonkostwa', number: '05' },
   { label: 'Pielęgnacja betonu', href: '/pielegnacja-betonu', number: '06' },
   { label: 'Dokumenty', href: '/dokumenty', number: '07' },
   { label: 'Skład betonu', href: '/sklad-betonu', number: '08' },
