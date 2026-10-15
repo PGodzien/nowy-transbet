@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 /* Floating shortcut to the concrete calculator on every page except the calculator itself (as on the previous site). */
 export default function CalculatorTag() {
   const pathname = usePathname();
-  if (pathname?.startsWith('/kalkulator-betonu') || pathname?.startsWith('/cms')) return null;
+  if (pathname?.startsWith('/kalkulator-betonu') || pathname?.startsWith('/cms') || pathname?.startsWith('/mail')) return null;
 
   return (
     <nav aria-label="Skróty" className="fixed bottom-4 left-4 z-40 sm:bottom-5 sm:left-5">
