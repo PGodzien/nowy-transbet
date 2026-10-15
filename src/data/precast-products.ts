@@ -19,6 +19,8 @@ export type Product = {
     sections?: ContentSection[];
     paragraphs?: string[];
     euLogo?: boolean;
+    // Photo gallery shown under the product (e.g. realisations of custom orders).
+    gallery?: ProductImage[];
 };
 
 export const products: Product[] = [
@@ -547,6 +549,18 @@ export const products: Product[] = [
             { label: "Wymiary", value: "według specyfikacji klienta" },
             { label: "Waga", value: "zależna od projektu" },
         ],
+        // Text and photos 1:1 from transbet.com.pl/indywidualne-zamowienia-prefabrykatow-betonowych.
+        paragraphs: [
+            "Specjalizujemy się również w realizacji indywidualnych zamówień prefabrykatów betonowych, dostosowanych do specyficznych potrzeb naszych klientów.",
+            "Nasz doświadczony zespół inżynierów i techników jest gotowy do współpracy na każdym etapie projektu, od koncepcji po finalne wykonanie.",
+            "Oferujemy kompleksową obsługę, obejmującą projektowanie, produkcję oraz dostawę prefabrykatów betonowych, zapewniając najwyższą jakość i terminowość realizacji. Dzięki nowoczesnym technologiom produkcyjnym oraz rygorystycznym standardom jakości, jesteśmy w stanie sprostać nawet najbardziej wymagającym projektom.",
+            "Każdy z naszych produktów jest wynikiem wieloletniego doświadczenia oraz zaangażowania w zapewnianie najwyższej jakości rozwiązań budowlanych.",
+            "Jesteśmy dumni z naszej oferty i gotowi sprostać Państwa oczekiwaniom.",
+        ],
+        gallery: Array.from({ length: 26 }, (_, i) => ({
+            src: `/products/na-zamowienie/${String(i + 1).padStart(2, "0")}.jpg`,
+            alt: "Indywidualne zamówienia prefabrykatów betonowych",
+        })),
     },
 ];
 

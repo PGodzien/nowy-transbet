@@ -1,0 +1,377 @@
+'use client';
+
+import { useEffect, useMemo, useRef, useState } from 'react';
+
+/* Concrete volume calculator, ported 1:1 from the previous site (components/calculator.tsx):
+   same shapes, formulas, texts, local save and PDF export, in the new look. */
+
+type Shape = 'slab' | 'wall' | 'beam' | 'cylinder';
+
+const STORAGE_KEY = 'concreteCalcV2_clean';
+
+const fmt = (n: number, digits = 3) =>
+  new Intl.NumberFormat('pl-PL', { minimumFractionDigits: Math.min(2, digits), maximumFractionDigits: digits }).format(n);
+
+const tabs: { id: Shape; name: string; desc: string }[] = [
+  { id: 'slab', name: 'Płyta', desc: 'posadzka / taras' },
+  { id: 'wall', name: 'Ściana', desc: 'liniowa przegroda' },
+  { id: 'beam', name: 'Ława / Belka', desc: 'fundament / wieniec' },
+  { id: 'cylinder', name: 'Cylinder', desc: 'słup / rura' },
+];
+
+const formulas = [
+  ['Płyta', 'V = długość [m] × szerokość [m] × grubość [m]'],
+  ['Ściana', 'V = długość [m] × wysokość [m] × grubość [m]'],
+  ['Ława/Belka', 'V = długość [m] × szerokość [m] × wysokość [m]'],
+  ['Cylinder (słup)', 'V = π × r² × wysokość [m]'],
+] as const;
+
+function NumberInput({
+  id,
+  label,
+  value,
+  onChange,
+  step = 0.01,
+  suffix,
+}: {
+  id: string;
+  label: string;
+  value: number | '';
+  onChange: (value: number | '') => void;
+  step?: number;
+  suffix?: string;
+}) {
+  return (
+    <label htmlFor={id} className="flex flex-col gap-2">
+      <span className="text-sm text-black/60">{label}</span>
+      <span className="relative block">
+        <input
+          id={id}
+          inputMode="decimal"
+          type="number"
+          min={0}
+          step={step}
+          value={value}
+          onChange={(event) => onChange(event.target.value === '' ? '' : parseFloat(event.target.value))}
+          className="h-14 w-full border border-black/15 bg-white px-4 pr-14 text-lg font-medium tracking-[-0.01em] outline-none transition-colors focus:border-black"
+        />
+        {suffix ? (
+          <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center font-mono text-[11px] tracking-[0.08em] text-black/45">
+            {suffix}
+          </span>
+        ) : null}
+      </span>
+    </label>
+  );
+}
+
+export default function ConcreteCalculator() {
+  const [shape, setShape] = useState<Shape>('slab');
+  const [pricePerM3, setPricePerM3] = useState<number | ''>('');
+  const [slab, setSlab] = useState({ lengthM: 4, widthM: 3, thicknessCm: 10 });
+  const [wall, setWall] = useState({ lengthM: 5, heightM: 2.5, thicknessCm: 15 });
+  const [beam, setBeam] = useState({ lengthM: 6, widthCm: 40, heightCm: 30 });
+  const [cyl, setCyl] = useState({ diameterCm: 30, heightM: 3 });
+  const [loaded, setLoaded] = useState(false);
+
+  // Remember the last calculation in this browser (same key as the previous site).
+  useEffect(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? 'null');
+      if (saved) {
+        setShape(saved.shape ?? 'slab');
+        setPricePerM3(saved.pricePerM3 ?? '');
+        if (saved.slab) setSlab(saved.slab);
+        if (saved.wall) setWall(saved.wall);
+        if (saved.beam) setBeam(saved.beam);
+        if (saved.cyl) setCyl(saved.cyl);
+      }
+    } catch {
+      /* storage unavailable */
+    }
+    setLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    if (!loaded) return;
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ shape, pricePerM3, slab, wall, beam, cyl }));
+    } catch {
+      /* storage unavailable */
+    }
+  }, [loaded, shape, pricePerM3, slab, wall, beam, cyl]);
+
+  const volumeM3 = useMemo(() => {
+    switch (shape) {
+      case 'slab':
+        return (slab.lengthM || 0) * (slab.widthM || 0) * ((slab.thicknessCm || 0) / 100);
+      case 'wall':
+        return (wall.lengthM || 0) * (wall.heightM || 0) * ((wall.thicknessCm || 0) / 100);
+      case 'beam':
+        return (beam.lengthM || 0) * ((beam.widthCm || 0) / 100) * ((beam.heightCm || 0) / 100);
+      case 'cylinder': {
+        const r = (cyl.diameterCm || 0) / 100 / 2;
+        return Math.PI * r * r * (cyl.heightM || 0);
+      }
+    }
+  }, [shape, slab, wall, beam, cyl]);
+
+  const cost = pricePerM3 === '' || !pricePerM3 ? null : volumeM3 * pricePerM3;
+
+  const resetAll = () => {
+    setShape('slab');
+    setPricePerM3('');
+    setSlab({ lengthM: 4, widthM: 3, thicknessCm: 10 });
+    setWall({ lengthM: 5, heightM: 2.5, thicknessCm: 15 });
+    setBeam({ lengthM: 6, widthCm: 40, heightCm: 30 });
+    setCyl({ diameterCm: 30, heightM: 3 });
+  };
+
+  const shapeSummary = () => {
+    switch (shape) {
+      case 'slab':
+        return `Płyta: ${slab.lengthM} m × ${slab.widthM} m × ${slab.thicknessCm} cm`;
+      case 'wall':
+        return `Ściana: ${wall.lengthM} m × ${wall.heightM} m × ${wall.thicknessCm} cm`;
+      case 'beam':
+        return `Ława/Belka: ${beam.lengthM} m × ${beam.widthCm} cm × ${beam.heightCm} cm`;
+      case 'cylinder':
+        return `Cylinder: Ø ${cyl.diameterCm} cm × ${cyl.heightM} m`;
+    }
+  };
+
+  const num = (v: number | '') => (v === '' ? 0 : Number(v));
+
+  // PDF: the hidden sheet below is rendered to an image and placed on A4 pages.
+  const exportRef = useRef<HTMLDivElement>(null);
+  const [exporting, setExporting] = useState(false);
+  // Set when exporting, so server and browser render the same markup (no date during hydration).
+  const [printedAt, setPrintedAt] = useState('');
+
+  const handleExportPDF = async () => {
+    if (!exportRef.current) return;
+    try {
+      setExporting(true);
+      setPrintedAt(new Date().toLocaleString('pl-PL'));
+      await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      const [{ default: html2canvas }, { jsPDF }] = await Promise.all([import('html2canvas-pro'), import('jspdf')]);
+      const canvas = await html2canvas(exportRef.current, { scale: 2, useCORS: true });
+      const pdf = new jsPDF({ orientation: 'portrait', unit: 'pt', format: 'a4' });
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const imgWidth = pageWidth - 48;
+      const imgHeight = imgWidth * (canvas.height / canvas.width);
+
+      if (imgHeight <= pageHeight - 48) {
+        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 24, 24, imgWidth, imgHeight);
+      } else {
+        const pxPageHeight = ((pageHeight - 48) / imgWidth) * canvas.width;
+        for (let y = 0; y < canvas.height; y += pxPageHeight) {
+          const page = document.createElement('canvas');
+          page.width = canvas.width;
+          page.height = Math.min(pxPageHeight, canvas.height - y);
+          page.getContext('2d')!.drawImage(canvas, 0, y, canvas.width, page.height, 0, 0, page.width, page.height);
+          if (y > 0) pdf.addPage();
+          pdf.addImage(page.toDataURL('image/png'), 'PNG', 24, 24, imgWidth, (page.height / page.width) * imgWidth);
+        }
+      }
+      pdf.save('kalkulacja-betonu-Transbet.pdf');
+    } catch (error) {
+      console.error(error);
+      alert('Nie udało się wygenerować PDF. Upewnij się, że zainstalowano jspdf i html2canvas.');
+    } finally {
+      setExporting(false);
+    }
+  };
+
+  return (
+    <div>
+      {/* Shape */}
+      <div className="flex flex-wrap items-end justify-between gap-6 px-6 py-10 sm:px-9 md:px-12">
+        <div>
+          <p className="text-lg font-medium tracking-[-0.02em]">Wybierz kształt</p>
+          <p className="mt-1 text-sm text-black/55">Podaj wymiary w jednostkach metrycznych.</p>
+        </div>
+        <button
+          type="button"
+          onClick={resetAll}
+          className="h-11 cursor-pointer border border-black/20 px-5 text-sm font-medium transition-colors hover:border-black hover:bg-black hover:text-white"
+        >
+          Resetuj
+        </button>
+      </div>
+
+      <div role="tablist" aria-label="Kształt" className="grid grid-cols-2 gap-px border-t border-black/10 bg-black/10 md:grid-cols-4">
+        {tabs.map((tab) => {
+          const active = tab.id === shape;
+          return (
+            <button
+              key={tab.id}
+              type="button"
+              role="tab"
+              aria-selected={active}
+              onClick={() => setShape(tab.id)}
+              className={`flex min-h-24 cursor-pointer flex-col items-start justify-end gap-1 px-6 py-5 text-left transition-colors sm:px-8 ${
+                active ? 'bg-black text-white' : 'bg-white hover:bg-[#f6f6f6]'
+              }`}
+            >
+              <span className="text-xl font-medium tracking-[-0.03em]">{tab.name}</span>
+              <span className={`font-mono text-[9px] tracking-[0.14em] uppercase ${active ? 'text-brand' : 'text-black/45'}`}>{tab.desc}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Dimensions and result */}
+      <div className="grid border-t border-black/10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
+        <div className="grid content-start gap-5 px-6 py-10 sm:grid-cols-2 sm:px-9 md:px-12 lg:border-r lg:border-black/10">
+          {shape === 'slab' ? (
+            <>
+              <NumberInput id="slab_len" label="Długość płyty" value={slab.lengthM} onChange={(v) => setSlab((s) => ({ ...s, lengthM: num(v) }))} suffix="m" />
+              <NumberInput id="slab_wid" label="Szerokość płyty" value={slab.widthM} onChange={(v) => setSlab((s) => ({ ...s, widthM: num(v) }))} suffix="m" />
+              <NumberInput id="slab_th" label="Grubość płyty" value={slab.thicknessCm} onChange={(v) => setSlab((s) => ({ ...s, thicknessCm: num(v) }))} step={1} suffix="cm" />
+            </>
+          ) : null}
+          {shape === 'wall' ? (
+            <>
+              <NumberInput id="wall_len" label="Długość ściany" value={wall.lengthM} onChange={(v) => setWall((s) => ({ ...s, lengthM: num(v) }))} suffix="m" />
+              <NumberInput id="wall_h" label="Wysokość ściany" value={wall.heightM} onChange={(v) => setWall((s) => ({ ...s, heightM: num(v) }))} suffix="m" />
+              <NumberInput id="wall_th" label="Grubość ściany" value={wall.thicknessCm} onChange={(v) => setWall((s) => ({ ...s, thicknessCm: num(v) }))} step={1} suffix="cm" />
+            </>
+          ) : null}
+          {shape === 'beam' ? (
+            <>
+              <NumberInput id="beam_len" label="Długość" value={beam.lengthM} onChange={(v) => setBeam((s) => ({ ...s, lengthM: num(v) }))} suffix="m" />
+              <NumberInput id="beam_w" label="Szerokość" value={beam.widthCm} onChange={(v) => setBeam((s) => ({ ...s, widthCm: num(v) }))} step={1} suffix="cm" />
+              <NumberInput id="beam_h" label="Wysokość" value={beam.heightCm} onChange={(v) => setBeam((s) => ({ ...s, heightCm: num(v) }))} step={1} suffix="cm" />
+            </>
+          ) : null}
+          {shape === 'cylinder' ? (
+            <>
+              <NumberInput id="cyl_d" label="Średnica" value={cyl.diameterCm} onChange={(v) => setCyl((s) => ({ ...s, diameterCm: num(v) }))} step={1} suffix="cm" />
+              <NumberInput id="cyl_h" label="Wysokość" value={cyl.heightM} onChange={(v) => setCyl((s) => ({ ...s, heightM: num(v) }))} suffix="m" />
+            </>
+          ) : null}
+          <div className="border-t border-black/10 pt-5 sm:col-span-2">
+            <div className="max-w-sm">
+              <NumberInput id="price" label="Cena za 1 m³ (opcjonalnie)" value={pricePerM3} onChange={setPricePerM3} step={1} suffix="zł" />
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col justify-between gap-10 bg-black px-6 py-10 text-white sm:px-9 md:px-12" aria-live="polite">
+          <div className="grid gap-8">
+            <div>
+              <p className="font-mono text-[9px] tracking-[0.16em] text-white/50 uppercase">Objętość geometryczna</p>
+              <p className="mt-3 text-[clamp(2.6rem,4.6vw,4.8rem)] leading-none font-medium tracking-[-0.05em]">
+                {fmt(volumeM3)} <span className="text-brand">m³</span>
+              </p>
+            </div>
+            <div>
+              <p className="font-mono text-[9px] tracking-[0.16em] text-white/50 uppercase">Cena łączna (jeśli podano)</p>
+              <p className="mt-3 text-[clamp(1.6rem,2.4vw,2.4rem)] leading-none font-medium tracking-[-0.04em]">
+                {cost === null ? '-' : `${fmt(cost, 2)} zł`}
+              </p>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={handleExportPDF}
+            disabled={exporting}
+            aria-busy={exporting}
+            className="flex min-h-16 cursor-pointer items-center justify-between bg-brand px-6 font-semibold text-black transition-colors hover:bg-brand-hover disabled:opacity-60"
+          >
+            {exporting ? 'Generowanie PDF…' : 'Pobierz PDF'}
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="h-5 w-5">
+              <path d="M12 4v12M6 11l6 6 6-6M5 20h14" stroke="currentColor" strokeWidth="1.5" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {/* Formulas */}
+      <details className="group border-t border-black/10">
+        <summary className="flex cursor-pointer list-none items-center justify-between gap-6 px-6 py-8 sm:px-9 md:px-12">
+          <span>
+            <span className="block text-lg font-medium tracking-[-0.02em]">Jak liczymy objętości?</span>
+            <span className="mt-1 block text-sm text-black/55">Proste wzory geometryczne na podstawie wymiarów.</span>
+          </span>
+          <span className="shrink-0 border border-black/20 px-4 py-2 text-xs font-medium transition-colors group-open:bg-black group-open:text-white">
+            Pokaż wzory
+          </span>
+        </summary>
+        <div className="grid gap-px border-t border-black/10 bg-black/10 sm:grid-cols-2 lg:grid-cols-4">
+          {formulas.map(([name, formula]) => (
+            <div key={name} className="bg-[#f6f6f6] px-6 py-6 sm:px-8">
+              <p className="font-medium">{name}</p>
+              <p className="mt-2 font-mono text-[12px] leading-relaxed text-black/65">{formula}</p>
+            </div>
+          ))}
+        </div>
+      </details>
+
+      <p className="border-t border-black/10 px-6 py-8 text-sm leading-relaxed text-black/55 sm:px-9 md:px-12">
+        Wyniki mają charakter orientacyjny i nie stanowią specyfikacji technicznej. Zawsze weryfikuj wymiary, klasy betonu i wymagania
+        projektowe. <strong className="font-semibold text-black">Należy wziąć pod uwagę współczynnik zagęszczenia i zapas na pompę.</strong>
+      </p>
+
+      {/* Sheet rendered into the PDF (off screen) */}
+      <div aria-hidden className="pointer-events-none fixed top-[-9999px] left-[-9999px] w-[794px]" ref={exportRef}>
+        <div className="bg-white p-16 text-black">
+          <div className="mb-14 flex items-center justify-between">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo-transbet-black.png" alt="Transbet" className="h-14 w-auto" />
+            <div className="text-right text-xs text-black/55">{printedAt}</div>
+          </div>
+          <h2 className="text-2xl font-semibold">Kalkulacja betonu</h2>
+          <p className="mt-1 text-black/60">{shapeSummary()}</p>
+          <div className="mt-8 grid grid-cols-2 gap-12 text-sm">
+            <p>
+              <span className="font-medium">Objętość geometryczna:</span> {fmt(volumeM3)} m³
+            </p>
+            <div className="space-y-2">
+              <p>
+                <span className="font-medium">Cena za 1 m³:</span> {pricePerM3 ? `${fmt(+pricePerM3, 2)} zł` : '-'}
+              </p>
+              <p>
+                <span className="font-medium">Koszt łączny:</span> {cost === null ? '-' : `${fmt(cost, 2)} zł`}
+              </p>
+            </div>
+          </div>
+          <div className="mt-14 bg-[#f6f6f6] p-10 text-sm leading-relaxed text-black/70">
+            <p className="font-medium">Uwagi:</p>
+            <ul className="mt-2 list-disc pl-5">
+              <li>Wartości orientacyjne - weryfikuj z projektem i producentem mieszanki.</li>
+              <li>
+                Należy uwzględnić <strong>współczynnik zagęszczenia</strong> mieszanki betonowej.
+              </li>
+              <li>
+                Pamiętaj o doliczeniu <strong>zapasu na pompę</strong>.
+              </li>
+              <li>Sprawdź minimalne zamówienie i transport w wytwórni betonu.</li>
+            </ul>
+          </div>
+          <div className="mt-14 grid grid-cols-3 border-t border-black/15 pt-8 text-[8px] font-light">
+            <div>
+              <p className="text-xs font-semibold">Dane firmy</p>
+              <p>TRANSBET BETONIARNIE</p>
+              <p>GROCHOWICZ Sp. K.</p>
+              <p>NIP: 795-10-07-169</p>
+              <p>KRS: 0000573370</p>
+            </div>
+            <div>
+              <p className="text-xs font-semibold">Adres</p>
+              <p>Topolowa 5</p>
+              <p>37-700 Przemyśl</p>
+            </div>
+            <div>
+              <p className="text-xs font-semibold">Kontakt</p>
+              <p>biuro@transbet.com.pl</p>
+              <p>+48 888 839 617</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

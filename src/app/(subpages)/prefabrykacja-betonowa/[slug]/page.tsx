@@ -3,6 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import ProductGallery from '@/components/precast/ProductGallery';
+import NewsGallery from '@/components/news/NewsGallery';
+import { getImageSize } from '@/lib/news';
 import { getProductBySlug, products } from '@/data/precast-products';
 
 type Props = { params: Promise<{ slug: string }> };
@@ -39,6 +41,9 @@ export default async function ProductPage({ params }: Props) {
   const previous = products[(index - 1 + products.length) % products.length];
   const next = products[(index + 1) % products.length];
   const images = product.images ?? [{ src: product.imageSrc, alt: product.imageAlt }];
+  const gallery = product.gallery
+    ? await Promise.all(product.gallery.map(async (photo) => ({ src: photo.src, ...(await getImageSize(photo.src)) })))
+    : [];
 
   return (
     <article>
@@ -136,6 +141,14 @@ export default async function ProductPage({ params }: Props) {
           </div>
         </div>
       </section>
+
+      {gallery.length ? (
+        <section className="bg-[#f6f6f6]">
+          <div className="mx-[4vw] border-x border-t border-black/10 px-6 py-6 sm:px-9 md:px-12 lg:py-10">
+            <NewsGallery images={gallery} alt={product.name} />
+          </div>
+        </section>
+      ) : null}
 
       {product.table ? (
         <section className="bg-[#f5f5f3] py-14 sm:py-16">

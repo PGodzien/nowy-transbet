@@ -99,7 +99,9 @@ export default function CatalogSection() {
                 </Reveal>
                 <Reveal delay={240}>
                   <a
-                    href="#kontakt"
+                    href="/katalog-transbet-www.pdf"
+                    target="_blank"
+                    rel="noreferrer"
                     className="group mt-8 flex min-h-20 items-center justify-between bg-brand px-6 text-black transition-colors hover:bg-brand-hover"
                   >
                     <span>

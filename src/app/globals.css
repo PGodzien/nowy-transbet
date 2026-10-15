@@ -77,6 +77,23 @@ body {
   background-size: 180px 180px;
 }
 
+/* Endless row of words (Misja firmy): the row holds the words three times, so a third of its width loops seamlessly. */
+@keyframes marquee-third {
+  to {
+    transform: translateX(-33.333%);
+  }
+}
+
+.marquee-third {
+  animation: marquee-third 22s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-third {
+    animation: none;
+  }
+}
+
 @keyframes hero-drift-left {
   0%,
   100% {

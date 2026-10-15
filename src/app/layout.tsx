@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Instrument_Sans } from "next/font/google";
 import { GridLines } from "@/components/PageGrid";
+import CalculatorTag from "@/components/CalculatorTag";
 import PageCurtain from "@/components/PageCurtain";
 import "./globals.css";
 
@@ -38,6 +39,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <GridLines />
         {children}
+        <CalculatorTag />
         <PageCurtain />
       </body>
     </html>
