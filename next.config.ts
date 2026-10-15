@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { euProjects } from "./src/data/eu-projects";
 
 const nextConfig: NextConfig = {
   images: {
@@ -19,6 +20,18 @@ const nextConfig: NextConfig = {
       { source: "/deklaracje", destination: "/dokumenty#kdwu", permanent: true },
       { source: "/prefabrykaty-betonowe", destination: "/dokumenty#prefabrykaty", permanent: true },
       { source: "/nowa-strona", destination: "/", permanent: true },
+      // EU projects lived at the root of the previous site.
+      ...euProjects.map((project) => ({ source: `/${project.slug}`, destination: `/srodki-ue/${project.slug}`, permanent: true })),
+      // Declarations of performance per plant: the documents page opens on that plant's tab.
+      ...["przemysl", "jaroslaw", "radymno"].map((plant) => ({
+        source: `/krajowa-deklaracja-wlasciwosci-uzytkowych-kdwu-${plant}`,
+        destination: `/dokumenty?zaklad=${plant}#kdwu`,
+        permanent: true,
+      })),
+      // Product landing pages now covered by the product cards.
+      { source: "/plyty-drogowe", destination: "/prefabrykacja-betonowa/plyty-drogowe", permanent: true },
+      { source: "/plyty-yomb", destination: "/prefabrykacja-betonowa/plyty-yomb", permanent: true },
+      { source: "/bloki-betonowe", destination: "/prefabrykacja-betonowa/bloki-oporowe", permanent: true },
     ];
   },
 };

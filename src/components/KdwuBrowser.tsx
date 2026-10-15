@@ -1,12 +1,18 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { kdwuPlants } from '@/data/documents';
 
 /* Declarations of performance per plant: tabs for the plants, a search by number, a grid of PDF downloads. */
 export default function KdwuBrowser() {
   const [plantId, setPlantId] = useState<string>(kdwuPlants[0].id);
   const [query, setQuery] = useState('');
+
+  // ?zaklad=jaroslaw (from the old per-plant KDWU pages) opens that plant's tab.
+  useEffect(() => {
+    const plant = new URLSearchParams(window.location.search).get('zaklad');
+    if (plant && kdwuPlants.some((item) => item.id === plant)) setPlantId(plant);
+  }, []);
 
   const plant = kdwuPlants.find((item) => item.id === plantId) ?? kdwuPlants[0];
   const normalized = query.toLowerCase().replace(/\s+/g, '');
