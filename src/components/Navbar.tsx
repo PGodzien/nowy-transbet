@@ -35,7 +35,7 @@ const mainMenuLinks = [
 const affiliations = [
   { mark: 'SPBT', name: 'Stowarzyszenie Producentów Betonu Towarowego' },
   { mark: 'PKB', name: 'Polski Klaster Budowlany' },
-  { mark: 'PUIG', name: 'Polsko-Ukraińska Izba Gospodarcza' },
+  { mark: 'ITA-AITES', name: 'International Tunnelling and Underground Space Association' },
 ];
 
 // Same memberships as the header of transbet.com.pl, shown as monochrome marks.
@@ -114,8 +114,14 @@ export default function Navbar() {
             </span>
             <span className="hidden sm:inline">Zatrudniamy</span>
           </Link>
-          <div className="nav-enter-action mr-10 hidden items-center gap-7 lg:flex">
-            <span className={['text-sm font-medium transition-colors duration-300', open ? 'text-black/60' : 'text-white/70'].join(' ')}>
+          <Link
+            href="/czlonkostwa"
+            onClick={() => setOpen(false)}
+            aria-label="Członkostwa i stowarzyszenia"
+            data-curtain-label="Członkostwa"
+            className="group nav-enter-action mr-10 hidden items-center gap-7 lg:flex"
+          >
+            <span className={['text-sm font-medium transition-colors duration-300 group-hover:text-brand', open ? 'text-black/60' : 'text-white/70'].join(' ')}>
               Członkostwa
             </span>
             {memberships.map((membership) => (
@@ -127,12 +133,12 @@ export default function Navbar() {
                 width={membership.width}
                 height={membership.height}
                 className={[
-                  'h-7 w-auto opacity-80 transition-[filter,opacity] duration-300 hover:opacity-100',
+                  'h-7 w-auto opacity-80 transition-[filter,opacity] duration-300 group-hover:opacity-100',
                   open ? 'brightness-0' : '',
                 ].join(' ')}
               />
             ))}
-          </div>
+          </Link>
           <button
             type="button"
             onClick={() =>
@@ -335,7 +341,13 @@ export default function Navbar() {
                 </svg>
               </a>
 
-              <div className="flex items-center gap-3 px-5 py-4">
+              <Link
+                href="/czlonkostwa"
+                onClick={() => setOpen(false)}
+                tabIndex={open ? 0 : -1}
+                data-curtain-label="Członkostwa"
+                className="group flex items-center gap-3 px-5 py-4 transition-colors hover:bg-zinc-950"
+              >
                 <span className="mr-auto hidden font-mono text-[8px] tracking-[0.16em] text-zinc-600 uppercase xl:block">
                   Członkostwa
                 </span>
@@ -343,12 +355,12 @@ export default function Navbar() {
                   <span
                     key={affiliation.mark}
                     title={affiliation.name}
-                    className="grid h-11 min-w-12 place-items-center border border-white/20 px-2 font-mono text-[9px] font-semibold tracking-[0.1em] text-zinc-300 transition-colors hover:border-brand hover:text-brand"
+                    className="grid h-11 min-w-12 place-items-center border border-white/20 px-2 font-mono text-[9px] font-semibold tracking-[0.1em] text-zinc-300 transition-colors group-hover:border-brand group-hover:text-brand"
                   >
                     {affiliation.mark}
                   </span>
                 ))}
-              </div>
+              </Link>
             </section>
           </div>
 
