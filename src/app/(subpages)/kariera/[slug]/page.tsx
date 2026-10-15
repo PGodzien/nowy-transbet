@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { compileMDX } from 'next-mdx-remote/rsc';
 import remarkGfm from 'remark-gfm';
-import { getJob, getJobs, recruitmentUrl } from '@/lib/jobs';
+import { getJob, getJobs, jobImage, recruitmentUrl } from '@/lib/jobs';
 
 export const revalidate = 60;
 // Offers added in the CMS after the build are rendered on first visit.
@@ -58,7 +58,7 @@ export default async function JobPage({ params }: Props) {
       )
     : job.content;
   const content = await renderContent(source);
-  const mailto = `mailto:biuro@transbet.com.pl?subject=${encodeURIComponent(`Rekrutacja: ${job.nazwa}`)}`;
+  const photo = jobImage(job);
 
   return (
     <article>
@@ -94,15 +94,18 @@ export default async function JobPage({ params }: Props) {
               </h1>
             </div>
 
-            <dl className="grid border-t border-white/15 sm:grid-cols-2">
-              <div className="flex min-h-24 items-end justify-between gap-5 border-b border-white/15 px-6 py-5 sm:border-r sm:border-b-0 sm:px-8">
+            <dl className={`grid border-t border-white/15 ${applyUrl ? 'sm:grid-cols-2' : ''}`}>
+              <div className={`flex min-h-24 items-end justify-between gap-5 px-6 py-5 sm:px-8 ${applyUrl ? 'border-b border-white/15 sm:border-r sm:border-b-0' : ''}`}>
                 <dd className="text-[clamp(1.2rem,1.8vw,1.9rem)] font-medium leading-none tracking-[-0.03em]">{job.miejsce}</dd>
                 <dt className="text-right font-mono text-[8px] tracking-[0.15em] text-white/40 uppercase">miejsce pracy</dt>
               </div>
-              <a href={applyUrl ?? mailto} target={applyUrl ? '_blank' : undefined} rel={applyUrl ? 'noreferrer' : undefined} className="group flex min-h-24 items-center justify-between gap-5 bg-brand px-6 py-5 text-black transition-colors hover:bg-brand-hover sm:px-8">
-                <span className="text-[clamp(1.2rem,1.8vw,1.9rem)] font-semibold leading-none tracking-[-0.03em]">{applyUrl ? 'Aplikuj' : 'Wyślij CV'}</span>
-                <span className="transition-transform group-hover:translate-x-1"><Arrow /></span>
-              </a>
+              {/* Application link set in the CMS (recruitment_url); without one there is no button. */}
+              {applyUrl ? (
+                <a href={applyUrl} target="_blank" rel="noreferrer" className="group flex min-h-24 items-center justify-between gap-5 bg-brand px-6 py-5 text-black transition-colors hover:bg-brand-hover sm:px-8">
+                  <span className="text-[clamp(1.2rem,1.8vw,1.9rem)] font-semibold leading-none tracking-[-0.03em]">Aplikuj</span>
+                  <span className="transition-transform group-hover:translate-x-1"><Arrow /></span>
+                </a>
+              ) : null}
             </dl>
           </div>
           <div />
@@ -120,20 +123,28 @@ export default async function JobPage({ params }: Props) {
             </div>
           </aside>
           <div className="px-6 py-12 sm:px-9 md:px-12 lg:col-span-2 lg:py-16">
+            {/* Photo chosen for the offer in the CMS, first in the content. */}
+            {photo ? (
+              <figure className="relative mb-12 aspect-[3/2] max-w-3xl overflow-hidden bg-[#e9e9e9]">
+                <Image src={photo} alt={job.nazwa} fill preload sizes="(max-width: 1024px) 92vw, 768px" className="object-cover" />
+              </figure>
+            ) : null}
             <div className="news-body max-w-3xl">{content}</div>
           </div>
         </div>
       </section>
 
       <nav aria-label="Kariera" className="bg-white">
-        <div className="mx-[4vw] grid gap-px border-x border-t border-black/10 bg-black/10 md:grid-cols-2">
+        <div className={`mx-[4vw] grid gap-px border-x border-t border-black/10 bg-black/10 ${applyUrl ? 'md:grid-cols-2' : ''}`}>
           <a href="/kariera" className="group flex min-h-24 items-center gap-4 bg-white px-6 text-lg font-semibold transition-colors hover:bg-black hover:text-white sm:px-9 md:px-12">
             <Arrow back /> Wszystkie oferty pracy
           </a>
-          <a href={applyUrl ?? mailto} target={applyUrl ? '_blank' : undefined} rel={applyUrl ? 'noreferrer' : undefined} className="group flex min-h-24 items-center justify-between bg-brand px-6 text-lg font-semibold transition-colors hover:bg-brand-hover sm:px-9 md:px-12">
-            {applyUrl ? 'Aplikuj na to stanowisko' : 'Wyślij CV: biuro@transbet.com.pl'}
-            <span className="transition-transform group-hover:translate-x-1.5"><Arrow /></span>
-          </a>
+          {applyUrl ? (
+            <a href={applyUrl} target="_blank" rel="noreferrer" className="group flex min-h-24 items-center justify-between bg-brand px-6 text-lg font-semibold transition-colors hover:bg-brand-hover sm:px-9 md:px-12">
+              Aplikuj
+              <span className="transition-transform group-hover:translate-x-1.5"><Arrow /></span>
+            </a>
+          ) : null}
         </div>
       </nav>
     </article>

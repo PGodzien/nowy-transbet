@@ -10,6 +10,7 @@ export type Job = {
   slug: string;
   nazwa: string;
   miejsce: string;
+  img: string | null;
   content: string;
   recruitment_url: string | null;
   created_at: string | null;
@@ -33,7 +34,7 @@ async function query(params: string): Promise<Job[]> {
   }
 }
 
-const FIELDS = 'select=slug,nazwa,miejsce,content,recruitment_url,created_at';
+const FIELDS = 'select=slug,nazwa,miejsce,img,content,recruitment_url,created_at';
 
 export function getJobs() {
   return query(`${FIELDS}&archived=eq.false&order=nazwa.asc`);
@@ -47,4 +48,13 @@ export async function getJob(slug: string) {
 export function recruitmentUrl(job: Job) {
   const url = job.recruitment_url?.trim();
   return url && /^https?:\/\//i.test(url) ? url : null;
+}
+
+// Photo chosen in the CMS: one of the bundled photos ("/inzynier.jpg", copied to public/) or a Supabase Storage upload.
+// Empty and the old placeholder "./default-job.jpg" mean no photo, as on the previous site.
+export function jobImage(job: Job) {
+  const src = job.img?.trim();
+  if (!src || /default-job\.jpg$/.test(src)) return null;
+  if (/^https:\/\//i.test(src)) return src;
+  return '/' + src.replace(/^\.?\/+/, '');
 }
