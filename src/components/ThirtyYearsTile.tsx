@@ -39,7 +39,7 @@ export default function ThirtyYearsTile() {
             <span className="block text-xl leading-none font-semibold tracking-[-0.03em] sm:text-2xl">30 lat na rynku</span>
             <span className="mt-2 hidden text-sm text-black/60 sm:block">Zobacz film o naszym rozwoju</span>
           </span>
-          <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-black/70 transition-colors duration-300 group-hover:bg-black group-hover:text-brand">
+          <span className="grid h-11 w-11 shrink-0 place-items-center border border-black/70 transition-colors duration-300 group-hover:bg-black group-hover:text-brand">
             <svg aria-hidden="true" viewBox="0 0 24 24" className="ml-0.5 h-4 w-4" fill="currentColor">
               <path d="M7 4.5v15l12-7.5z" />
             </svg>

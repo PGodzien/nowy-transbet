@@ -84,8 +84,8 @@ export default async function JobPage({ params }: Props) {
             <div className="flex flex-1 flex-col justify-end px-6 py-10 sm:px-9 md:px-12 md:py-14">
               <p className="flex items-center gap-3 font-mono text-[9px] tracking-[0.2em] text-brand uppercase">
                 <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
+                  <span className="absolute inline-flex h-full w-full animate-ping bg-brand opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 bg-brand" />
                 </span>
                 Rekrutacja otwarta
               </p>
