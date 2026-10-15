@@ -6,7 +6,7 @@ import { getAllPosts } from '@/lib/news';
 const SITE = 'https://transbet.com.pl';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const pages = ['', '/o-nas', '/oferta', '/beton', '/prefabrykacja-betonowa', '/aktualnosci', '/dokumenty', '/kariera', '/czlonkostwa', '/pielegnacja-betonu', '/sklad-betonu', '/ogolne-warunki-sprzedazy', '/srodki-ue', ...euProjects.map((project) => `/srodki-ue/${project.slug}`), ...products.map((product) => `/prefabrykacja-betonowa/${product.slug}`)].map((path) => ({
+  const pages = ['', '/o-nas', '/oferta', '/laboratorium-betonowe', '/sprzet-i-wynajem', '/kruszywa-budowlane', '/beton', '/prefabrykacja-betonowa', '/aktualnosci', '/dokumenty', '/kariera', '/czlonkostwa', '/pielegnacja-betonu', '/sklad-betonu', '/ogolne-warunki-sprzedazy', '/srodki-ue', ...euProjects.map((project) => `/srodki-ue/${project.slug}`), ...products.map((product) => `/prefabrykacja-betonowa/${product.slug}`)].map((path) => ({
     url: `${SITE}${path}`,
     changeFrequency: 'monthly' as const,
     priority: path === '' ? 1 : 0.8,
