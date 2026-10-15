@@ -1,6 +1,6 @@
 'use client';
 
-import { type MouseEvent, useState } from 'react';
+import { type MouseEvent, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { playCurtain, waitForPath } from '@/components/PageCurtain';
 
@@ -14,6 +14,7 @@ const panels = [
     href: '#betoniarnie',
     external: false,
     domain: null,
+    media: { kind: 'video', src: '/hero-betoniarnie.mp4', poster: '/hero-betoniarnie-poster.jpg' },
   },
   {
     id: 'nr-2',
@@ -24,6 +25,7 @@ const panels = [
     href: '/prefabrykacja-betonowa',
     external: false,
     domain: null,
+    media: { kind: 'image', src: '/prefabrykaty.jpg', poster: null },
   },
   {
     id: 'nr-3',
@@ -34,6 +36,7 @@ const panels = [
     href: 'https://zbrojeniebudowlane.pl/',
     external: true,
     domain: 'zbrojeniebudowlane.pl',
+    media: { kind: 'video', src: '/hero-zbrojenia.mp4', poster: '/hero-zbrojenia-poster.jpg' },
   },
   {
     id: 'nr-4',
@@ -44,6 +47,7 @@ const panels = [
     href: 'https://transbettcs.com/',
     external: true,
     domain: 'transbettcs.com',
+    media: { kind: 'image', src: '/tunele.jpg', poster: null },
   },
 ] as const;
 
@@ -52,9 +56,50 @@ const heroVideo = '/hero-loop.mp4';
 const heroPoster = '/hero-loop-poster.jpg';
 type PanelId = (typeof panels)[number]['id'];
 
+const grainImage =
+  "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='4' seed='7' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.72'/%3E%3C/svg%3E\")";
+
 export default function Hero() {
   const [activeId, setActiveId] = useState<PanelId | null>(null);
+  // ready: the background video can play, so the dark grainy veil lifts.
+  // settled: the load-in is over, hover transitions go back to their normal speed.
+  const [ready, setReady] = useState(false);
+  const [settled, setSettled] = useState(false);
   const router = useRouter();
+  const backgroundVideo = useRef<HTMLVideoElement>(null);
+  const columnVideos = useRef<Partial<Record<PanelId, HTMLVideoElement | null>>>({});
+
+  useEffect(() => {
+    // Lift the veil even if the video is slow or blocked.
+    const fallback = window.setTimeout(() => setReady(true), 2500);
+    if ((backgroundVideo.current?.readyState ?? 0) >= 3) setReady(true);
+    return () => window.clearTimeout(fallback);
+  }, []);
+
+  useEffect(() => {
+    if (!ready) return;
+    const timer = window.setTimeout(() => setSettled(true), 1900);
+    return () => window.clearTimeout(timer);
+  }, [ready]);
+
+  /* Only the hovered column plays its clip; the background waits underneath. */
+  useEffect(() => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    for (const panel of panels) {
+      const video = columnVideos.current[panel.id];
+      if (!video) continue;
+      if (panel.id === activeId && !reduced) {
+        video.currentTime = 0;
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    }
+    const background = backgroundVideo.current;
+    if (!background) return;
+    if (activeId) background.pause();
+    else if (!reduced) background.play().catch(() => {});
+  }, [activeId]);
 
   /* Internal tiles play the curtain; external ones open their site as before. */
   function handleTileClick(event: MouseEvent<HTMLAnchorElement>, panel: (typeof panels)[number]) {
@@ -85,16 +130,23 @@ export default function Hero() {
     <section className="viewport-section relative overflow-hidden bg-black">
       <div className="absolute inset-0 overflow-hidden">
         <video
+          ref={backgroundVideo}
           aria-hidden="true"
           autoPlay
           muted
           loop
           playsInline
           poster={heroPoster}
-          className="hero-enter-media absolute inset-0 h-full w-full object-cover transition-[transform,filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+          onCanPlay={() => setReady(true)}
+          className="absolute inset-0 h-full w-full object-cover"
           style={{
-            transform: activeId ? 'scale(1.025)' : 'scale(1.015)',
-            filter: 'saturate(0.82) contrast(1.08) brightness(0.8)',
+            transform: !ready ? 'scale(1.08)' : activeId ? 'scale(1.025)' : 'scale(1.015)',
+            filter: ready
+              ? 'saturate(0.82) contrast(1.08) brightness(0.8)'
+              : 'saturate(0.5) contrast(1.15) brightness(0.55)',
+            transition: settled
+              ? 'transform 700ms cubic-bezier(0.22,1,0.36,1), filter 700ms ease'
+              : 'transform 2200ms cubic-bezier(0.22,1,0.36,1), filter 1800ms ease',
           }}
         >
           <source src={heroVideo} type="video/mp4" />
@@ -109,13 +161,22 @@ export default function Hero() {
         />
         <div className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(0deg,transparent_0,transparent_3px,rgba(255,255,255,0.022)_3px,rgba(255,255,255,0.022)_4px)] mix-blend-overlay" />
         <div
-          className="pointer-events-none absolute -inset-12 opacity-[0.28] mix-blend-soft-light"
-          style={{
-            backgroundImage:
-              "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='4' seed='7' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.72'/%3E%3C/svg%3E\")",
-            backgroundSize: '180px 180px',
-          }}
+          className="pointer-events-none absolute -inset-12 mix-blend-soft-light transition-opacity duration-[1800ms]"
+          style={{ backgroundImage: grainImage, backgroundSize: '180px 180px', opacity: ready ? 0.28 : 0.5 }}
         />
+        {/* Darkens the background while a column shows its own clip. */}
+        <div
+          className="pointer-events-none absolute inset-0 bg-black transition-opacity duration-500"
+          style={{ opacity: activeId ? 0.45 : 0 }}
+        />
+        {/* Load-in veil: dark, with visible grain, lifting once the video is ready. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-black transition-opacity duration-[1800ms] ease-out"
+          style={{ opacity: ready ? 0 : 0.88 }}
+        >
+          <div className="absolute -inset-12 opacity-40 mix-blend-screen" style={{ backgroundImage: grainImage, backgroundSize: '180px 180px' }} />
+        </div>
       </div>
 
       <div className="absolute inset-y-0 inset-x-[4vw] z-10">
@@ -143,10 +204,42 @@ export default function Hero() {
                 ].join(' ')}
               >
                 <span
+                  className="absolute inset-0 overflow-hidden transition-opacity duration-500"
+                  style={{ opacity: isActive ? 1 : 0 }}
+                >
+                  {panel.media.kind === 'video' ? (
+                    <video
+                      ref={(node) => {
+                        columnVideos.current[panel.id] = node;
+                      }}
+                      muted
+                      loop
+                      playsInline
+                      preload="none"
+                      poster={panel.media.poster ?? undefined}
+                      className="absolute inset-0 h-full w-full object-cover"
+                      style={{ filter: 'saturate(0.85) contrast(1.05) brightness(0.75)' }}
+                    >
+                      <source src={panel.media.src} type="video/mp4" />
+                    </video>
+                  ) : (
+                    <span
+                      className="absolute inset-0 bg-cover bg-center"
+                      style={{
+                        backgroundImage: `url(${panel.media.src})`,
+                        filter: 'saturate(0.85) contrast(1.05) brightness(0.75)',
+                        // Slow push-in while the column is open.
+                        transform: isActive ? 'scale(1.1)' : 'scale(1)',
+                        transition: isActive ? 'transform 7s linear' : 'transform 600ms ease',
+                      }}
+                    />
+                  )}
+                </span>
+                <span
                   className="absolute inset-0 transition-opacity duration-500"
                   style={{
                     backgroundColor: panel.color,
-                    opacity: isActive ? 0.34 : activeId ? 0.12 : 0.2,
+                    opacity: isActive ? 0.16 : activeId ? 0.12 : 0.2,
                   }}
                 />
                 <span
