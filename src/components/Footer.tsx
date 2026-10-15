@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Reveal from '@/components/Reveal';
 
 const footerColumns = [
@@ -26,7 +27,7 @@ export default function Footer() {
         <div className="flex items-center justify-center">
           <Reveal direction="left">
             <span className="font-mono text-[9px] tracking-[0.2em] text-white/30 [writing-mode:vertical-rl]">
-              10 / KONTAKT
+              11 / KONTAKT
             </span>
           </Reveal>
         </div>
@@ -36,6 +37,7 @@ export default function Footer() {
             <Reveal direction="none" className="w-full">
               <div className="flex w-full items-center justify-between gap-6">
                 <div className="flex items-center gap-4">
+                  <Image src="/logo-transbet.png" alt="" width={519} height={267} className="h-8 w-auto" />
                   <span className="text-xl font-bold tracking-[-0.025em] uppercase sm:text-2xl">Transbet</span>
                   <span className="h-5 w-px bg-white/20" />
                   <span className="font-mono text-[8px] leading-relaxed tracking-[0.18em] text-white/40 uppercase">

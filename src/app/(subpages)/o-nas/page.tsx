@@ -35,7 +35,7 @@ export default function AboutPage() {
         ]}
       />
 
-      <section id="historia" className="relative bg-[#f3f1ec]">
+      <section id="historia" className="relative bg-[#f6f6f6]">
         <div className="mx-[4vw] border-x border-black/10">
           <SectionHeading
             eyebrow="Historia firmy"

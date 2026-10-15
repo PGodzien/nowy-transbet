@@ -11,24 +11,27 @@ const panels = [
     color: '#ff4d00',
     href: '/beton',
     external: false,
+    domain: null,
   },
   {
     id: 'nr-2',
     number: '02',
-    label: 'Zbrojenia',
-    description: 'Prefabrykaty zbrojeniowe',
-    color: '#111111',
-    href: 'https://zbrojeniebudowlane.pl/',
-    external: true,
-  },
-  {
-    id: 'nr-3',
-    number: '03',
     label: 'Prefabrykacja betonowa',
     description: 'Prefabrykaty dla infrastruktury i przemysłu',
     color: '#6b6b6b',
     href: '/prefabrykacja-betonowa',
     external: false,
+    domain: null,
+  },
+  {
+    id: 'nr-3',
+    number: '03',
+    label: 'Zbrojenia',
+    description: 'Prefabrykaty zbrojeniowe',
+    color: '#111111',
+    href: 'https://zbrojeniebudowlane.pl/',
+    external: true,
+    domain: 'zbrojeniebudowlane.pl',
   },
   {
     id: 'nr-4',
@@ -38,6 +41,7 @@ const panels = [
     color: '#f2f2f2',
     href: 'https://transbettcs.com/',
     external: true,
+    domain: 'transbettcs.com',
   },
 ] as const;
 
@@ -89,7 +93,7 @@ export default function Hero() {
 
         <div
           aria-hidden="true"
-          className="hero-enter-grid pointer-events-none absolute inset-0 flex border-l border-white/18"
+          className="hero-enter-grid pointer-events-none absolute inset-0 hidden border-l border-white/18 md:flex"
         >
           {panels.map((panel) => {
             const isActive = panel.id === activeId;
@@ -97,7 +101,7 @@ export default function Hero() {
               <div
                 key={panel.id}
                 className={[
-                  'relative overflow-hidden border-r border-white/18 transition-[flex] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
+                  'relative overflow-hidden border-r border-white/18 px-3 sm:px-6 md:px-7 transition-[flex] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
                   isActive ? 'flex-[1.3]' : activeId ? 'flex-[0.9]' : 'flex-1',
                 ].join(' ')}
               >
@@ -119,7 +123,7 @@ export default function Hero() {
           })}
         </div>
 
-        <div className="absolute inset-x-0 bottom-0 flex border-t border-white/20" onMouseLeave={() => setActiveId(null)}>
+        <div className="absolute inset-x-0 bottom-0 grid grid-cols-2 border-t border-l border-white/20 md:flex md:border-l-transparent" onMouseLeave={() => setActiveId(null)}>
           {panels.map((panel, index) => {
             const isActive = panel.id === activeId;
             return (
@@ -132,16 +136,18 @@ export default function Hero() {
                 onFocus={() => setActiveId(panel.id)}
                 onBlur={() => setActiveId(null)}
                 className={[
-                  'hero-enter-control group relative flex min-h-32 cursor-pointer flex-col justify-between overflow-hidden px-3 py-5 text-left text-white transition-[flex,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] sm:min-h-36 sm:px-6 md:min-h-44 md:px-7 md:py-7',
-                  isActive ? 'flex-[1.3] bg-black/12' : activeId ? 'flex-[0.9]' : 'flex-1',
+                  'hero-enter-control group relative flex min-h-36 min-w-0 cursor-pointer flex-col justify-between overflow-hidden border-r border-b border-white/20 px-4 py-4 text-left text-white transition-[flex,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] sm:px-6 sm:py-5 md:min-h-44 md:border-b-0 md:border-r-transparent md:px-7 md:py-7',
+                  isActive ? 'md:flex-[1.3] bg-black/12' : activeId ? 'md:flex-[0.9]' : 'md:flex-1',
                 ].join(' ')}
                 style={{ animationDelay: `${620 + index * 110}ms` }}
               >
-                <span className="flex items-center justify-between gap-3">
+                <span aria-hidden="true" className="absolute inset-0 md:hidden" style={{ backgroundColor: panel.color, opacity: panel.id === 'nr-4' ? 0.14 : 0.22 }} />
+                <span aria-hidden="true" className={['absolute inset-0 bg-black md:hidden', panel.id === 'nr-4' ? 'opacity-40' : 'opacity-25'].join(' ')} />
+                <span className="relative flex items-center justify-between gap-3">
                   <span className={['font-mono text-[9px] font-medium tracking-[0.2em] transition-colors duration-300', isActive ? 'text-brand' : 'text-white/55'].join(' ')}>
                     / {panel.number}
                   </span>
-                  <span className={['grid h-8 w-8 shrink-0 place-items-center rounded-full border border-white/45 transition-[opacity,transform] duration-300 md:h-10 md:w-10', isActive ? 'translate-x-0 opacity-100' : 'translate-x-2 opacity-0'].join(' ')}>
+                  <span className={['grid h-8 w-8 shrink-0 place-items-center rounded-full border border-white/45 transition-[opacity,transform] duration-300 md:h-10 md:w-10', isActive || panel.external ? 'translate-x-0 opacity-100' : 'translate-x-2 opacity-0'].join(' ')}>
                     <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="h-4 w-4">
                       {panel.external ? (
                         <path d="M8 16L16 8M9 8h7v7" stroke="currentColor" strokeWidth="1.5" />
@@ -152,13 +158,18 @@ export default function Hero() {
                   </span>
                 </span>
 
-                <span className="mt-7 block">
-                  <span className="block max-w-[13ch] text-[clamp(0.95rem,1.65vw,1.9rem)] font-[550] leading-[0.98] tracking-[-0.03em] sm:max-w-[15ch]">
+                <span className="relative mt-5 block md:mt-7">
+                  <span className="block max-w-[13ch] text-[clamp(1.15rem,1.65vw,1.9rem)] font-[550] leading-[0.98] tracking-[-0.03em] sm:max-w-[15ch]">
                     {panel.label}
                   </span>
-                  <span className={['mt-3 block max-w-[24ch] text-[10px] leading-relaxed text-white/48 transition-[opacity,transform] duration-300 sm:text-xs', isActive ? 'translate-y-0 opacity-100' : 'translate-y-1 opacity-70'].join(' ')}>
+                  <span className={['mt-2 block max-w-[24ch] text-xs leading-relaxed text-white/48 transition-[opacity,transform] duration-300 sm:text-xs', isActive ? 'translate-y-0 opacity-100' : 'translate-y-1 opacity-70'].join(' ')}>
                     {panel.description}
                   </span>
+                  {panel.domain ? (
+                    <span className="mt-2 block truncate font-mono text-[10px] tracking-normal text-white/70 sm:text-[11px] sm:tracking-[0.04em]">
+                      {panel.domain} ↗
+                    </span>
+                  ) : null}
                 </span>
               </a>
             );

@@ -180,7 +180,7 @@ export default function BusinessSections() {
       <section
         id="obszary-dzialalnosci"
         aria-labelledby="obszary-title"
-        className="relative overflow-hidden border-t border-black/10 bg-[#f3f1ec] text-black"
+        className="relative overflow-hidden border-t border-black/10 bg-[#f6f6f6] text-black"
       >
         <Grain dark={false} />
 

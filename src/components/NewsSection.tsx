@@ -34,7 +34,7 @@ export default function NewsSection() {
   const [featured, ...secondary] = stories;
 
   return (
-    <section id="aktualnosci" className="viewport-section relative border-t border-black/[0.08] bg-white">
+    <section id="aktualnosci" className="viewport-section relative border-t border-black/[0.08] bg-[#f6f6f6]">
       <div className="grid min-h-[100svh] grid-cols-[4%_repeat(3,minmax(0,1fr))_4%] lg:h-[100svh]">
         <div className="flex items-center justify-center">
           <Reveal direction="left">
@@ -64,7 +64,7 @@ export default function NewsSection() {
             <Reveal direction="none" delay={120} className="h-full">
               <a
                 href="#"
-                className="group flex h-full min-h-36 flex-col justify-between px-6 py-7 transition-colors hover:bg-zinc-50 sm:px-9 lg:min-h-0 lg:py-10"
+                className="group flex h-full min-h-36 flex-col justify-between px-6 py-7 transition-colors hover:bg-white sm:px-9 lg:min-h-0 lg:py-10"
               >
                 <span className="font-mono text-[9px] tracking-[0.18em] text-black/35 uppercase">
                   Archiwum
@@ -114,7 +114,7 @@ export default function NewsSection() {
                 <Reveal key={story.title} direction="none" delay={110 + index * 80} className="min-h-0 h-full overflow-hidden">
                   <a
                     href="#"
-                    className={`group flex h-full min-h-0 flex-col justify-between overflow-hidden border-b border-black/[0.08] px-6 py-7 transition-colors hover:bg-zinc-50 sm:px-8 lg:px-9 lg:py-7 ${index === secondary.length - 1 ? 'lg:border-b-0' : ''}`}
+                    className={`group flex h-full min-h-0 flex-col justify-between overflow-hidden border-b border-black/[0.08] px-6 py-7 transition-colors hover:bg-white sm:px-8 lg:px-9 lg:py-7 ${index === secondary.length - 1 ? 'lg:border-b-0' : ''}`}
                   >
                     <div className="flex items-start justify-between gap-6">
                       <span className="font-mono text-[8px] tracking-[0.17em] text-black/35 uppercase">

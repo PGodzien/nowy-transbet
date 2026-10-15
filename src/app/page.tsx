@@ -5,6 +5,7 @@ import TrustedBy from '@/components/TrustedBy';
 import CatalogSection from '@/components/CatalogSection';
 import OfferSection from '@/components/OfferSection';
 import NewsSection from '@/components/NewsSection';
+import ContactForm from '@/components/ContactForm';
 import Footer from '@/components/Footer';
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
       <CatalogSection />
       <OfferSection />
       <NewsSection />
+      <ContactForm />
       <Footer />
     </main>
   );

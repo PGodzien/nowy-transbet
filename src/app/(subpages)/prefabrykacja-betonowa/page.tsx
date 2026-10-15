@@ -34,7 +34,7 @@ export default function ConcretePrefabricationPage() {
         ]}
       />
 
-      <section className="bg-[#f3f1ec]">
+      <section className="bg-[#f6f6f6]">
         <div className="mx-[4vw] border-x border-black/10">
           <SectionHeading
             eyebrow="Produkty"

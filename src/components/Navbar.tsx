@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 const navLinks = [
@@ -33,6 +34,13 @@ const affiliations = [
   { mark: 'PUIG', name: 'Polsko-Ukraińska Izba Gospodarcza' },
 ];
 
+// Same memberships as the header of transbet.com.pl, shown as monochrome marks.
+const memberships = [
+  { name: 'Stowarzyszenie Producentów Betonu Towarowego', logo: '/czlonkostwo-spbt-mono.png', width: 114, height: 78 },
+  { name: 'Polski Klaster Budowlany', logo: '/czlonkostwo-pkb-mono.png', width: 388, height: 65 },
+  { name: 'ITA-AITES', logo: '/czlonkostwo-ita-aites-mono.png', width: 315, height: 87 },
+];
+
 const euStars = [
   [32, 14],
   [41, 16.412],
@@ -62,43 +70,47 @@ export default function Navbar() {
   return (
     <header
       className={[
-        'absolute inset-x-0 top-0 z-50 h-20 border-b bg-transparent transition-colors duration-300',
-        open ? 'border-black/15' : 'border-white/15',
+        'fixed inset-x-0 top-0 z-50 h-20 border-b transition-colors duration-300',
+        // Glass bar over the hero. The blur is dropped while the menu is open,
+        // because backdrop-filter would trap the fixed menu panel inside the header.
+        open ? 'border-black/15 bg-transparent' : 'border-white/10 bg-black/55 backdrop-blur-md backdrop-saturate-150',
       ].join(' ')}
     >
-      <div
-        aria-hidden="true"
-        className={[
-          'pointer-events-none absolute inset-y-0 left-0 w-[min(32rem,72vw)] bg-gradient-to-r from-black/70 via-black/30 to-transparent transition-opacity duration-300',
-          open ? 'opacity-0' : 'opacity-100',
-        ].join(' ')}
-      />
       <div className="relative z-50 flex h-full items-center pl-[calc(4vw+1rem)] sm:pl-[calc(4vw+1.5rem)] md:pl-[calc(4vw+1.75rem)]">
-        <Link href="/" className="nav-enter-logo flex shrink-0 items-center gap-4" onClick={() => setOpen(false)}>
+        <Link href="/" className="nav-enter-logo flex shrink-0 items-center gap-3 sm:gap-4" onClick={() => setOpen(false)}>
+          <Image src="/logo-transbet.png" alt="" width={519} height={267} preload className="h-8 w-auto sm:h-9" />
           <span
             className={[
               'text-[1.35rem] font-bold tracking-[-0.02em] uppercase transition-colors duration-300 sm:text-2xl',
               open
                 ? 'text-black'
-                : 'text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.65)]',
+                : 'text-white',
             ].join(' ')}
           >
             Transbet
           </span>
-          <span className={['hidden h-5 w-px sm:block', open ? 'bg-black/20' : 'bg-white/25'].join(' ')} />
-          <span
-            className={[
-              'hidden text-[10px] font-semibold leading-tight tracking-[0.18em] uppercase transition-colors duration-300 sm:block',
-              open ? 'text-zinc-600' : 'text-zinc-400',
-            ].join(' ')}
-          >
-            Industrial
-            <br />
-            Group
-          </span>
         </Link>
 
         <div className="ml-auto flex h-full items-center">
+          <div className="nav-enter-action mr-10 hidden items-center gap-7 lg:flex">
+            <span className={['text-sm font-medium transition-colors duration-300', open ? 'text-black/60' : 'text-white/70'].join(' ')}>
+              Członkostwa
+            </span>
+            {memberships.map((membership) => (
+              <Image
+                key={membership.name}
+                src={membership.logo}
+                alt={membership.name}
+                title={membership.name}
+                width={membership.width}
+                height={membership.height}
+                className={[
+                  'h-7 w-auto opacity-80 transition-[filter,opacity] duration-300 hover:opacity-100',
+                  open ? 'brightness-0' : '',
+                ].join(' ')}
+              />
+            ))}
+          </div>
           <button
             type="button"
             onClick={() =>

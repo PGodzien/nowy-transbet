@@ -1,20 +1,20 @@
 import Image from 'next/image';
 import Reveal from '@/components/Reveal';
 
+// Same set and order as the partner strip on transbet.com.pl.
 const partners = [
+  { name: 'Budimex', logo: '/budimex-logo.webp' },
+  { name: 'POL-AQUA', logo: '/polaqua-logo.webp' },
   { name: 'ERBUD', logo: '/erbud-logo.webp' },
   { name: 'Skanska', logo: '/skanska-logo.webp' },
   { name: 'Inżynieria', logo: '/inzynieria-logo.webp' },
   { name: 'BESTA', logo: '/besta-logo.webp' },
   { name: 'Mostostal Warszawa', logo: '/mostostal-logo.jpg' },
-  { name: 'Budimex', logo: '/budimex-logo.webp' },
-  { name: 'POL-AQUA', logo: '/polaqua-logo.webp' },
-  { name: 'Eleven', logo: '/eleven-logo.svg' },
 ];
 
 export default function TrustedBy() {
   return (
-    <section id="partnerzy" className="viewport-section relative border-t border-black/[0.08] bg-white">
+    <section id="partnerzy" className="viewport-section relative border-t border-black/[0.08] bg-[#f6f6f6]">
       <div className="grid min-h-[100svh] grid-cols-[4%_repeat(3,minmax(0,1fr))_4%]">
         <div className="flex items-center justify-center">
           <Reveal direction="left">
@@ -56,17 +56,17 @@ export default function TrustedBy() {
           <div className="grid min-h-[46svh] grid-cols-2 gap-px bg-black/[0.08] md:grid-cols-3 md:grid-rows-3 lg:min-h-[42svh]">
             {partners.map((partner, index) => (
               <Reveal key={partner.name} direction="none" delay={80 + index * 55} className="h-full">
-                <div className="group relative flex h-full min-h-32 items-center justify-center overflow-hidden bg-white px-5 transition-colors duration-500 hover:bg-zinc-50">
+                <div className="group relative flex h-full min-h-32 items-center justify-center overflow-hidden bg-[#f6f6f6] px-5 transition-colors duration-500 hover:bg-white">
                   <span className="absolute top-4 left-4 font-mono text-[8px] tracking-[0.16em] text-black/25">
                     / {String(index + 1).padStart(2, '0')}
                   </span>
-                  <div className="relative h-20 w-full max-w-60 sm:h-24 sm:max-w-72">
+                  <div className="relative aspect-[16/9] w-full max-w-64">
                     <Image
                       src={partner.logo}
                       alt={partner.name}
                       fill
                       sizes="(max-width: 768px) 50vw, 33vw"
-                      className="object-contain mix-blend-multiply grayscale opacity-50 transition-[filter,opacity,transform] duration-500 group-hover:scale-[1.045] group-hover:grayscale-0 group-hover:opacity-100"
+                      className="object-contain mix-blend-multiply grayscale transition-[filter,transform] duration-300 group-hover:scale-[1.03] group-hover:grayscale-0"
                     />
                   </div>
                 </div>

@@ -33,7 +33,7 @@ export default function ConcretePage() {
         ]}
       />
 
-      <section className="bg-[#f3f1ec]">
+      <section className="bg-[#f6f6f6]">
         <div className="mx-[4vw] border-x border-black/10">
           <SectionHeading
             eyebrow="Produkcja betonu"
@@ -80,7 +80,7 @@ export default function ConcretePage() {
         </div>
       </section>
 
-      <section id="kontakt-beton" className="bg-white scroll-mt-20">
+      <section id="kontakt-beton" className="bg-white">
         <div className="mx-[4vw] border-x border-black/10">
           <SectionHeading
             eyebrow="Trzy betoniarnie"
@@ -90,7 +90,7 @@ export default function ConcretePage() {
           <div className="grid gap-px border-t border-black/10 bg-black/10 lg:grid-cols-3">
             {concretePlants.map((plant, index) => (
               <Reveal key={plant.city} direction="none" delay={index * 65} className="h-full">
-                <article className="group flex h-full min-h-80 flex-col justify-between bg-[#f3f1ec] p-7 transition-colors hover:bg-brand sm:p-9">
+                <article className="group flex h-full min-h-80 flex-col justify-between bg-[#f6f6f6] p-7 transition-colors hover:bg-brand sm:p-9">
                   <div className="flex items-center justify-between">
                     <span className="font-mono text-[9px] tracking-[0.18em] text-black/35">/ 0{index + 1}</span>
                     <span className="transition-transform group-hover:translate-x-1"><ArrowIcon /></span>
