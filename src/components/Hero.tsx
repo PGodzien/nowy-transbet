@@ -51,7 +51,7 @@ const panels = [
   },
 ] as const;
 
-// 23 s loop cut from transbet_background_video.mp4 (letterbox cropped, no audio, ~2.9 MB).
+// 23 s loop cut from transbet_background_video.mp4 (letterbox cropped, no audio, CRF 22, ~12 MB).
 const heroVideo = '/hero-loop.mp4';
 const heroPoster = '/hero-loop-poster.jpg';
 type PanelId = (typeof panels)[number]['id'];
