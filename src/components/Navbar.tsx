@@ -8,12 +8,12 @@ const navLinks = [
   { label: 'Betoniarnie', href: '/beton', number: '01' },
   { label: 'Budowa tuneli', href: 'https://transbettcs.com/', number: '02' },
   { label: 'Prefabrykaty', href: '/prefabrykacja-betonowa', number: '03' },
-  { label: 'Zamów beton', href: '/beton#kontakt-beton', number: '04' },
+  { label: 'Zamów beton', href: '/#betoniarnie', number: '04' },
   { label: 'Kontakt', href: '#kontakt', number: '05' },
 ];
 
 const aboutLinks = [
-  { label: 'Historia firmy', href: '/o-nas#historia', number: '01' },
+  { label: 'Historia firmy', href: '/o-nas#o-firmie', number: '01' },
   { label: 'Zespół', href: '/o-nas#zespol', number: '02' },
   { label: 'Kariera', href: 'https://transbet.com.pl/oferty-pracy', number: '03' },
   { label: 'Aktualności', href: '/#aktualnosci', number: '04' },
@@ -173,9 +173,20 @@ export default function Navbar() {
                     if (window.matchMedia('(hover: hover)').matches) setAboutOpen(false);
                   }}
                 >
-                  <button
-                    type="button"
-                    onClick={() => setAboutOpen(true)}
+                  <a
+                    href={link.href}
+                    onClick={(event) => {
+                      // Hover devices already see the sub-links, so a click opens the page.
+                      // On touch, the first tap reveals the sub-links and the second opens the page.
+                      const canHover = window.matchMedia('(hover: hover)').matches;
+                      if (!canHover && !aboutOpen) {
+                        event.preventDefault();
+                        setAboutOpen(true);
+                        return;
+                      }
+                      setAboutOpen(false);
+                      setOpen(false);
+                    }}
                     tabIndex={open ? 0 : -1}
                     aria-expanded={aboutOpen}
                     className="group flex min-h-28 w-full cursor-pointer items-center gap-5 px-5 text-left transition-colors hover:bg-black hover:text-white sm:px-8 md:h-full md:min-h-0"
@@ -189,7 +200,7 @@ export default function Navbar() {
                     <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="ml-auto h-6 w-6 transition-transform duration-300 group-hover:translate-x-1.5">
                       <path d="M5 12h14M14 7l5 5-5 5" stroke="currentColor" strokeWidth="1.4" />
                     </svg>
-                  </button>
+                  </a>
 
                   <div
                     className={[

@@ -8,7 +8,8 @@ type PageHeroProps = {
   description: string;
   image: string;
   imagePosition?: string;
-  facts: readonly { value: string; label: string }[];
+  // wide: the fact spans two of the three columns (for a value that is a phrase, not a number).
+  facts: readonly { value: string; label: string; wide?: boolean }[];
 };
 
 export default function PageHero({
@@ -63,9 +64,9 @@ export default function PageHero({
             {facts.map((fact, index) => (
               <div
                 key={`${fact.value}-${fact.label}`}
-                className={`flex min-h-28 items-end justify-between gap-5 border-b border-white/15 px-6 py-6 sm:min-h-32 sm:border-b-0 sm:px-8 ${index < facts.length - 1 ? 'sm:border-r sm:border-white/15' : ''}`}
+                className={`flex min-h-28 items-end justify-between gap-5 border-b border-white/15 px-6 py-6 sm:min-h-32 sm:border-b-0 sm:px-8 ${index < facts.length - 1 ? 'sm:border-r sm:border-white/15' : ''} ${fact.wide ? 'sm:col-span-2' : ''}`}
               >
-                <span className="text-[clamp(1.8rem,3vw,3.5rem)] font-medium leading-none tracking-[-0.045em]">{fact.value}</span>
+                <span className={`font-medium leading-none tracking-[-0.045em] ${fact.wide ? 'max-w-[22ch] text-[clamp(1.5rem,2.4vw,2.75rem)] leading-[1.02]' : 'text-[clamp(1.8rem,3vw,3.5rem)]'}`}>{fact.value}</span>
                 <span className="max-w-28 text-right font-mono text-[8px] leading-relaxed tracking-[0.15em] text-white/40 uppercase">{fact.label}</span>
               </div>
             ))}
