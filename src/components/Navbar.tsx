@@ -12,16 +12,15 @@ const navLinks = [
   { label: 'Kontakt', href: '#kontakt', number: '05' },
 ];
 
-// Pages not rebuilt yet point to their current version on transbet.com.pl.
 const aboutLinks = [
   { label: 'O nas', href: '/o-nas', number: '01' },
   { label: 'Zespół', href: '/o-nas#zespol', number: '02' },
   { label: 'Kariera', href: '/kariera', number: '03' },
   { label: 'Aktualności', href: '/aktualnosci', number: '04' },
   { label: 'Członkostwa', href: '/o-nas#czlonkostwa', number: '05' },
-  { label: 'Pielęgnacja betonu', href: 'https://transbet.com.pl/pielegnacja-betonu', number: '06' },
+  { label: 'Pielęgnacja betonu', href: '/pielegnacja-betonu', number: '06' },
   { label: 'Dokumenty', href: '/dokumenty', number: '07' },
-  { label: 'Skład betonu', href: 'https://transbet.com.pl/sklad-betonu', number: '08' },
+  { label: 'Skład betonu', href: '/sklad-betonu', number: '08' },
 ];
 
 const mainMenuLinks = [
