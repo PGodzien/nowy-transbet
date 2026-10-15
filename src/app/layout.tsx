@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Geist_Mono, Instrument_Sans } from "next/font/google";
 import { GridLines } from "@/components/PageGrid";
 import CalculatorTag from "@/components/CalculatorTag";
 import PageCurtain from "@/components/PageCurtain";
 import "./globals.css";
+
+// Google Tag Manager container of transbet.com.pl.
+const GTM_ID = "GTM-WJLRLD2";
 
 const instrumentSans = Instrument_Sans({
   variable: "--font-instrument-sans",
@@ -37,10 +41,22 @@ export default function RootLayout({
       className={`${instrumentSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        {/* Google Tag Manager (noscript), right after <body>; the script itself is the <Script id="gtm"> below. */}
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
         <GridLines />
         {children}
         <CalculatorTag />
         <PageCurtain />
+        <Script id="gtm" strategy="afterInteractive">
+          {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');`}
+        </Script>
       </body>
     </html>
   );
