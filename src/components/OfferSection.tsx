@@ -29,7 +29,7 @@ const offers = [
     title: 'Wyroby hutnicze',
     description: 'Stal i wyroby hutnicze dostarczane bezpośrednio we wskazane miejsce inwestycji.',
     icon: 'steel',
-    href: 'https://zbrojeniebudowlane.pl/',
+    href: 'https://steel-trans.pl/',
   },
   {
     title: 'Kruszywa budowlane',

@@ -36,7 +36,7 @@ const directions = [
     eyebrow: 'Steeltrans',
     title: 'Prefabrykacja zbrojeniowa',
     text: 'Cięcie, gięcie i spawanie stali. Prefabrykaty zbrojeniowe gotowe do montażu na budowie.',
-    href: 'https://zbrojeniebudowlane.pl/',
+    href: 'https://steel-trans.pl/',
     image: '/background.jpg',
     external: true,
     meta: 'Osobny serwis',

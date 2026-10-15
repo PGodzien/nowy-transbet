@@ -56,7 +56,7 @@ export const offerAreas = [
     number: '05',
     title: 'Wyroby hutnicze',
     description: 'Prowadzimy handel wyrobami hutniczymi. Dostarczamy stal pod wskazane miejsce autem z przyczepą (dłużycą).',
-    href: 'https://zbrojeniebudowlane.pl/',
+    href: 'https://steel-trans.pl/',
     linkLabel: 'zobacz więcej',
     external: true,
   },

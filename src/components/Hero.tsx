@@ -33,9 +33,9 @@ const panels = [
     label: 'Zbrojenia',
     description: 'Prefabrykaty zbrojeniowe',
     color: '#111111',
-    href: 'https://zbrojeniebudowlane.pl/',
+    href: 'https://steel-trans.pl/',
     external: true,
-    domain: 'zbrojeniebudowlane.pl',
+    domain: 'steel-trans.pl',
     media: { kind: 'video', src: '/hero-zbrojenia.mp4', poster: '/hero-zbrojenia-poster.jpg' },
   },
   {

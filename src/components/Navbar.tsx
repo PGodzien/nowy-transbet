@@ -27,7 +27,7 @@ const mainMenuLinks = [
   { label: 'O firmie', href: '/o-nas', number: '01', submenu: true },
   { label: 'Betoniarnie', href: '/beton', number: '02' },
   { label: 'Prefabrykacja betonowa', href: '/prefabrykacja-betonowa', number: '03' },
-  { label: 'Zbrojenia ↗', href: 'https://zbrojeniebudowlane.pl/', number: '04' },
+  { label: 'Zbrojenia ↗', href: 'https://steel-trans.pl/', number: '04' },
   { label: 'Budowa tuneli ↗', href: 'https://transbettcs.com/', number: '05' },
   { label: 'Pełna oferta', href: '/oferta', number: '06' },
 ];
