@@ -18,7 +18,7 @@ export default function OfferPage() {
         eyebrow="Oferta"
         title="Oferta"
         description="Oferta naszej betoniarni: mieszanki betonowe, produkty betonowe, laboratorium, sprzęt i wynajem, wyroby hutnicze oraz kruszywa."
-        image="/tunele.jpg"
+        image="/background.jpg"
         imagePosition="center 58%"
         facts={[
           { value: '6', label: 'obszarów oferty' },

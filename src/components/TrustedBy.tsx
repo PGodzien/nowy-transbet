@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Reveal from '@/components/Reveal';
+import ThirtyYearsTile from '@/components/ThirtyYearsTile';
 
 // Same set and order as the partner strip on transbet.com.pl.
 const partners = [
@@ -74,22 +75,7 @@ export default function TrustedBy() {
             ))}
 
             <Reveal direction="none" delay={500} className="h-full md:col-span-2">
-              <a
-                href="#realizacje"
-                className="group flex h-full min-h-32 flex-col justify-between bg-brand px-5 py-5 transition-colors hover:bg-brand-hover sm:px-6"
-              >
-                <span className="font-mono text-[8px] tracking-[0.18em] text-black/45 uppercase">
-                  / Wspólne projekty
-                </span>
-                <span className="flex items-end justify-between gap-4">
-                  <span className="text-xl font-semibold leading-none tracking-[-0.03em] sm:text-2xl">
-                    Zobacz, jak pracujemy
-                  </span>
-                  <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="h-7 w-7 shrink-0 transition-transform duration-300 group-hover:translate-x-1.5">
-                    <path d="M4 12h16M14 6l6 6-6 6" stroke="currentColor" strokeWidth="1.4" />
-                  </svg>
-                </span>
-              </a>
+              <ThirtyYearsTile />
             </Reveal>
           </div>
         </div>

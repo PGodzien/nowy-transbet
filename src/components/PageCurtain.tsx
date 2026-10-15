@@ -106,6 +106,8 @@ export default function PageCurtain() {
 
       const url = new URL(link.href, window.location.href);
       if (url.origin !== window.location.origin) return;
+      // Files (PDF declarations, images, videos) open normally, never as a page transition.
+      if (/\.[a-z0-9]{2,5}$/i.test(url.pathname)) return;
       const samePage = url.pathname === window.location.pathname;
       if (samePage && !url.hash) return;
 

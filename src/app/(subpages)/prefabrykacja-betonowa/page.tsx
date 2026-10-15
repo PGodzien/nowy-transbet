@@ -25,7 +25,7 @@ export default function ConcretePrefabricationPage() {
         eyebrow="Prefabrykacja betonowa"
         title="Prefabrykacja betonowa"
         description="Kompleksowa oferta prefabrykatów betonowych i wyrobów zbrojarskich z katalogu Transbet."
-        image="/prefabrykaty.jpg"
+        image="/background.jpg"
         imagePosition="center 52%"
         facts={[
           { value: '19', label: 'produktów w katalogu' },

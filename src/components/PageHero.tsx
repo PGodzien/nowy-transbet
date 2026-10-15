@@ -8,6 +8,8 @@ type PageHeroProps = {
   description: string;
   image: string;
   imagePosition?: string;
+  // Section this page belongs to, shown between Start and the page in the breadcrumb.
+  parent?: { label: string; href: string };
   // wide: the fact spans two of the three columns (for a value that is a phrase, not a number).
   facts: readonly { value: string; label: string; wide?: boolean }[];
 };
@@ -19,6 +21,7 @@ export default function PageHero({
   description,
   image,
   imagePosition = 'center',
+  parent,
   facts,
 }: PageHeroProps) {
   // Two wide facts share the row in equal halves; otherwise three columns, a wide fact taking two.
@@ -49,6 +52,12 @@ export default function PageHero({
           <div className="flex min-h-14 items-center gap-3 border-b border-white/15 px-6 font-mono text-[9px] tracking-[0.17em] text-white/45 uppercase sm:px-9 md:px-12">
             <Link href="/" className="transition-colors hover:text-brand">Start</Link>
             <span>/</span>
+            {parent ? (
+              <>
+                <Link href={parent.href} className="transition-colors hover:text-brand">{parent.label}</Link>
+                <span>/</span>
+              </>
+            ) : null}
             <span className="text-white/75">{eyebrow}</span>
           </div>
 

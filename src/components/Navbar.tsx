@@ -20,7 +20,7 @@ const aboutLinks = [
   { label: 'Aktualności', href: '/aktualnosci', number: '04' },
   { label: 'Członkostwa', href: '/o-nas#czlonkostwa', number: '05' },
   { label: 'Pielęgnacja betonu', href: 'https://transbet.com.pl/pielegnacja-betonu', number: '06' },
-  { label: 'Misja firmy', href: 'https://transbet.com.pl/o-nas/misja-firmy', number: '07' },
+  { label: 'Dokumenty', href: '/dokumenty', number: '07' },
   { label: 'Skład betonu', href: 'https://transbet.com.pl/sklad-betonu', number: '08' },
 ];
 
@@ -297,9 +297,8 @@ export default function Navbar() {
               style={{ animationDelay: '680ms' }}
             >
               <a
-                href="https://transbet.com.pl/wdrozenie-nowej-technologii-wytwarzania-betonow-przy-pomocy-mobilnego-i-modulowego-wezla-betoniarskiego"
-                target="_blank"
-                rel="noreferrer"
+                href="/srodki-ue/wdrozenie-nowej-technologii-wytwarzania-betonow-przy-pomocy-mobilnego-i-modulowego-wezla-betoniarskiego"
+                data-curtain-label="Projekt UE"
                 tabIndex={open ? 0 : -1}
                 className="group flex cursor-pointer items-center gap-4 border-b border-white/10 px-5 py-4 transition-colors hover:bg-zinc-950 sm:border-r sm:border-b-0"
               >

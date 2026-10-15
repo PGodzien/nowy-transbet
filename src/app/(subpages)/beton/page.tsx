@@ -24,7 +24,7 @@ export default function ConcretePage() {
         eyebrow="Beton"
         title="Beton"
         description="Poznaj naszą ofertę wysokiej jakości betonu od Transbet. Oferujemy szeroki wybór betonów dostosowanych do różnych potrzeb budowlanych."
-        image="/beton.jpg"
+        image="/background.jpg"
         imagePosition="center"
         facts={[
           { value: '3', label: 'betoniarnie' },
