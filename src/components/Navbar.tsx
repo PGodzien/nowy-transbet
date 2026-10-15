@@ -16,7 +16,7 @@ const navLinks = [
 const aboutLinks = [
   { label: 'O nas', href: '/o-nas', number: '01' },
   { label: 'Zespół', href: '/o-nas#zespol', number: '02' },
-  { label: 'Kariera', href: 'https://transbet.com.pl/oferty-pracy', number: '03' },
+  { label: 'Kariera', href: '/kariera', number: '03' },
   { label: 'Aktualności', href: '/aktualnosci', number: '04' },
   { label: 'Członkostwa', href: '/o-nas#czlonkostwa', number: '05' },
   { label: 'Pielęgnacja betonu', href: 'https://transbet.com.pl/pielegnacja-betonu', number: '06' },
@@ -97,6 +97,24 @@ export default function Navbar() {
         </Link>
 
         <div className="ml-auto flex h-full items-center">
+          <Link
+            href="/kariera"
+            onClick={() => setOpen(false)}
+            aria-label="Zatrudniamy – oferty pracy"
+            className={[
+              // On narrow phones only the pulsing dot fits next to the logo.
+              'nav-enter-action mr-3 flex h-9 w-9 shrink-0 items-center justify-center gap-2.5 rounded-full border text-[13px] font-medium transition-colors duration-300 sm:mr-6 sm:w-auto sm:px-4 lg:mr-8',
+              open
+                ? 'border-black/15 text-black hover:border-brand'
+                : 'border-white/20 text-white hover:border-brand hover:bg-white/5',
+            ].join(' ')}
+          >
+            <span className="relative flex h-2 w-2" aria-hidden="true">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-75 motion-reduce:animate-none" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
+            </span>
+            <span className="hidden sm:inline">Zatrudniamy</span>
+          </Link>
           <div className="nav-enter-action mr-10 hidden items-center gap-7 lg:flex">
             <span className={['text-sm font-medium transition-colors duration-300', open ? 'text-black/60' : 'text-white/70'].join(' ')}>
               Członkostwa
