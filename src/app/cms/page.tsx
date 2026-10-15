@@ -368,7 +368,8 @@ export default function CMSPage() {
         setError('');
         setPassword('');
       } else {
-        setError('Nieprawidłowa nazwa użytkownika lub hasło');
+        const data = await res.json().catch(() => ({}));
+        setError(data.error ?? 'Nieprawidłowa nazwa użytkownika lub hasło');
       }
     } catch {
       setError('Nie udało się połączyć z serwerem');

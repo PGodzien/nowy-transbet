@@ -8,10 +8,21 @@ import { NextResponse } from 'next/server';
 export const CMS_COOKIE = 'cms_session';
 const MAX_AGE = 60 * 60 * 12; // 12 h
 
+// Values pasted into the Vercel dashboard often carry a stray space or newline; ignore it.
+function credentials() {
+  const user = process.env.CMS_USERNAME?.trim();
+  const pass = process.env.CMS_PASSWORD?.trim();
+  return user && pass ? { user, pass } : null;
+}
+
+export function cmsConfigured() {
+  return credentials() !== null;
+}
+
 function sessionToken() {
-  const user = process.env.CMS_USERNAME;
-  const pass = process.env.CMS_PASSWORD;
-  if (!user || !pass) return null;
+  const creds = credentials();
+  if (!creds) return null;
+  const { user, pass } = creds;
   return createHmac('sha256', pass).update(`cms:${user}`).digest('hex');
 }
 
@@ -22,10 +33,9 @@ function same(a: string, b: string) {
 }
 
 export function credentialsMatch(username: string, password: string) {
-  const user = process.env.CMS_USERNAME;
-  const pass = process.env.CMS_PASSWORD;
-  if (!user || !pass) return false;
-  return same(username, user) && same(password, pass);
+  const creds = credentials();
+  if (!creds) return false;
+  return same(username.trim(), creds.user) && same(password.trim(), creds.pass);
 }
 
 export async function isCmsSession() {
@@ -37,7 +47,7 @@ export async function isCmsSession() {
 export function withSession(response: NextResponse) {
   const token = sessionToken();
   if (token) {
-    response.cookies.set(CMS_COOKIE, token, { httpOnly: true, secure: true, sameSite: 'strict', path: '/', maxAge: MAX_AGE });
+    response.cookies.set(CMS_COOKIE, token, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'strict', path: '/', maxAge: MAX_AGE });
   }
   return response;
 }
