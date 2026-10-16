@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
+import CalculatorLeaflet, { type LeafletData } from '@/components/CalculatorLeaflet';
 
 /* Concrete volume calculator, ported 1:1 from the previous site (components/calculator.tsx):
    same shapes, formulas, texts, local save and PDF export, in the new look. */
@@ -127,19 +128,6 @@ export default function ConcreteCalculator() {
     setCyl({ diameterCm: 30, heightM: 3 });
   };
 
-  const shapeSummary = () => {
-    switch (shape) {
-      case 'slab':
-        return `Płyta: ${slab.lengthM} m × ${slab.widthM} m × ${slab.thicknessCm} cm`;
-      case 'wall':
-        return `Ściana: ${wall.lengthM} m × ${wall.heightM} m × ${wall.thicknessCm} cm`;
-      case 'beam':
-        return `Ława/Belka: ${beam.lengthM} m × ${beam.widthCm} cm × ${beam.heightCm} cm`;
-      case 'cylinder':
-        return `Cylinder: Ø ${cyl.diameterCm} cm × ${cyl.heightM} m`;
-    }
-  };
-
   const num = (v: number | '') => (v === '' ? 0 : Number(v));
 
   // PDF: the hidden sheet below is rendered to an image and placed on A4 pages.
@@ -148,33 +136,79 @@ export default function ConcreteCalculator() {
   // Set when exporting, so server and browser render the same markup (no date during hydration).
   const [printedAt, setPrintedAt] = useState('');
 
+  const dimensions = (): LeafletData['dimensions'] => {
+    switch (shape) {
+      case 'slab':
+        return [
+          { label: 'Długość płyty', value: `${fmt(slab.lengthM, 2)} m` },
+          { label: 'Szerokość płyty', value: `${fmt(slab.widthM, 2)} m` },
+          { label: 'Grubość płyty', value: `${fmt(slab.thicknessCm, 1)} cm` },
+        ];
+      case 'wall':
+        return [
+          { label: 'Długość ściany', value: `${fmt(wall.lengthM, 2)} m` },
+          { label: 'Wysokość ściany', value: `${fmt(wall.heightM, 2)} m` },
+          { label: 'Grubość ściany', value: `${fmt(wall.thicknessCm, 1)} cm` },
+        ];
+      case 'beam':
+        return [
+          { label: 'Długość', value: `${fmt(beam.lengthM, 2)} m` },
+          { label: 'Szerokość', value: `${fmt(beam.widthCm, 1)} cm` },
+          { label: 'Wysokość', value: `${fmt(beam.heightCm, 1)} cm` },
+        ];
+      case 'cylinder':
+        return [
+          { label: 'Średnica', value: `${fmt(cyl.diameterCm, 1)} cm` },
+          { label: 'Wysokość', value: `${fmt(cyl.heightM, 2)} m` },
+        ];
+    }
+  };
+
+  const tab = tabs.find((item) => item.id === shape)!;
+  const leaflet: LeafletData = {
+    printedAt,
+    shapeName: tab.name,
+    shapeDesc: tab.desc,
+    formula: formulas[tabs.indexOf(tab)][1],
+    dimensions: dimensions(),
+    volume: fmt(volumeM3),
+    price: pricePerM3 ? `${fmt(+pricePerM3, 2)} zł` : '-',
+    cost: cost === null ? '-' : `${fmt(cost, 2)} zł`,
+  };
+
   const handleExportPDF = async () => {
     if (!exportRef.current) return;
     try {
       setExporting(true);
-      setPrintedAt(new Date().toLocaleString('pl-PL'));
+      setPrintedAt(new Date().toLocaleDateString('pl-PL', { day: '2-digit', month: '2-digit', year: 'numeric' }));
       await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      await document.fonts.ready;
+      const sheet = exportRef.current;
       const [{ default: html2canvas }, { jsPDF }] = await Promise.all([import('html2canvas-pro'), import('jspdf')]);
-      const canvas = await html2canvas(exportRef.current, { scale: 2, useCORS: true });
-      const pdf = new jsPDF({ orientation: 'portrait', unit: 'pt', format: 'a4' });
+      const canvas = await html2canvas(sheet, {
+        scale: 2.5,
+        useCORS: true,
+        backgroundColor: '#ffffff',
+        // Copy only the leaflet, not the whole page: much faster.
+        ignoreElements: (element) => element !== sheet && !sheet.contains(element) && !element.contains(sheet) && element.tagName !== 'HEAD' && !(element.parentElement?.tagName === 'HEAD'),
+      });
+      const pdf = new jsPDF({ orientation: 'portrait', unit: 'pt', format: 'a4', compress: true });
       const pageWidth = pdf.internal.pageSize.getWidth();
       const pageHeight = pdf.internal.pageSize.getHeight();
-      const imgWidth = pageWidth - 48;
-      const imgHeight = imgWidth * (canvas.height / canvas.width);
+      // The sheet is drawn at A4 proportions, so it fills the page edge to edge.
+      pdf.addImage(canvas.toDataURL('image/jpeg', 0.92), 'JPEG', 0, 0, pageWidth, pageHeight);
 
-      if (imgHeight <= pageHeight - 48) {
-        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 24, 24, imgWidth, imgHeight);
-      } else {
-        const pxPageHeight = ((pageHeight - 48) / imgWidth) * canvas.width;
-        for (let y = 0; y < canvas.height; y += pxPageHeight) {
-          const page = document.createElement('canvas');
-          page.width = canvas.width;
-          page.height = Math.min(pxPageHeight, canvas.height - y);
-          page.getContext('2d')!.drawImage(canvas, 0, y, canvas.width, page.height, 0, 0, page.width, page.height);
-          if (y > 0) pdf.addPage();
-          pdf.addImage(page.toDataURL('image/png'), 'PNG', 24, 24, imgWidth, (page.height / page.width) * imgWidth);
-        }
-      }
+      // Phone numbers, e-mail and website stay clickable.
+      const box = sheet.getBoundingClientRect();
+      const ratio = pageWidth / box.width;
+      sheet.querySelectorAll<HTMLElement>('[data-pdf-link]').forEach((element) => {
+        const rect = element.getBoundingClientRect();
+        pdf.link((rect.left - box.left) * ratio, (rect.top - box.top) * ratio, rect.width * ratio, rect.height * ratio, {
+          url: element.dataset.pdfLink!,
+        });
+      });
+
+      pdf.setProperties({ title: 'Kalkulacja betonu – Transbet', author: 'TRANSBET BETONIARNIE GROCHOWICZ Sp. K.' });
       pdf.save('kalkulacja-betonu-Transbet.pdf');
     } catch (error) {
       console.error(error);
@@ -315,62 +349,9 @@ export default function ConcreteCalculator() {
         projektowe. <strong className="font-semibold text-black">Należy wziąć pod uwagę współczynnik zagęszczenia i zapas na pompę.</strong>
       </p>
 
-      {/* Sheet rendered into the PDF (off screen) */}
-      <div aria-hidden className="pointer-events-none fixed top-[-9999px] left-[-9999px] w-[794px]" ref={exportRef}>
-        <div className="bg-white p-16 text-black">
-          <div className="mb-14 flex items-center justify-between">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo-transbet-black.png" alt="Transbet" className="h-14 w-auto" />
-            <div className="text-right text-xs text-black/55">{printedAt}</div>
-          </div>
-          <h2 className="text-2xl font-semibold">Kalkulacja betonu</h2>
-          <p className="mt-1 text-black/60">{shapeSummary()}</p>
-          <div className="mt-8 grid grid-cols-2 gap-12 text-sm">
-            <p>
-              <span className="font-medium">Objętość geometryczna:</span> {fmt(volumeM3)} m³
-            </p>
-            <div className="space-y-2">
-              <p>
-                <span className="font-medium">Cena za 1 m³:</span> {pricePerM3 ? `${fmt(+pricePerM3, 2)} zł` : '-'}
-              </p>
-              <p>
-                <span className="font-medium">Koszt łączny:</span> {cost === null ? '-' : `${fmt(cost, 2)} zł`}
-              </p>
-            </div>
-          </div>
-          <div className="mt-14 bg-[#f6f6f6] p-10 text-sm leading-relaxed text-black/70">
-            <p className="font-medium">Uwagi:</p>
-            <ul className="mt-2 list-disc pl-5">
-              <li>Wartości orientacyjne - weryfikuj z projektem i producentem mieszanki.</li>
-              <li>
-                Należy uwzględnić <strong>współczynnik zagęszczenia</strong> mieszanki betonowej.
-              </li>
-              <li>
-                Pamiętaj o doliczeniu <strong>zapasu na pompę</strong>.
-              </li>
-              <li>Sprawdź minimalne zamówienie i transport w wytwórni betonu.</li>
-            </ul>
-          </div>
-          <div className="mt-14 grid grid-cols-3 border-t border-black/15 pt-8 text-[8px] font-light">
-            <div>
-              <p className="text-xs font-semibold">Dane firmy</p>
-              <p>TRANSBET BETONIARNIE</p>
-              <p>GROCHOWICZ Sp. K.</p>
-              <p>NIP: 795-10-07-169</p>
-              <p>KRS: 0000573370</p>
-            </div>
-            <div>
-              <p className="text-xs font-semibold">Adres</p>
-              <p>Topolowa 5</p>
-              <p>37-700 Przemyśl</p>
-            </div>
-            <div>
-              <p className="text-xs font-semibold">Kontakt</p>
-              <p>biuro@transbet.com.pl</p>
-              <p>+48 888 839 617</p>
-            </div>
-          </div>
-        </div>
+      {/* Leaflet rendered into the PDF (off screen) */}
+      <div aria-hidden className="pointer-events-none fixed top-0 left-[-10000px]">
+        <CalculatorLeaflet ref={exportRef} data={leaflet} />
       </div>
     </div>
   );
