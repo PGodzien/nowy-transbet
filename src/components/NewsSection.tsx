@@ -27,7 +27,7 @@ export default function NewsSection() {
 
   return (
     <section id="aktualnosci" className="viewport-section relative border-t border-black/[0.08] bg-[#f6f6f6]">
-      <div className="grid min-h-[100svh] grid-cols-[4%_repeat(3,minmax(0,1fr))_4%] lg:h-[100svh]">
+      <div className="grid min-h-[100svh] grid-cols-[4%_repeat(3,minmax(0,1fr))_4%]">
         <div className="flex items-center justify-center">
           <Reveal direction="left">
             <span className="font-mono text-[9px] tracking-[0.2em] text-black/35 [writing-mode:vertical-rl]">
@@ -69,9 +69,9 @@ export default function NewsSection() {
             </Reveal>
           </div>
 
-          <div className="grid flex-1 lg:min-h-0 lg:grid-cols-3">
+          <div className="grid flex-1 lg:grid-cols-3">
             <Reveal direction="none" className="h-full lg:col-span-2">
-              <a href={featured.href} data-curtain-label={featured.title} className="group relative block h-full min-h-[62svh] overflow-hidden border-b border-black/[0.08] lg:min-h-0 lg:border-r lg:border-b-0 lg:border-black/[0.08]">
+              <a href={featured.href} data-curtain-label={featured.title} className="group relative block h-full min-h-[62svh] overflow-hidden border-b border-black/[0.08] lg:min-h-[26rem] lg:border-r lg:border-b-0 lg:border-black/[0.08]">
                 <Image
                   src={featured.image}
                   alt={featured.title}
@@ -86,10 +86,10 @@ export default function NewsSection() {
                   </span>
                   <div className="mt-5 flex items-end justify-between gap-8">
                     <div>
-                      <h3 className="line-clamp-3 max-w-[22ch] text-[clamp(1.7rem,2.75vw,3.25rem)] font-medium leading-[0.98] tracking-[-0.034em]">
+                      <h3 className="line-clamp-3 max-w-[22ch] pb-[0.12em] text-[clamp(1.7rem,2.75vw,3.25rem)] font-medium leading-[0.98] tracking-[-0.034em]">
                         {featured.title}
                       </h3>
-                      <p className="mt-4 line-clamp-2 max-w-xl text-sm leading-snug text-white/60">
+                      <p className="mt-3 line-clamp-2 max-w-xl text-sm leading-snug text-white/60">
                         {featured.description}
                       </p>
                     </div>
@@ -101,13 +101,13 @@ export default function NewsSection() {
               </a>
             </Reveal>
 
-            <div className="grid min-h-[60svh] grid-rows-2 lg:h-full lg:min-h-0 lg:grid-rows-[minmax(0,1fr)_minmax(0,1fr)]">
+            <div className="grid min-h-[60svh] auto-rows-fr lg:min-h-0">
               {secondary.map((story, index) => (
-                <Reveal key={story.title} direction="none" delay={110 + index * 80} className="min-h-0 h-full overflow-hidden">
+                <Reveal key={story.title} direction="none" delay={110 + index * 80} className="h-full">
                   <a
                     href={story.href}
                     data-curtain-label={story.title}
-                    className={`group flex h-full min-h-0 flex-col justify-between overflow-hidden border-b border-black/[0.08] px-6 py-7 transition-colors hover:bg-white sm:px-8 lg:px-9 lg:py-7 ${index === secondary.length - 1 ? 'lg:border-b-0' : ''}`}
+                    className={`group flex h-full flex-col justify-between border-b border-black/[0.08] px-6 py-7 transition-colors hover:bg-white sm:px-8 lg:px-9 lg:py-7 ${index === secondary.length - 1 ? 'lg:border-b-0' : ''}`}
                   >
                     <div className="flex items-start justify-between gap-6">
                       <span className="font-mono text-[8px] tracking-[0.17em] text-black/35 uppercase">
@@ -119,10 +119,10 @@ export default function NewsSection() {
                     </div>
 
                     <div className="mt-6 min-w-0">
-                      <h3 className="line-clamp-3 max-w-[20ch] text-[clamp(1.45rem,2vw,2.35rem)] font-medium leading-[0.96] tracking-[-0.038em]">
+                      <h3 className="line-clamp-3 max-w-[20ch] pb-[0.12em] text-[clamp(1.45rem,2vw,2.35rem)] font-medium leading-[0.96] tracking-[-0.038em]">
                         {story.title}
                       </h3>
-                      <p className="mt-4 line-clamp-2 max-w-md text-sm leading-relaxed text-black/45">
+                      <p className="mt-3 line-clamp-2 max-w-md text-sm leading-relaxed text-black/45">
                         {story.description}
                       </p>
                       <span className="mt-5 flex items-center gap-3 font-mono text-[8px] tracking-[0.16em] text-brand uppercase">

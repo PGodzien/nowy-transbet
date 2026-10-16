@@ -25,7 +25,7 @@ const sections: { title: string; items: Item[] }[] = [
   {
     title: 'Jakie dane przetwarzamy i w jakim celu',
     items: [
-      'Formularz kontaktowy na Stronie nie wysyła danych na nasz serwer. Po kliknięciu „Wyślij wiadomość” otwiera się program pocztowy użytkownika z przygotowaną wiadomością do wybranego działu. Dane (imię i nazwisko, adres e-mail, numer telefonu, treść wiadomości) trafiają do nas dopiero wtedy, gdy użytkownik wyśle tę wiadomość.',
+      'Dane wpisane w formularzu kontaktowym (imię i nazwisko, adres e-mail, numer telefonu, treść wiadomości) oraz dołączone pliki przesyłamy pocztą elektroniczną na adres wybranego działu. Nie zapisujemy ich na serwerze Strony. Gdy wysyłka z formularza jest niedostępna, otwiera się program pocztowy użytkownika z przygotowaną wiadomością, a dane trafiają do nas dopiero po jej wysłaniu.',
       'Dane przekazane w wiadomości e-mail lub w rozmowie telefonicznej przetwarzamy w celu odpowiedzi na zapytanie, przygotowania oferty, zawarcia i wykonania umowy (np. dostawy betonu lub prefabrykatów) oraz prowadzenia dalszej korespondencji.',
       'Aplikowanie na oferty pracy odbywa się przez zewnętrzny system rekrutacyjny eRecruiter, do którego prowadzą przyciski „Aplikuj”. Zasady przetwarzania danych kandydatów określa klauzula informacyjna dołączona do danego ogłoszenia w tym systemie.',
       'Podczas korzystania ze Strony serwer automatycznie zapisuje dane techniczne (m.in. adres IP, datę i godzinę wizyty, typ przeglądarki, adres odwiedzanej podstrony). Służą one zapewnieniu bezpieczeństwa i prawidłowego działania Strony.',

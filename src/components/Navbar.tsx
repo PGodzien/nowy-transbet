@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
+import OrderPanel from '@/components/OrderPanel';
 import Link from 'next/link';
 
 const navLinks = [
@@ -62,6 +63,8 @@ const euStars = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [orderOpen, setOrderOpen] = useState(false);
+  const closeOrder = useCallback(() => setOrderOpen(false), []);
   const [aboutOpen, setAboutOpen] = useState(false);
 
   useEffect(() => {
@@ -80,12 +83,12 @@ export default function Navbar() {
         open ? 'border-black/15 bg-transparent' : 'border-white/10 bg-black/55 backdrop-blur-md backdrop-saturate-150',
       ].join(' ')}
     >
-      <div className="relative z-50 flex h-full items-center pl-[calc(4vw+1rem)] sm:pl-[calc(4vw+1.5rem)] md:pl-[calc(4vw+1.75rem)]">
-        <Link href="/" className="nav-enter-logo flex shrink-0 items-center gap-3 sm:gap-4" onClick={() => setOpen(false)}>
+      <div className="relative z-50 flex h-full items-center pl-[calc(4vw+0.75rem)] sm:pl-[calc(4vw+1.5rem)] md:pl-[calc(4vw+1.75rem)]">
+        <Link href="/" className="nav-enter-logo flex shrink-0 items-center gap-2 sm:gap-4" onClick={() => setOpen(false)}>
           <Image src="/logo-transbet.png" alt="" width={519} height={267} preload className="h-8 w-auto sm:h-9" />
           <span
             className={[
-              'text-[1.35rem] font-bold tracking-[-0.02em] uppercase transition-colors duration-300 sm:text-2xl',
+              'hidden text-[1.35rem] font-bold tracking-[-0.02em] uppercase transition-colors duration-300 sm:inline sm:text-2xl',
               open
                 ? 'text-black'
                 : 'text-white',
@@ -101,8 +104,8 @@ export default function Navbar() {
             onClick={() => setOpen(false)}
             aria-label="Zatrudniamy – oferty pracy"
             className={[
-              // On narrow phones only the pulsing dot fits next to the logo.
-              'nav-enter-action mr-3 flex h-9 w-9 shrink-0 items-center justify-center gap-2.5 border text-[13px] font-medium transition-colors duration-300 sm:mr-6 sm:w-auto sm:px-4 lg:mr-8',
+              // Hidden on phones: there only the signet, "Zamów beton" and the menu stay.
+              'nav-enter-action mr-6 hidden h-9 shrink-0 items-center justify-center gap-2.5 border px-4 text-[13px] font-medium transition-colors duration-300 sm:flex lg:mr-8',
               open
                 ? 'border-black/15 text-black hover:border-brand'
                 : 'border-white/20 text-white hover:border-brand hover:bg-white/5',
@@ -112,14 +115,14 @@ export default function Navbar() {
               <span className="absolute inline-flex h-full w-full animate-ping bg-brand opacity-75 motion-reduce:animate-none" />
               <span className="relative inline-flex h-2 w-2 bg-brand" />
             </span>
-            <span className="hidden sm:inline">Zatrudniamy</span>
+            <span>Zatrudniamy</span>
           </Link>
           <Link
             href="/czlonkostwa"
             onClick={() => setOpen(false)}
             aria-label="Członkostwa i stowarzyszenia"
             data-curtain-label="Członkostwa"
-            className="group nav-enter-action mr-10 hidden items-center gap-7 lg:flex"
+            className="group nav-enter-action mr-10 hidden items-center gap-7 xl:flex"
           >
             <span className={['text-sm font-medium transition-colors duration-300 group-hover:text-brand', open ? 'text-black/60' : 'text-white/70'].join(' ')}>
               Członkostwa
@@ -139,6 +142,25 @@ export default function Navbar() {
               />
             ))}
           </Link>
+          <button
+            type="button"
+            onClick={() => {
+              setOpen(false);
+              setOrderOpen(true);
+            }}
+            aria-haspopup="dialog"
+            aria-expanded={orderOpen}
+            className={[
+              'group nav-enter-action flex h-20 shrink-0 cursor-pointer items-center gap-3 border-l px-5 text-sm font-semibold transition-colors duration-300 lg:px-6',
+              open ? 'border-black/15' : 'border-white/10',
+              'bg-black text-white hover:bg-brand hover:text-black',
+            ].join(' ')}
+          >
+            Zamów beton
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="hidden h-5 w-5 transition-transform duration-300 group-hover:translate-x-1 lg:block">
+              <path d="M4 12h16M14 6l6 6-6 6" stroke="currentColor" strokeWidth="1.5" />
+            </svg>
+          </button>
           <button
             type="button"
             onClick={() =>
@@ -370,6 +392,7 @@ export default function Navbar() {
           </div>
         </div>
       </div>
+      <OrderPanel open={orderOpen} onClose={closeOrder} />
     </header>
   );
 }

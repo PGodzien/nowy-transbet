@@ -1,21 +1,25 @@
+// E-mails as in the previous site's "Zamów beton" panel.
 export const concretePlants = [
   {
     city: 'Przemyśl',
     address: 'ul. Topolowa 5, 37-700 Przemyśl',
     phone: '+48 888 839 617',
     phoneHref: 'tel:+48888839617',
+    email: 'biuro@transbet.com.pl',
   },
   {
     city: 'Jarosław',
     address: 'ul. Budowlanych 8, 37-500 Jarosław',
     phone: '+48 660 788 125',
     phoneHref: 'tel:+48660788125',
+    email: 'maciej@transbet.com.pl',
   },
   {
     city: 'Radymno',
     address: 'ul. Kościuszki 2a, 37-550 Radymno',
     phone: '+48 660 788 125',
     phoneHref: 'tel:+48660788125',
+    email: 'maciej@transbet.com.pl',
   },
 ] as const;
 

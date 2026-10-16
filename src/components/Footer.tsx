@@ -110,8 +110,8 @@ export default function Footer() {
                 <span className="font-mono text-[8px] tracking-[0.18em] text-white/30 uppercase">
                   / 03 Online
                 </span>
-                <div className="mt-8 flex items-end justify-between gap-6">
-                  <div className="flex gap-5">
+                <div className="mt-8 flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
+                  <div className="flex flex-wrap gap-x-5 gap-y-2">
                     <a href="#" className="text-sm text-white/55 transition-colors hover:text-brand">LinkedIn</a>
                     <a href="#" className="text-sm text-white/55 transition-colors hover:text-brand">YouTube</a>
                     <a href="https://www.instagram.com/transbet_betoniarnie/" target="_blank" rel="noreferrer" className="text-sm text-white/55 transition-colors hover:text-brand">Instagram</a>
