@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import CalculatorLeaflet, { type LeafletData } from '@/components/CalculatorLeaflet';
+import CalculatorLeaflet, { type LeafletData, type LeafletVariant } from '@/components/CalculatorLeaflet';
 
 /* Concrete volume calculator, ported 1:1 from the previous site (components/calculator.tsx):
    same shapes, formulas, texts, local save and PDF export, in the new look. */
@@ -131,8 +131,9 @@ export default function ConcreteCalculator() {
   const num = (v: number | '') => (v === '' ? 0 : Number(v));
 
   // PDF: the hidden sheet below is rendered to an image and placed on A4 pages.
-  const exportRef = useRef<HTMLDivElement>(null);
-  const [exporting, setExporting] = useState(false);
+  const colorRef = useRef<HTMLDivElement>(null);
+  const printRef = useRef<HTMLDivElement>(null);
+  const [exporting, setExporting] = useState<LeafletVariant | null>(null);
   // Set when exporting, so server and browser render the same markup (no date during hydration).
   const [printedAt, setPrintedAt] = useState('');
 
@@ -172,18 +173,20 @@ export default function ConcreteCalculator() {
     formula: formulas[tabs.indexOf(tab)][1],
     dimensions: dimensions(),
     volume: fmt(volumeM3),
-    price: pricePerM3 ? `${fmt(+pricePerM3, 2)} zł` : '-',
-    cost: cost === null ? '-' : `${fmt(cost, 2)} zł`,
+    // Left empty when no price was given, so it can be filled in by hand.
+    price: pricePerM3 ? `${fmt(+pricePerM3, 2)} zł` : '',
+    cost: cost === null ? '' : `${fmt(cost, 2)} zł`,
   };
 
-  const handleExportPDF = async () => {
-    if (!exportRef.current) return;
+  // Two files: the colour leaflet, and the same page in black ink for printing.
+  const handleExportPDF = async (variant: LeafletVariant) => {
+    const sheet = (variant === 'color' ? colorRef : printRef).current;
+    if (!sheet || exporting) return;
     try {
-      setExporting(true);
+      setExporting(variant);
       setPrintedAt(new Date().toLocaleDateString('pl-PL', { day: '2-digit', month: '2-digit', year: 'numeric' }));
       await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
       await document.fonts.ready;
-      const sheet = exportRef.current;
       const [{ default: html2canvas }, { jsPDF }] = await Promise.all([import('html2canvas-pro'), import('jspdf')]);
       const canvas = await html2canvas(sheet, {
         scale: 2.5,
@@ -209,12 +212,12 @@ export default function ConcreteCalculator() {
       });
 
       pdf.setProperties({ title: 'Kalkulacja betonu – Transbet', author: 'TRANSBET BETONIARNIE GROCHOWICZ Sp. K.' });
-      pdf.save('kalkulacja-betonu-Transbet.pdf');
+      pdf.save(variant === 'color' ? 'kalkulacja-betonu-Transbet.pdf' : 'kalkulacja-betonu-Transbet-do-druku.pdf');
     } catch (error) {
       console.error(error);
       alert('Nie udało się wygenerować PDF. Upewnij się, że zainstalowano jspdf i html2canvas.');
     } finally {
-      setExporting(false);
+      setExporting(null);
     }
   };
 
@@ -308,18 +311,32 @@ export default function ConcreteCalculator() {
               </p>
             </div>
           </div>
-          <button
-            type="button"
-            onClick={handleExportPDF}
-            disabled={exporting}
-            aria-busy={exporting}
-            className="flex min-h-16 cursor-pointer items-center justify-between bg-brand px-6 font-semibold text-black transition-colors hover:bg-brand-hover disabled:opacity-60"
-          >
-            {exporting ? 'Generowanie PDF…' : 'Pobierz PDF'}
-            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="h-5 w-5">
-              <path d="M12 4v12M6 11l6 6 6-6M5 20h14" stroke="currentColor" strokeWidth="1.5" />
-            </svg>
-          </button>
+          <div className="grid gap-3">
+            <button
+              type="button"
+              onClick={() => handleExportPDF('color')}
+              disabled={exporting !== null}
+              aria-busy={exporting === 'color'}
+              className="flex min-h-16 cursor-pointer items-center justify-between gap-4 bg-brand px-6 font-semibold text-black transition-colors hover:bg-brand-hover disabled:opacity-60"
+            >
+              {exporting === 'color' ? 'Generowanie PDF…' : 'Pobierz PDF'}
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="h-5 w-5 shrink-0">
+                <path d="M12 4v12M6 11l6 6 6-6M5 20h14" stroke="currentColor" strokeWidth="1.5" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              onClick={() => handleExportPDF('print')}
+              disabled={exporting !== null}
+              aria-busy={exporting === 'print'}
+              className="flex min-h-16 cursor-pointer items-center justify-between gap-4 border border-white/25 px-6 font-semibold text-white transition-colors hover:border-white hover:bg-white hover:text-black disabled:opacity-60"
+            >
+              {exporting === 'print' ? 'Generowanie PDF…' : 'PDF do druku'}
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="h-5 w-5 shrink-0">
+                <path d="M7 9V4h10v5M7 17H5v-6h14v6h-2M7 14h10v6H7z" stroke="currentColor" strokeWidth="1.5" />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -351,7 +368,8 @@ export default function ConcreteCalculator() {
 
       {/* Leaflet rendered into the PDF (off screen) */}
       <div aria-hidden className="pointer-events-none fixed top-0 left-[-10000px]">
-        <CalculatorLeaflet ref={exportRef} data={leaflet} />
+        <CalculatorLeaflet ref={colorRef} data={leaflet} variant="color" />
+        <CalculatorLeaflet ref={printRef} data={leaflet} variant="print" />
       </div>
     </div>
   );
