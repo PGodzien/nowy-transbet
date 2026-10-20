@@ -177,6 +177,11 @@ export const team = [
     image: '/team/jolanta-cap.png',
   },
   {
+    name: 'Agnieszka Jurkowska',
+    role: 'Specjalista ds. rekrutacji',
+    image: '/team/agnieszka-jurkowska.jpg',
+  },
+  {
     name: 'mgr Gabriela Jaroch',
     role: 'Stażysta ds. wynagrodzeń i administracji personalnej',
     image: '/team/gabriela-jaroch.png',
