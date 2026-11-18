@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { Geist_Mono, Instrument_Sans } from "next/font/google";
 import { GridLines } from "@/components/PageGrid";
-import CalculatorTag from "@/components/CalculatorTag";
 import PageCurtain from "@/components/PageCurtain";
 import CookieConsent from "@/components/CookieConsent";
 import { consentDefaultsScript } from "@/lib/consent";
@@ -60,7 +59,6 @@ export default function RootLayout({
         </noscript>
         <GridLines />
         {children}
-        <CalculatorTag />
         <PageCurtain />
         <CookieConsent />
         <Script id="gtm" strategy="afterInteractive">

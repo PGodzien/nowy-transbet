@@ -100,29 +100,12 @@ export default function Navbar() {
 
         <div className="ml-auto flex h-full items-center">
           <Link
-            href="/kariera"
-            onClick={() => setOpen(false)}
-            aria-label="Zatrudniamy – oferty pracy"
-            className={[
-              // Hidden on phones: there only the signet, "Zamów beton" and the menu stay.
-              'nav-enter-action mr-6 hidden h-9 shrink-0 items-center justify-center gap-2.5 border px-4 text-[13px] font-medium transition-colors duration-300 sm:flex lg:mr-8',
-              open
-                ? 'border-black/15 text-black hover:border-brand'
-                : 'border-white/20 text-white hover:border-brand hover:bg-white/5',
-            ].join(' ')}
-          >
-            <span className="relative flex h-2 w-2" aria-hidden="true">
-              <span className="absolute inline-flex h-full w-full animate-ping bg-brand opacity-75 motion-reduce:animate-none" />
-              <span className="relative inline-flex h-2 w-2 bg-brand" />
-            </span>
-            <span>Zatrudniamy</span>
-          </Link>
-          <Link
             href="/czlonkostwa"
             onClick={() => setOpen(false)}
             aria-label="Członkostwa i stowarzyszenia"
             data-curtain-label="Członkostwa"
-            className="group nav-enter-action mr-10 hidden items-center gap-7 xl:flex"
+            // Only from 1400 px: below that the logos would crowd the calculator and "Zamów beton".
+            className="group nav-enter-action mr-10 hidden items-center gap-7 min-[1400px]:flex"
           >
             <span className={['text-sm font-medium transition-colors duration-300 group-hover:text-brand', open ? 'text-black/60' : 'text-white/70'].join(' ')}>
               Członkostwa
@@ -142,6 +125,22 @@ export default function Navbar() {
               />
             ))}
           </Link>
+          {/* Concrete calculator, next to "Zamów beton" (it used to be a floating tag in the bottom-left corner). */}
+          <Link
+            href="/kalkulator-betonu"
+            onClick={() => setOpen(false)}
+            aria-label="Kalkulator betonu"
+            data-curtain-label="Kalkulator betonu"
+            className={[
+              'group nav-enter-action flex h-20 shrink-0 items-center gap-3 border-l px-3 text-sm font-semibold transition-colors duration-300 sm:px-4 lg:px-6',
+              open ? 'border-black/15 text-black hover:bg-black hover:text-white' : 'border-white/10 text-white hover:bg-white hover:text-black',
+            ].join(' ')}
+          >
+            <span aria-hidden="true" className="grid h-6 w-6 shrink-0 place-items-center bg-brand font-mono text-[10px] font-semibold text-black">
+              m³
+            </span>
+            <span className="hidden lg:inline">Kalkulator betonu</span>
+          </Link>
           <button
             type="button"
             onClick={() => {
@@ -151,7 +150,8 @@ export default function Navbar() {
             aria-haspopup="dialog"
             aria-expanded={orderOpen}
             className={[
-              'group nav-enter-action flex h-20 shrink-0 cursor-pointer items-center gap-3 border-l px-5 text-sm font-semibold transition-colors duration-300 lg:px-6',
+              // Tighter below 360 px, so the calculator still fits on the smallest phones.
+              'group nav-enter-action flex h-20 shrink-0 cursor-pointer items-center gap-3 border-l px-5 text-sm font-semibold transition-colors duration-300 max-[359px]:px-3 lg:px-6',
               open ? 'border-black/15' : 'border-white/10',
               'bg-black text-white hover:bg-brand hover:text-black',
             ].join(' ')}
@@ -169,7 +169,7 @@ export default function Navbar() {
                 return !current;
               })
             }
-            className="nav-enter-action mr-[4vw] flex h-20 w-20 shrink-0 cursor-pointer flex-col items-center justify-center gap-2 bg-brand transition-colors duration-300 hover:bg-brand-hover"
+            className="nav-enter-action mr-[4vw] flex h-20 w-20 shrink-0 cursor-pointer flex-col items-center justify-center gap-2 bg-brand transition-colors duration-300 hover:bg-brand-hover max-[359px]:w-16"
             aria-label={open ? 'Zamknij menu' : 'Otwórz menu'}
             aria-expanded={open}
           >
