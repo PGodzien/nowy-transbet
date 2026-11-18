@@ -14,6 +14,11 @@
   --font-mono: var(--font-geist-mono);
   --color-brand: #ff4d00;
   --color-brand-hover: #ff6a24;
+  /* Navbar steps where the calculator + "Zamów beton" pair lines up with the hero columns (see Navbar.tsx). */
+  --breakpoint-nav: 85rem;      /* 1360px */
+  --breakpoint-nav-md: 90rem;   /* 1440px */
+  --breakpoint-nav-lg: 100rem;  /* 1600px */
+  --breakpoint-nav-xl: 118.75rem; /* 1900px */
 }
 
 body {

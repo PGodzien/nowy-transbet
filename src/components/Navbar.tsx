@@ -125,21 +125,27 @@ export default function Navbar() {
               />
             ))}
           </Link>
-          {/* Concrete calculator, next to "Zamów beton" (it used to be a floating tag in the bottom-left corner). */}
+          {/* Calculator and "Zamów beton": from 1360 px they share the hero's last column with the menu button, in two
+              equal halves, so the calculator's left edge sits on that column's line. Positioned against the header row,
+              whose width is the hero's, so it lines up with or without a classic scrollbar. */}
+          <div className="flex h-20 shrink-0 nav:absolute nav:top-0 nav:right-[calc(4vw+80px)] nav:w-[calc((100%-8vw)/4-80px)]">
           <Link
             href="/kalkulator-betonu"
             onClick={() => setOpen(false)}
             aria-label="Kalkulator betonu"
             data-curtain-label="Kalkulator betonu"
             className={[
-              'group nav-enter-action flex h-20 shrink-0 items-center gap-3 border-l px-3 text-sm font-semibold transition-colors duration-300 sm:px-4 lg:px-6',
+              'group nav-enter-action flex h-20 shrink-0 items-center gap-3 border-l px-3 text-sm font-semibold whitespace-nowrap transition-colors duration-300 sm:px-4 lg:px-6 nav:min-w-0 nav:flex-1 nav:justify-center nav:px-2',
               open ? 'border-black/15 text-black hover:bg-black hover:text-white' : 'border-white/10 text-white hover:bg-white hover:text-black',
             ].join(' ')}
           >
             <span aria-hidden="true" className="grid h-6 w-6 shrink-0 place-items-center bg-brand font-mono text-[10px] font-semibold text-black">
               m³
             </span>
-            <span className="hidden lg:inline">Kalkulator betonu</span>
+            {/* full label where it fits, shorter on narrower laptops */}
+            <span className="hidden lg:inline nav:hidden nav-md:inline">
+              Kalkulator<span className="nav:hidden nav-xl:inline"> betonu</span>
+            </span>
           </Link>
           <button
             type="button"
@@ -151,16 +157,17 @@ export default function Navbar() {
             aria-expanded={orderOpen}
             className={[
               // Tighter below 360 px, so the calculator still fits on the smallest phones.
-              'group nav-enter-action flex h-20 shrink-0 cursor-pointer items-center gap-3 border-l px-5 text-sm font-semibold transition-colors duration-300 max-[359px]:px-3 lg:px-6',
+              'group nav-enter-action flex h-20 shrink-0 cursor-pointer items-center gap-3 border-l px-5 text-sm font-semibold whitespace-nowrap transition-colors duration-300 max-[359px]:px-3 lg:px-6 nav:min-w-0 nav:flex-1 nav:justify-center nav:px-2',
               open ? 'border-black/15' : 'border-white/10',
               'bg-black text-white hover:bg-brand hover:text-black',
             ].join(' ')}
           >
             Zamów beton
-            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="hidden h-5 w-5 transition-transform duration-300 group-hover:translate-x-1 lg:block">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="hidden h-5 w-5 transition-transform duration-300 group-hover:translate-x-1 lg:block nav:hidden nav-lg:block">
               <path d="M4 12h16M14 6l6 6-6 6" stroke="currentColor" strokeWidth="1.5" />
             </svg>
           </button>
+          </div>
           <button
             type="button"
             onClick={() =>

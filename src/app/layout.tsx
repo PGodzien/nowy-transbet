@@ -3,6 +3,7 @@ import Script from "next/script";
 import { Geist_Mono, Instrument_Sans } from "next/font/google";
 import { GridLines } from "@/components/PageGrid";
 import PageCurtain from "@/components/PageCurtain";
+import MobileCallBar from "@/components/MobileCallBar";
 import CookieConsent from "@/components/CookieConsent";
 import { consentDefaultsScript } from "@/lib/consent";
 import "./globals.css";
@@ -59,6 +60,7 @@ export default function RootLayout({
         </noscript>
         <GridLines />
         {children}
+        <MobileCallBar />
         <PageCurtain />
         <CookieConsent />
         <Script id="gtm" strategy="afterInteractive">
