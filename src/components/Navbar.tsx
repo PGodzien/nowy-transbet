@@ -105,7 +105,8 @@ export default function Navbar() {
             aria-label="Członkostwa i stowarzyszenia"
             data-curtain-label="Członkostwa"
             // Only from 1400 px: below that the logos would crowd the calculator and "Zamów beton".
-            className="group nav-enter-action mr-10 hidden items-center gap-7 min-[1400px]:flex"
+            // The right margin keeps them clear of that pair, which is positioned outside the flow from 1360 px.
+            className="group nav-enter-action mr-10 hidden items-center gap-7 min-[1400px]:flex nav:mr-[calc(23vw-80px+2.5rem)]"
           >
             <span className={['text-sm font-medium transition-colors duration-300 group-hover:text-brand', open ? 'text-black/60' : 'text-white/70'].join(' ')}>
               Członkostwa
@@ -125,17 +126,18 @@ export default function Navbar() {
               />
             ))}
           </Link>
+          {/* Buttons fill the bar's inner height, so all of them end on its bottom line. */}
           {/* Calculator and "Zamów beton": from 1360 px they share the hero's last column with the menu button, in two
               equal halves, so the calculator's left edge sits on that column's line. Positioned against the header row,
               whose width is the hero's, so it lines up with or without a classic scrollbar. */}
-          <div className="flex h-20 shrink-0 nav:absolute nav:top-0 nav:right-[calc(4vw+80px)] nav:w-[calc((100%-8vw)/4-80px)]">
+          <div className="flex h-full shrink-0 nav:absolute nav:top-0 nav:right-[calc(4vw+80px)] nav:w-[calc((100%-8vw)/4-80px)]">
           <Link
             href="/kalkulator-betonu"
             onClick={() => setOpen(false)}
             aria-label="Kalkulator betonu"
             data-curtain-label="Kalkulator betonu"
             className={[
-              'group nav-enter-action flex h-20 shrink-0 items-center gap-3 border-l px-3 text-sm font-semibold whitespace-nowrap transition-colors duration-300 sm:px-4 lg:px-6 nav:min-w-0 nav:flex-1 nav:justify-center nav:px-2',
+              'group nav-enter-action flex h-full shrink-0 items-center gap-3 border-l px-3 text-sm font-semibold whitespace-nowrap transition-colors duration-300 sm:px-4 lg:px-6 nav:min-w-0 nav:flex-1 nav:justify-center nav:px-2',
               open ? 'border-black/15 text-black hover:bg-black hover:text-white' : 'border-white/10 text-white hover:bg-white hover:text-black',
             ].join(' ')}
           >
@@ -157,7 +159,7 @@ export default function Navbar() {
             aria-expanded={orderOpen}
             className={[
               // Tighter below 360 px, so the calculator still fits on the smallest phones.
-              'group nav-enter-action flex h-20 shrink-0 cursor-pointer items-center gap-3 border-l px-5 text-sm font-semibold whitespace-nowrap transition-colors duration-300 max-[359px]:px-3 lg:px-6 nav:min-w-0 nav:flex-1 nav:justify-center nav:px-2',
+              'group nav-enter-action flex h-full shrink-0 cursor-pointer items-center gap-3 border-l px-5 text-sm font-semibold whitespace-nowrap transition-colors duration-300 max-[359px]:px-3 lg:px-6 nav:min-w-0 nav:flex-1 nav:justify-center nav:px-2',
               open ? 'border-black/15' : 'border-white/10',
               'bg-black text-white hover:bg-brand hover:text-black',
             ].join(' ')}
@@ -176,7 +178,7 @@ export default function Navbar() {
                 return !current;
               })
             }
-            className="nav-enter-action mr-[4vw] flex h-20 w-20 shrink-0 cursor-pointer flex-col items-center justify-center gap-2 bg-brand transition-colors duration-300 hover:bg-brand-hover max-[359px]:w-16"
+            className="nav-enter-action mr-[4vw] flex h-full w-20 shrink-0 cursor-pointer flex-col items-center justify-center gap-2 bg-brand transition-colors duration-300 hover:bg-brand-hover max-[359px]:w-16"
             aria-label={open ? 'Zamknij menu' : 'Otwórz menu'}
             aria-expanded={open}
           >
