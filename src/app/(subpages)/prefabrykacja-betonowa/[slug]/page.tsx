@@ -80,7 +80,7 @@ export default async function ProductPage({ params }: Props) {
       <section className="bg-white">
         <div className="mx-[4vw] grid grid-cols-[minmax(0,1fr)] gap-12 py-12 sm:py-16 lg:grid-cols-[minmax(0,1.25fr)_minmax(22rem,0.75fr)] lg:gap-[6vw] lg:py-20">
           <div className="min-w-0">
-            <ProductGallery images={images} model3d={product.model3d} name={product.name} />
+            <ProductGallery images={images} drawings={product.drawings} model3d={product.model3d} name={product.name} />
           </div>
 
           <div className="flex items-center">

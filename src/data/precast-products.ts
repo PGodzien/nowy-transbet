@@ -1,5 +1,6 @@
 // Precast products, 1:1 from the previous site (transbet-nextjs/app/prefabrykacja-betonowa/products.ts).
-// Photos in public/products (resized to 1600 px), 3D models in public/3d-modele.
+// Photos in public/products (resized to 1600 px), 3D models in public/3d-modele,
+// technical drawings in public/products/rysunki (vector, cut out of katalog-transbet-www.pdf).
 export type Spec = { label: string; value: string };
 export type TableData = { headers: string[]; rows: string[][] };
 export type ContentSection = { title: string; items: string[] };
@@ -13,6 +14,8 @@ export type Product = {
     imageAlt: string;
     images?: ProductImage[];
     model3d?: string | string[];
+    // Technical drawings, shown in the gallery between the 3D model and the photos.
+    drawings?: ProductImage[];
     description?: string;
     specs?: Spec[];
     table?: TableData;
@@ -31,6 +34,10 @@ export const products: Product[] = [
         imageSrc: "/products/korytko-krakowskie-01.jpg",
         imageAlt: "Korytko krakowskie",
         model3d: "/3d-modele/Korytko%20Krakowskie.glb",
+        drawings: [
+            { src: "/products/rysunki/korytko-krakowskie-rysunek-01.svg", alt: "Rysunek techniczny: Korytko krakowskie" },
+            { src: "/products/rysunki/korytko-krakowskie-rysunek-02.svg", alt: "Rysunek techniczny: Korytko krakowskie" },
+        ],
         images: [
             { src: "/products/korytko-krakowskie-01.jpg", alt: "Korytko krakowskie" },
             { src: "/products/korytko-krakowskie-02.jpg", alt: "Korytko krakowskie" },
@@ -51,6 +58,10 @@ export const products: Product[] = [
         imageSrc: "/products/korytko-naskarpowe-01.jpg",
         imageAlt: "Korytko naskarpowe",
         model3d: "/3d-modele/Korytko%20Naskarpowe.glb",
+        drawings: [
+            { src: "/products/rysunki/korytko-naskarpowe-rysunek-01.svg", alt: "Rysunek techniczny: Korytko naskarpowe" },
+            { src: "/products/rysunki/korytko-naskarpowe-rysunek-02.svg", alt: "Rysunek techniczny: Korytko naskarpowe" },
+        ],
         images: [
             { src: "/products/korytko-naskarpowe-01.jpg", alt: "Korytko naskarpowe" },
             { src: "/products/korytko-naskarpowe-02.jpg", alt: "Korytko naskarpowe" },
@@ -72,6 +83,10 @@ export const products: Product[] = [
         imageSrc: "/products/korytko-ciekowe-01.jpg",
         imageAlt: "Korytko ciekowe",
         model3d: "/3d-modele/Korytko%20Ciekowe.glb",
+        drawings: [
+            { src: "/products/rysunki/korytko-ciekowe-rysunek-01.svg", alt: "Rysunek techniczny: Korytko ciekowe" },
+            { src: "/products/rysunki/korytko-ciekowe-rysunek-02.svg", alt: "Rysunek techniczny: Korytko ciekowe" },
+        ],
         images: [
             { src: "/products/korytko-ciekowe-01.jpg", alt: "Korytko ciekowe" },
             { src: "/products/korytko-ciekowe-02.jpg", alt: "Korytko ciekowe" },
@@ -92,6 +107,10 @@ export const products: Product[] = [
         imageSrc: "/products/korytko-trojkatne-01.jpg",
         imageAlt: "Korytko trójkątne",
         model3d: "/3d-modele/Korytko%20Trojkatne.glb",
+        drawings: [
+            { src: "/products/rysunki/korytko-trojkatne-rysunek-01.svg", alt: "Rysunek techniczny: Korytko trójkątne" },
+            { src: "/products/rysunki/korytko-trojkatne-rysunek-02.svg", alt: "Rysunek techniczny: Korytko trójkątne" },
+        ],
         images: [
             { src: "/products/korytko-trojkatne-01.jpg", alt: "Korytko trójkątne" },
             { src: "/products/korytko-trojkatne-02.jpg", alt: "Korytko trójkątne" },
@@ -112,6 +131,10 @@ export const products: Product[] = [
         imageSrc: "/products/korytko-sciekowe-01.jpg",
         imageAlt: "Korytko ściekowe KPED 01.03 (mulda)",
         model3d: "/3d-modele/Korytko%20Sciekowe%20KPED.glb",
+        drawings: [
+            { src: "/products/rysunki/korytko-sciekowe-kped-rysunek-01.svg", alt: "Rysunek techniczny: Korytko ściekowe KPED 01.03 (mulda)" },
+            { src: "/products/rysunki/korytko-sciekowe-kped-rysunek-02.svg", alt: "Rysunek techniczny: Korytko ściekowe KPED 01.03 (mulda)" },
+        ],
         images: [
             { src: "/products/korytko-sciekowe-01.jpg", alt: "Korytko ściekowe KPED 01.03 (mulda)" },
             { src: "/products/korytko-sciekowe-02.jpg", alt: "Korytko ściekowe KPED 01.03 (mulda)" },
