@@ -141,9 +141,10 @@ export default function Hero() {
           className="absolute inset-0 h-full w-full object-cover"
           style={{
             transform: !ready ? 'scale(1.08)' : activeId ? 'scale(1.025)' : 'scale(1.015)',
+            // Muted on purpose: monochrome, low contrast and slightly soft, so the footage reads as texture behind the copy.
             filter: ready
-              ? 'saturate(0.82) contrast(1.08) brightness(0.8)'
-              : 'saturate(0.5) contrast(1.15) brightness(0.55)',
+              ? 'grayscale(1) contrast(0.8) brightness(0.58) blur(1.5px)'
+              : 'grayscale(1) contrast(0.9) brightness(0.45) blur(1.5px)',
             transition: settled
               ? 'transform 700ms cubic-bezier(0.22,1,0.36,1), filter 700ms ease'
               : 'transform 2200ms cubic-bezier(0.22,1,0.36,1), filter 1800ms ease',
@@ -155,14 +156,14 @@ export default function Hero() {
         <div
           className="absolute inset-0"
           style={{
+            // One even veil over the whole frame, a little deeper behind the headline and the tiles.
             background:
-              'radial-gradient(ellipse 62% 66% at 0% 44%, rgba(0,0,0,0.58) 0%, rgba(0,0,0,0.24) 44%, transparent 72%), radial-gradient(ellipse 68% 58% at 0% 100%, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.38) 42%, transparent 72%), linear-gradient(to top, rgba(0,0,0,0.58) 0%, rgba(0,0,0,0.2) 30%, transparent 48%), linear-gradient(to bottom, rgba(0,0,0,0.48) 0%, transparent 28%)',
+              'linear-gradient(90deg, rgba(0,0,0,0.48) 0%, rgba(0,0,0,0.16) 55%, transparent 80%), linear-gradient(to top, rgba(0,0,0,0.45) 0%, transparent 40%), linear-gradient(rgba(10,10,10,0.42), rgba(10,10,10,0.42))',
           }}
         />
-        <div className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(0deg,transparent_0,transparent_3px,rgba(255,255,255,0.022)_3px,rgba(255,255,255,0.022)_4px)] mix-blend-overlay" />
         <div
           className="pointer-events-none absolute -inset-12 mix-blend-soft-light transition-opacity duration-[1800ms]"
-          style={{ backgroundImage: grainImage, backgroundSize: '180px 180px', opacity: ready ? 0.28 : 0.5 }}
+          style={{ backgroundImage: grainImage, backgroundSize: '180px 180px', opacity: ready ? 0.2 : 0.5 }}
         />
         {/* Darkens the background while a column shows its own clip. */}
         <div
@@ -239,13 +240,14 @@ export default function Hero() {
                   className="absolute inset-0 transition-opacity duration-500"
                   style={{
                     backgroundColor: panel.color,
-                    opacity: isActive ? 0.16 : activeId ? 0.12 : 0.2,
+                    // Columns stay untinted at rest, so the background reads as one surface.
+                    opacity: isActive ? 0.16 : 0,
                   }}
                 />
                 <span
                   className={[
                     'absolute inset-0 bg-black transition-opacity duration-500',
-                    panel.id === 'nr-4' ? 'opacity-30' : 'opacity-10',
+                    !isActive ? 'opacity-0' : panel.id === 'nr-4' ? 'opacity-30' : 'opacity-10',
                   ].join(' ')}
                 />
               </div>
@@ -273,8 +275,7 @@ export default function Hero() {
                 ].join(' ')}
                 style={{ animationDelay: `${620 + index * 110}ms` }}
               >
-                <span aria-hidden="true" className="absolute inset-0 md:hidden" style={{ backgroundColor: panel.color, opacity: panel.id === 'nr-4' ? 0.14 : 0.22 }} />
-                <span aria-hidden="true" className={['absolute inset-0 bg-black md:hidden', panel.id === 'nr-4' ? 'opacity-40' : 'opacity-25'].join(' ')} />
+                <span aria-hidden="true" className="absolute inset-0 bg-black/30 md:hidden" />
                 <span className="relative flex items-center justify-between gap-3">
                   <span className={['font-mono text-[9px] font-medium tracking-[0.2em] transition-colors duration-300', isActive ? 'text-brand' : 'text-white/55'].join(' ')}>
                     / {panel.number}
