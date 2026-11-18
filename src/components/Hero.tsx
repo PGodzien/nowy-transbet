@@ -14,7 +14,7 @@ const panels = [
     href: '#betoniarnie',
     external: false,
     domain: null,
-    media: { kind: 'video', src: '/hero-betoniarnie.mp4', poster: '/hero-betoniarnie-poster.jpg' },
+    media: { src: '/hero-kafel-betoniarnie.mp4', poster: '/hero-kafel-betoniarnie.jpg' },
   },
   {
     id: 'nr-2',
@@ -25,7 +25,7 @@ const panels = [
     href: '/prefabrykacja-betonowa',
     external: false,
     domain: null,
-    media: { kind: 'image', src: '/prefabrykaty.jpg', poster: null },
+    media: { src: '/hero-kafel-prefabrykacja.mp4', poster: '/hero-kafel-prefabrykacja.jpg' },
   },
   {
     id: 'nr-3',
@@ -36,7 +36,7 @@ const panels = [
     href: 'https://steel-trans.pl/',
     external: true,
     domain: 'steel-trans.pl',
-    media: { kind: 'video', src: '/hero-zbrojenia.mp4', poster: '/hero-zbrojenia-poster.jpg' },
+    media: { src: '/hero-kafel-zbrojenia.mp4', poster: '/hero-kafel-zbrojenia.jpg' },
   },
   {
     id: 'nr-4',
@@ -47,9 +47,14 @@ const panels = [
     href: 'https://transbettcs.com/',
     external: true,
     domain: 'transbettcs.com',
-    media: { kind: 'image', src: '/tunele.jpg', poster: null },
+    media: { src: '/hero-kafel-tunele.mp4', poster: '/hero-kafel-tunele.jpg' },
   },
 ] as const;
+
+// Column clips: one series of 540x1080 portrait loops made from four photos in their natural colours, animated to
+// read like footage (smooth pull-back, light sweep, grain) and seamless (docs/hero-kafle.py renders them).
+// Strength of the orange laid over an open column (colour blend: orange hue, the photo keeps its light and contrast).
+const columnTint = 0.6;
 
 // 23 s loop cut from transbet_background_video.mp4 (letterbox cropped, no audio, CRF 22, ~12 MB).
 const heroVideo = '/hero-loop.mp4';
@@ -208,47 +213,27 @@ export default function Hero() {
                   className="absolute inset-0 overflow-hidden transition-opacity duration-500"
                   style={{ opacity: isActive ? 1 : 0 }}
                 >
-                  {panel.media.kind === 'video' ? (
-                    <video
-                      ref={(node) => {
-                        columnVideos.current[panel.id] = node;
-                      }}
-                      muted
-                      loop
-                      playsInline
-                      preload="none"
-                      poster={panel.media.poster ?? undefined}
-                      className="absolute inset-0 h-full w-full object-cover"
-                      style={{ filter: 'saturate(0.85) contrast(1.05) brightness(0.75)' }}
-                    >
-                      <source src={panel.media.src} type="video/mp4" />
-                    </video>
-                  ) : (
-                    <span
-                      className="absolute inset-0 bg-cover bg-center"
-                      style={{
-                        backgroundImage: `url(${panel.media.src})`,
-                        filter: 'saturate(0.85) contrast(1.05) brightness(0.75)',
-                        // Slow push-in while the column is open.
-                        transform: isActive ? 'scale(1.1)' : 'scale(1)',
-                        transition: isActive ? 'transform 7s linear' : 'transform 600ms ease',
-                      }}
-                    />
-                  )}
+                  {/* The grade is baked into the clips, so all four columns read as one series. */}
+                  <video
+                    ref={(node) => {
+                      columnVideos.current[panel.id] = node;
+                    }}
+                    muted
+                    loop
+                    playsInline
+                    preload="none"
+                    poster={panel.media.poster}
+                    className="absolute inset-0 h-full w-full object-cover"
+                  >
+                    <source src={panel.media.src} type="video/mp4" />
+                  </video>
                 </span>
+                {/* Light brand-orange wash, the same on every column, so the four clips read as one set. */}
+                <span className="absolute inset-0 bg-brand mix-blend-color transition-opacity duration-500" style={{ opacity: isActive ? columnTint : 0 }} />
+                {/* Same light dim on every open column, deeper at the bottom where the tile text sits. */}
                 <span
-                  className="absolute inset-0 transition-opacity duration-500"
-                  style={{
-                    backgroundColor: panel.color,
-                    // Columns stay untinted at rest, so the background reads as one surface.
-                    opacity: isActive ? 0.16 : 0,
-                  }}
-                />
-                <span
-                  className={[
-                    'absolute inset-0 bg-black transition-opacity duration-500',
-                    !isActive ? 'opacity-0' : panel.id === 'nr-4' ? 'opacity-30' : 'opacity-10',
-                  ].join(' ')}
+                  className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.6)_0%,rgba(0,0,0,0.15)_40%,rgba(0,0,0,0.15)_100%)] transition-opacity duration-500"
+                  style={{ opacity: isActive ? 1 : 0 }}
                 />
               </div>
             );
@@ -277,7 +262,7 @@ export default function Hero() {
               >
                 <span aria-hidden="true" className="absolute inset-0 bg-black/30 md:hidden" />
                 <span className="relative flex items-center justify-between gap-3">
-                  <span className={['font-mono text-[9px] font-medium tracking-[0.2em] transition-colors duration-300', isActive ? 'text-brand' : 'text-white/55'].join(' ')}>
+                  <span className={['font-mono text-[9px] font-medium tracking-[0.2em] transition-colors duration-300', isActive ? 'text-white' : 'text-white/55'].join(' ')}>
                     / {panel.number}
                   </span>
                   <span className={['grid h-8 w-8 shrink-0 place-items-center rounded-full border border-white/45 transition-[opacity,transform] duration-300 md:h-10 md:w-10', isActive || panel.external ? 'translate-x-0 opacity-100' : 'translate-x-2 opacity-0'].join(' ')}>
