@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Reveal from '@/components/Reveal';
+import PlantMapDialog from '@/components/PlantMapDialog';
 
 const concretePlants = [
   {
@@ -152,7 +153,9 @@ export default function BusinessSections() {
             <div className="grid border-t border-white/15 md:grid-cols-3">
               {concretePlants.map((plant, index) => (
                 <Reveal key={plant.city} direction="none" delay={60 + index * 60} className="h-full">
-                  <article className={`group flex min-h-44 flex-col justify-between border-b border-white/12 bg-black/25 px-6 py-6 backdrop-blur-sm transition-colors hover:bg-brand hover:text-black sm:px-8 md:border-b-0 ${index < 2 ? 'md:border-r md:border-white/15' : ''}`}>
+                  <article className={`group relative flex min-h-44 flex-col justify-between border-b border-white/12 bg-black/25 px-6 py-6 backdrop-blur-sm transition-colors hover:bg-brand hover:text-black sm:px-8 md:border-b-0 ${index < 2 ? 'md:border-r md:border-white/15' : ''}`}>
+                    {/* the whole tile opens the map dialog; the phone number sits above it */}
+                    <PlantMapDialog plant={plant} />
                     <div className="flex items-center justify-between">
                       <span className="font-mono text-[8px] tracking-[0.18em] text-white/35 transition-colors group-hover:text-black/45">/ 0{index + 1}</span>
                       <span className="text-brand transition-colors group-hover:text-black"><Arrow /></span>
@@ -160,7 +163,7 @@ export default function BusinessSections() {
                     <div className="mt-8">
                       <h3 className="text-[clamp(1.55rem,2.35vw,2.7rem)] font-medium leading-none tracking-[-0.04em]">{plant.city}</h3>
                       <p className="mt-3 text-xs leading-relaxed text-white/45 transition-colors group-hover:text-black/65">{plant.address}</p>
-                      <a href={plant.phoneHref} className="mt-3 inline-block text-sm font-semibold transition-colors hover:text-white group-hover:hover:text-black/70">
+                      <a href={plant.phoneHref} className="relative z-10 mt-3 inline-block text-sm font-semibold transition-colors hover:text-white group-hover:hover:text-black/70">
                         {plant.phone}
                       </a>
                     </div>
