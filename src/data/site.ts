@@ -212,7 +212,7 @@ export const team = [
     image: '/team/anna-grochowicz.png',
   },
   {
-    name: 'inż. Gracjan Grochowicz',
+    name: 'mgr inż. Gracjan Grochowicz',
     role: 'Kierownik Produkcji - Projekty Tunelowe',
     image: '/team/gracjan-grochowicz.png',
   },
