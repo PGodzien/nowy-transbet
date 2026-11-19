@@ -172,12 +172,12 @@ export const team = [
     image: '/team/lidia-sniezek.png',
   },
   {
-    name: 'Jolanta Cap',
+    name: 'mgr Jolanta Cap',
     role: 'Specjalista ds. rekrutacji',
     image: '/team/jolanta-cap.png',
   },
   {
-    name: 'Agnieszka Jurkowska',
+    name: 'mgr Agnieszka Jurkowska',
     role: 'Specjalista ds. rekrutacji',
     image: '/team/agnieszka-jurkowska.jpg',
   },
@@ -212,13 +212,13 @@ export const team = [
     image: '/team/anna-grochowicz.png',
   },
   {
-    name: 'Gracjan Grochowicz',
+    name: 'inż. Gracjan Grochowicz',
     role: 'Kierownik Produkcji - Projekty Tunelowe',
     image: '/team/gracjan-grochowicz.png',
   },
   {
     name: 'Wojciech Lubos',
-    role: 'Specjalista ds. logistyki betonu',
+    role: 'Kierownik sprzedaży oddziału Jarosław/Radymno',
     image: '/team/wojciech-lubos.png',
   },
   {
@@ -257,7 +257,7 @@ export const team = [
     image: '/team/pawel-zajac.png',
   },
   {
-    name: 'Greta Kowalczyk',
+    name: 'mgr Greta Kowalczyk',
     role: 'Pracownik biurowy',
     image: '/team/greta-kowalczyk.png',
   },
