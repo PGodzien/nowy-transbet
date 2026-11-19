@@ -232,7 +232,7 @@ export const team = [
     image: '/team/dorota-superson.png',
   },
   {
-    name: 'mgr Bartosz Świątek',
+    name: 'mgr inż. Bartosz Świątek',
     role: 'Doradca ds. klientów kluczowych',
     image: '/team/bartosz-swiatek.png',
   },
