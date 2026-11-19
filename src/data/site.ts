@@ -127,12 +127,12 @@ export const team = [
     image: '/team/maciej-grochowicz.png',
   },
   {
-    name: 'Kamil Grochowicz',
+    name: 'mgr Kamil Grochowicz',
     role: 'Kierownik zakładu w Przemyślu',
     image: '/team/kamil-grochowicz.png',
   },
   {
-    name: 'Mateusz Śnieżek',
+    name: 'mgr Mateusz Śnieżek',
     role: 'Kierownik zakładu w Jarosławiu i Radymnie',
     image: '/team/mateusz-sniezek.png',
   },
@@ -217,7 +217,7 @@ export const team = [
     image: '/team/gracjan-grochowicz.png',
   },
   {
-    name: 'Wojciech Lubos',
+    name: 'inż. Wojciech Lubos',
     role: 'Kierownik sprzedaży oddziału Jarosław/Radymno',
     image: '/team/wojciech-lubos.png',
   },
