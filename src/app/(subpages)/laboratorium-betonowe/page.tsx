@@ -3,7 +3,7 @@ import PageHero from '@/components/PageHero';
 import Reveal from '@/components/Reveal';
 
 export const metadata: Metadata = {
-  title: 'Laboratorium betonowe',
+  title: 'Laboratorium betonu',
   description:
     'Firma Transbet posiada przyzakładowe laboratorium betonu i jego składników, które cały czas jest rozwijane w nowe maszyny badawcze.',
 };
@@ -67,9 +67,9 @@ export default function LaboratoryPage() {
     <>
       <PageHero
         number="02"
-        eyebrow="Laboratorium betonowe"
+        eyebrow="Laboratorium betonu"
         parent={{ label: 'Oferta', href: '/oferta' }}
-        title="Laboratorium betonowe"
+        title="Laboratorium betonu"
         description="Firma Transbet posiada przyzakładowe laboratorium betonu i jego składników, które cały czas jest rozwijane w nowe maszyny badawcze."
         image="/background.jpg"
       />

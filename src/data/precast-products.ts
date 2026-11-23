@@ -210,7 +210,7 @@ export const products: Product[] = [
         specs: [
             { label: "Grubość", value: "12 cm" },
             { label: "Długość", value: "do 600 cm" },
-            { label: "Waga", value: "na zapytanie" },
+            { label: "Waga", value: "według projektu" },
         ],
     },
     {

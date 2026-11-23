@@ -20,6 +20,18 @@ export const contactDepartments = [
 
 export type ContactDepartment = (typeof contactDepartments)[number]['value'];
 
+const departmentRoutes: readonly [string, ContactDepartment][] = [
+  ['/prefabrykacja-betonowa', 'prefabrykaty-betonowe'],
+  ['/kariera', 'rekrutacja'],
+  ['/laboratorium-betonowe', 'laboratorium'],
+  ['/kruszywa-budowlane', 'kruszywa'],
+  ['/sprzet-i-wynajem', 'sprzet'],
+];
+
+export function getContactDepartment(pathname: string): ContactDepartment {
+  return departmentRoutes.find(([route]) => pathname === route || pathname.startsWith(`${route}/`))?.[1] ?? 'betoniarnia';
+}
+
 // Attachments: what a serverless function can receive in one request (Vercel's limit is 4.5 MB).
 export const ATTACHMENTS = {
   maxFiles: 3,

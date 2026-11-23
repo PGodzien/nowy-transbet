@@ -1,8 +1,9 @@
 'use client';
 
 import { type FormEvent, useRef, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import Reveal from '@/components/Reveal';
-import { ATTACHMENTS, contactDepartments as departments } from '@/data/contact';
+import { ATTACHMENTS, contactDepartments as departments, getContactDepartment, type ContactDepartment } from '@/data/contact';
 
 /*
  * Same fields as the contact form on transbet.com.pl, plus attachments.
@@ -25,7 +26,12 @@ const fieldInput =
   'mt-1.5 block w-full border border-black/15 bg-white px-3.5 py-2.5 text-base text-black outline-none transition-colors hover:border-black/30 focus:border-black';
 
 export default function ContactForm() {
-  const [department, setDepartment] = useState(0);
+  const pathname = usePathname();
+  return <ContactFormFields key={pathname} defaultDepartment={getContactDepartment(pathname)} />;
+}
+
+function ContactFormFields({ defaultDepartment }: { defaultDepartment: ContactDepartment }) {
+  const [department, setDepartment] = useState(() => departments.findIndex((item) => item.value === defaultDepartment));
   const [files, setFiles] = useState<File[]>([]);
   const [status, setStatus] = useState<Status>('idle');
   const [notice, setNotice] = useState('');

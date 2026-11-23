@@ -42,7 +42,7 @@ export const offerAreas = [
   },
   {
     number: '03',
-    title: 'Laboratorium betonowe',
+    title: 'Laboratorium betonu',
     description: 'Posiadamy przyzakładowe laboratorium badawcze betonu i jego składników.',
     href: '/laboratorium-betonowe',
     linkLabel: 'zobacz więcej',
