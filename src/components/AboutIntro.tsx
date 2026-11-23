@@ -21,14 +21,15 @@ export default function AboutIntro() {
           <Reveal className="lg:col-span-2">
             <p className="font-mono text-[9px] tracking-[0.2em] text-black/40 uppercase">/ O firmie</p>
             <p className="mt-6 text-[clamp(1.45rem,2.3vw,2.5rem)] font-medium leading-[1.18] tracking-[-0.03em] text-black">
-              Od początku istnienia zakładu, główną dziedziną naszej działalności jest produkcja betonu towarowego dla odbiorców
-              indywidualnych i instytucjonalnych<span className="text-brand">.</span>
+              Łączymy produkcję betonu towarowego oraz prefabrykatów betonowych i zbrojeniowych ze wsparciem realizacji
+              projektów tunelowych<span className="text-brand">.</span>
             </p>
           </Reveal>
           <Reveal delay={120} className="flex items-end">
             <p className="max-w-md text-base leading-relaxed text-black/60">
-              Dzięki indywidualnemu podejściu do Klienta oraz produktom wysokiej klasy w połączeniu z terminowością dostaw
-              Betoniarnia rozwija się bardzo dynamicznie stając się jednym z lokalnych liderów rynku produkcji betonu towarowego.
+              Od 1993 roku rozwijamy rodzinną firmę, poszerzając ofertę i kompetencje naszego zespołu. Dzięki indywidualnemu
+              podejściu do Klienta, jakości produktów i terminowości dostaw wspieramy zarówno lokalne inwestycje,
+              jak i międzynarodowe projekty budowlane.
             </p>
           </Reveal>
         </div>
