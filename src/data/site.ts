@@ -113,12 +113,12 @@ export const companyTimeline = [
 export const team = [
   {
     name: 'inż. Mariusz Grochowicz',
-    role: 'Współwłaściciel, ZAŁOŻYCIEL FIRMY',
+    role: 'Dyrektor Finansowy / Współwłaściciel',
     image: '/team/mariusz-grochowicz.png',
   },
   {
     name: 'tech. Marcin Grochowicz',
-    role: 'Współwłaściciel',
+    role: 'Dyrektor Techniczny / Prokurent',
     image: '/team/marcin-grochowicz.png',
   },
   {
@@ -128,7 +128,7 @@ export const team = [
   },
   {
     name: 'mgr Kamil Grochowicz',
-    role: 'Kierownik zakładu w Przemyślu',
+    role: 'Kierownik Zakładu Produkcyjnego',
     image: '/team/kamil-grochowicz.png',
   },
   {
@@ -138,42 +138,42 @@ export const team = [
   },
   {
     name: 'mgr inż. Kuba Kramarz',
-    role: 'Zastępca kierownika zakładu w Przemyślu',
+    role: 'Specjalista ds. Logistyki Betonu',
     image: '/team/kuba-kramarz.png',
   },
   {
     name: 'mgr inż. Michał Joszko',
-    role: 'Kierownik prefabrykacji stali',
+    role: 'Kierownik Zakładu Prefabrykacji Stali',
     image: '/team/michal-joszko.png',
   },
   {
     name: 'mgr inż. Mateusz Maciaszek',
-    role: 'Kierownik prefabrykacji betonu',
+    role: 'Kierownik Zakładu Prefabrykacji Betonowej',
     image: '/team/mateusz-maciaszek.png',
   },
   {
     name: 'mgr inż. Marzena Wardęga',
-    role: 'Kierownik do spraw jakości, technolog betonu',
+    role: 'Kierownik Działu Kontroli Jakości',
     image: '/team/marzena-wardega.png',
   },
   {
     name: 'inż. Jakub Dudek',
-    role: 'Specjalista do spraw kontroli prefabrykacji stali',
+    role: 'Specjalista ds. Kontroli Jakości i Planowania Produkcji',
     image: '/team/jakub-dudek.png',
   },
   {
     name: 'mgr inż. Aleksandra Koba',
-    role: 'Technolog betonu',
+    role: 'Starszy Technolog Betonu',
     image: '/team/aleksandra-koba.png',
   },
   {
     name: 'mgr Lidia Śnieżek',
-    role: 'Specjalista do spraw kadr i płac',
+    role: 'Kierownik Działu Kadr i Płac',
     image: '/team/lidia-sniezek.png',
   },
   {
     name: 'mgr Jolanta Cap',
-    role: 'Specjalista ds. rekrutacji',
+    role: 'Specjalista ds. Rekrutacji',
     image: '/team/jolanta-cap.png',
   },
   {
@@ -183,32 +183,32 @@ export const team = [
   },
   {
     name: 'mgr Gabriela Jaroch',
-    role: 'Stażysta ds. wynagrodzeń i administracji personalnej',
+    role: 'Stażysta ds. Wynagrodzeń i Administracji Personalnej',
     image: '/team/gabriela-jaroch.png',
   },
   {
     name: 'mgr Jacek Łuc',
-    role: 'Specjalista ds. wynagrodzeń i administracji personalnej',
+    role: 'Specjalista ds. Wynagrodzeń i Administracji Personalnej',
     image: '/team/jacek-luc.png',
   },
   {
     name: 'mgr Sabina Sitnik',
-    role: 'Specjalistka do spraw obsługi klienta w Przemyślu',
+    role: 'Specjalista ds. Obsługi Klienta i Rozliczeń',
     image: '/team/sabina-sitnik.png',
   },
   {
     name: 'mgr Justyna Skrzypek',
-    role: 'Specjalista ds. obsługi klienta i rozliczeń',
+    role: 'Specjalista ds. Obsługi Klienta i Rozliczeń',
     image: '/team/justyna-skrzypek.png',
   },
   {
     name: 'Aleksandra Pawliszak',
-    role: 'Specjalista ds. obsługi klienta i rozliczeń',
+    role: 'Specjalista ds. Obsługi Klienta i Rozliczeń',
     image: '/team/aleksandra-pawliszak.png',
   },
   {
     name: 'mgr Anna Grochowicz-Kiełt',
-    role: 'Specjalista do spraw marketingu',
+    role: 'Specjalista ds. Marketingu i Komunikacji',
     image: '/team/anna-grochowicz.png',
   },
   {
@@ -218,7 +218,7 @@ export const team = [
   },
   {
     name: 'inż. Wojciech Lubos',
-    role: 'Kierownik sprzedaży oddziału Jarosław/Radymno',
+    role: 'Specjalista ds. Logistyki Betonu',
     image: '/team/wojciech-lubos.png',
   },
   {
@@ -228,32 +228,32 @@ export const team = [
   },
   {
     name: 'mgr inż. Dorota Superson',
-    role: 'Logistyk do spraw transportu',
+    role: 'Specjalista ds. Logistyki',
     image: '/team/dorota-superson.png',
   },
   {
     name: 'mgr inż. Bartosz Świątek',
-    role: 'Doradca ds. klientów kluczowych',
+    role: 'Doradca ds. Klientów Kluczowych',
     image: '/team/bartosz-swiatek.png',
   },
   {
     name: 'lic. Damian Bury',
-    role: 'Specjalista ds. gospodarki magazynowej',
+    role: 'Specjalista ds. Gospodarki Magazynowej',
     image: '/team/damian-bury.png',
   },
   {
     name: 'mgr Grzegorz Ślimak',
-    role: 'Specjalista ds. bezpieczeństwa i higieny pracy',
+    role: 'Specjalista ds. Bezpieczeństwa i Higieny Pracy',
     image: '/team/grzegorz-slimak.png',
   },
   {
     name: 'mgr Dorota Sumka-Szczerba',
-    role: 'Specjalista ds. księgowości',
+    role: 'Specjalista ds. Księgowości',
     image: '/team/dorota-sumka-szczerba.png',
   },
   {
     name: 'mgr Paweł Zając',
-    role: 'Główny księgowy',
+    role: 'Główny Księgowy',
     image: '/team/pawel-zajac.png',
   },
   {

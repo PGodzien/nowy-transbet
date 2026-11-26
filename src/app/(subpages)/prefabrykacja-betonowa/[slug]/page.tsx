@@ -190,7 +190,7 @@ export default async function ProductPage({ params }: Props) {
           <div className="px-6 py-9 sm:px-9 md:px-12 lg:py-11">
             <p className="text-sm text-brand">Kontakt w sprawie produktu</p>
             <p className="mt-4 text-[clamp(1.65rem,2.2vw,2.3rem)] leading-none font-medium tracking-[-0.035em]">Mateusz Maciaszek</p>
-            <p className="mt-2 text-sm text-white/55">Kierownik prefabrykacji betonu</p>
+            <p className="mt-2 text-sm text-white/55">Kierownik Zakładu Prefabrykacji Betonowej</p>
           </div>
           {[
             { href: 'tel:+48539141851', value: '+48 539 141 851' },

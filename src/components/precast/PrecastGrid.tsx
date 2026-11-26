@@ -71,7 +71,7 @@ export default function PrecastGrid({ products }: { products: Product[] }) {
         </span>
         <span className="mt-auto block px-4 pt-3 pb-4 sm:px-6 sm:pb-6">
           <span className="block text-[clamp(1rem,1.35vw,1.4rem)] leading-[1.1] font-medium tracking-[-0.03em]">Mateusz Maciaszek</span>
-          <span className="mt-1 block text-xs text-black/50 sm:text-sm">Kierownik prefabrykacji betonu</span>
+          <span className="mt-1 block text-xs text-black/50 sm:text-sm">Kierownik Zakładu Prefabrykacji Betonowej</span>
         </span>
       </div>
     </div>
